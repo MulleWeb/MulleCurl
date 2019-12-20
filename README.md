@@ -6,8 +6,10 @@ It uses the **easy**  interface of libcurl.
 Written in and for [mulle-objc](//mulle-objc.github.io).
 
 
-## Use
+## Usage
 
+
+##
 
 This example fetches a text file and prints it out.
 
@@ -46,8 +48,11 @@ int  main( void)
 
 Notable is the simple interface. Instead of `-dataWithContentsOfURL:error:` it
 is just `-dataWithContentsOfURLString:`. You don't have to wrap the string
-into an NSURL (if you don't want to) and the NSError can be retrieved later
+into an NSURL and the NSError can be retrieved later
 if required.
+
+The [MulleFoundation](/MulleFoundation/MulleFoundation) adds a `NSURL`
+interface as a convenience.
 
 
 ## Build

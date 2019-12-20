@@ -37,20 +37,32 @@
 
 #import "import.h"
 
+#import "MulleObjCCurlParser.h"
+
 
 @interface MulleObjCCurl : NSObject
-{
-   NSMutableData   *_data;  // receive buffer
-}
 
-@property void *   connection;  // CURL *
+@property( assign) void                            *connection;   // CURL *
 
+// set these if you use the parser interface
+@property( retain) NSObject <MulleObjCCurlParser>  *parser;
+// you can optionally also specify a header parser. In the simplest case
+// you plop in a NSMutableData and retrieve it later.
+@property( retain) NSObject <MulleObjCCurlParser>  *headerParser;
+
+//
+// properties for use by the parser itself
+// userInfo could be used for storing intermediate results or so
+//
+@property( retain) id                         userInfo;
+@property( copy) NSString                     *errorDomain;
+@property( assign) NSUInteger                 errorCode;
 
 //
 // Objc interface to curl options, you could also just get
-// then connection and do curl_easy_setopt yourself
-// use the name of the curl option like @"CURLOPT_VERBOSE"
-// key and an appropriate NSString or NSNumber for value.
+// the connection and do curl_easy_setopt yourself though.
+// Use the name of the curl option like @"CURLOPT_VERBOSE"
+// as the key and an appropriate NSString or NSNumber for value.
 // See. https://curl.haxx.se/libcurl/c/curl_easy_setopt.html
 // for a list of options.
 //
@@ -60,22 +72,49 @@
 // default is neither!
 - (void) setDesktopTimeoutOptions;
 - (void) setMobileTimeoutOptions;
+- (void) setNoBodyOptions;
 
+// these are always set on init and reset
+// they enable -L , turn off signaling (!) and disable verbose and progress
 - (void) setDefaultOptions;
+
+// re-enables progress and verbose
 - (void) setDebugOptions;
 
 //
 // call this if you want to to return to curl standard options +
 // setDefaultOptions (as if you ran -init again)
+// Also removes the parser, headerParser and userInfo
 //
 - (void) reset;
 
-// if these return NULL, and error occurred. You can retrieve the
+
+//
+// You can not just get NSData but you can also plug in a parser like
+// f.e. MulleJSMNParser and translate JSON content directly into whatever
+// it is (usually a NSDictionary *) in the JSON case. Since the parsing
+// is done incremental, this should have less latency then doing
+// -dataWithContentsOfURLString: and then doing the parse afterwards (for
+// large contents)
+// -setParser: beforehand.
+//
+- (id) parseContentsOfURLString:(NSString *) url;
+- (id) parseContentsOfURLString:(NSString *) url
+                  byPostingData:(NSData *) data;
+
+//
+// Convenience: (See MulleFoundation for more conveniences)
+//
+// If these return NULL, and error occurred. You can retrieve the
 // appropriate NSError with:
 //
-//    MulleObjCErrorGetCurrentErrorWithDomain( MulleObjCCurlErrorDomain)
+//    MulleObjCErrorGetCurrentErrorWithDomain( [curl errorDomain])
 // or
-//    +[NSError mulleCurrentErrorWithDomain:MulleObjCCurlErrorDomain]
+//    +[NSError mulleCurrentErrorWithDomain:[curl errorDomain]]
+//
+// These routines will reset the parser as they actually use the
+// -parseContentsOfURLString: variants for the actual work. The header
+// parser is unaffected though.
 //
 - (NSData *) dataWithContentsOfURLString:(NSString *) url;
 - (NSData *) dataWithContentsOfURLString:(NSString *) url
@@ -86,12 +125,7 @@
 extern NSString   *MulleObjCCurlErrorDomain; // = @"MulleObjCCurlError";
 
 
-// move this where ??
-@interface MulleObjCCurl( NSURL)
 
-- (NSData *) dataWithContentsOfURL:(NSURL *) url;
-- (NSData *) dataWithContentsOfURL:(NSURL *) url
-                     byPostingData:(NSData *) data;
-
+@interface NSMutableData( MulleObjCCurlParser) <MulleObjCCurlParser>
 @end
 

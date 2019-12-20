@@ -14,8 +14,7 @@ int  main( void)
 
    curl = [[MulleObjCCurl new] autorelease];
    [curl setDesktopTimeoutOptions];
-   url  = [NSURL URLWithString:URL];
-   data = [curl dataWithContentsOfURL:url];
+   data = [curl dataWithContentsOfURLString:URL];
    if( ! data)
    {
       error = [NSError mulleCurrentErrorWithDomain:MulleObjCCurlErrorDomain];

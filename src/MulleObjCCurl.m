@@ -53,27 +53,95 @@ NSString   *MulleObjCCurlErrorDomain = @"MulleObjCCurlError";
 
 @implementation MulleObjCCurl
 
-//
-// limited by internal memory, which is what we want in the simple
-// interface
-//
-static size_t  receive_bytes( void *contents, size_t sz, size_t nmemb, void *ctx)
+- (id) init
 {
-   NSMutableData        **p_data = ctx;
+   CURLcode   status;
+
+   _connection = curl_easy_init();
+   if( ! _connection)
+   {
+      [self release];
+      return( self);
+   }
+
+   [self setDefaultOptions];
+
+   return( self);
+}
+
+
+- (void) finalize
+{
+   [super finalize];
+
+   if( _connection)
+   {
+      curl_easy_cleanup( _connection);
+      _connection = NULL;
+   }
+}
+
+
+- (void) reset
+{
+   [self setParser:nil];
+   [self setHeaderParser:nil];
+   [self setUserInfo:nil];
+   [self setErrorDomain:nil];
+   [self setErrorCode:0];
+
+   // this wipes all the options!
+   curl_easy_reset( _connection);
+   // this gets out defaults back
+   [self setDefaultOptions];
+}
+
+
+/*
+ * Options and internal mechanix
+ */
+static size_t  receive_curl_bytes( MulleObjCCurl *self,
+                                   void *contents,
+                                   size_t sz,
+                                   size_t nmemb,
+                                   id <MulleObjCCurlParser>  parser)
+{
    unsigned long long   size;
 
-   size = sz * nmemb;
+   size = (unsigned long long ) sz * nmemb;
    if( (NSUInteger) size != size)
       [NSException raise:NSInternalInconsistencyException
                   format:@"Size %ld*%ld is excessive", sz, nmemb];
 
-   if( ! *p_data)
-      *p_data = [[NSMutableData alloc] initWithCapacity:(NSUInteger) size];
-   [*p_data appendBytes:contents
-                 length:size];
-
-   fprintf( stderr, "received: %.*s\n", (int) size, contents);
+   if( ! [parser curl:self
+           parseBytes:contents
+               length:(NSUInteger) size])
+   {
+      return( 0);  // indicate an error, assume CURL aborts ?
+   }
    return( (size_t) size);
+}
+
+
+static size_t   receive_curl_header_bytes( char *buffer,
+                                           size_t size,
+                                           size_t nitems,
+                                           void *ctx)
+{
+   MulleObjCCurl   *self = ctx;
+
+   return( receive_curl_bytes( self, buffer, size, nitems, [self headerParser]));
+}
+
+
+static size_t   receive_curl_body_bytes( void *contents,
+                                         size_t sz,
+                                         size_t nmemb,
+                                         void *ctx)
+{
+   MulleObjCCurl   *self = ctx;
+
+   return( receive_curl_bytes( self, contents, sz, nmemb, [self parser]));
 }
 
 
@@ -93,14 +161,12 @@ static size_t  receive_bytes( void *contents, size_t sz, size_t nmemb, void *ctx
 
    // settings for programmatic I/O
    curl_easy_setopt( _connection, CURLOPT_NOSIGNAL, YES);
-   curl_easy_setopt( _connection, CURLOPT_WILDCARDMATCH, NO);
-   curl_easy_setopt( _connection, CURLOPT_VERBOSE, NO);
    curl_easy_setopt( _connection, CURLOPT_FOLLOWLOCATION, YES);
 
-   curl_easy_setopt( _connection, CURLOPT_WRITEFUNCTION, receive_bytes);
-   curl_easy_setopt( _connection, CURLOPT_WRITEDATA, &_data);
-   curl_easy_setopt( _connection, CURLOPT_PRIVATE, self);
+   curl_easy_setopt( _connection, CURLOPT_WRITEFUNCTION, receive_curl_body_bytes);
+   curl_easy_setopt( _connection, CURLOPT_WRITEDATA, self);
 }
+
 
 - (void) setDesktopTimeoutOptions
 {
@@ -121,38 +187,20 @@ static size_t  receive_bytes( void *contents, size_t sz, size_t nmemb, void *ctx
    curl_easy_setopt( _connection, CURLOPT_LOW_SPEED_LIMIT, 2400/8); // 2400 bps min
 }
 
-
-- (id) init
+- (void) setNoBodyOptions
 {
-   CURLcode   status;
-
-   _connection = curl_easy_init();
-   if( ! _connection)
-   {
-      [self release];
-      return( self);
-   }
-
-   [self setDefaultOptions];
-
-   return( self);
-}
-
-
-- (void) dealloc
-{
-   [_data release];
-   [super dealloc];
+   curl_easy_setopt( _connection, CURLOPT_NOBODY, 1);  // useful for header only
 }
 
 
 - (void) setOptions:(NSDictionary *) options
 {
-   NSString      *key;
-   intptr_t      option;
-   id            value;
-   NSMapTable    *optionLookupTable;
-   int           type;
+   CURLcode     rval;
+   id           value;
+   int          type;
+   intptr_t     option;
+   NSMapTable   *optionLookupTable;
+   NSString     *key;
 
    optionLookupTable = [MulleObjCCurl optionLookupTable];
 
@@ -168,112 +216,156 @@ static size_t  receive_bytes( void *contents, size_t sz, size_t nmemb, void *ctx
       switch( type)
       {
       case LONG  :
-         curl_easy_setopt( _connection, option, [value longValue]);
+         rval = curl_easy_setopt( _connection, option, [value longValue]);
          break;
 
       case OFF_T  :
-         curl_easy_setopt( _connection, option, (curl_off_t) [value longLongValue]);
+         rval = curl_easy_setopt( _connection, option, (curl_off_t) [value longLongValue]);
          break;
 
       case STRINGPOINT  :
-         curl_easy_setopt( _connection, option, [value UTF8String]);
+         rval = curl_easy_setopt( _connection, option, [value UTF8String]);
          break;
 
       default :
          [NSException raise:NSInvalidArgumentException
                      format:@"curl option type for %@ is unsupported", key];
       }
+
+      if( rval)
+         [NSException raise:NSInvalidArgumentException
+                     format:@"curl option %@ could not be set: \"%s\"",
+                              curl_easy_strerror( rval)];
    }
+}
+
+
+- (NSString *) errorDomain
+{
+   return( _errorDomain ? _errorDomain : MulleObjCCurlErrorDomain);
+}
+
+
+- (void) setErrorDomain:(NSString *) s
+{
+   [_errorDomain autorelease];
+   _errorDomain = [s isEqualToString:MulleObjCCurlErrorDomain] ? nil : [s copy];
+}
+
+
+- (void) setHeaderParser:(NSObject <MulleObjCCurlParser> *) parser
+{
+   if( _headerParser && ! parser)
+   {
+      curl_easy_setopt( _connection, CURLOPT_HEADERFUNCTION, NULL);
+      curl_easy_setopt( _connection, CURLOPT_HEADERDATA, NULL);
+   }
+
+   [_headerParser autorelease];
+   _headerParser = [parser retain];
+
+   if( parser)
+   {
+      curl_easy_setopt( _connection, CURLOPT_HEADERFUNCTION, receive_curl_header_bytes);
+      curl_easy_setopt( _connection, CURLOPT_HEADERDATA, self);
+   }
+}
+
+
+/*
+ * The actual response/request
+ */
+- (id) _parseContentsOfURLString:(NSString *) url
+                   byPostingData:(NSData *) data
+{
+   CURLcode   res;
+   char       *s;
+
+   NSParameterAssert( [url isKindOfClass:[NSString class]]);
+
+   if( ! _parser)
+      [NSException raise:NSInternalInconsistencyException
+                  format:@"You must have set the parser before calling %s", __FUNCTION__];
+   if( ! [url length])
+      [NSException raise:NSInvalidArgumentException
+                  format:@"empty URL"];
+
+   curl_easy_setopt( _connection, CURLOPT_URL, [url UTF8String]);
+   if( data)
+   {
+      curl_easy_setopt( _connection, CURLOPT_POSTFIELDS, [data bytes]);
+      curl_easy_setopt( _connection, CURLOPT_POSTFIELDSIZE_LARGE, (curl_off_t) [data length]);
+   }
+   else
+      curl_easy_setopt( _connection, CURLOPT_POST, 0);
+
+   res = curl_easy_perform( _connection);
+   if( res != CURLE_OK)
+   {
+      // allow parser to use his own errors
+      if( ! _errorDomain)
+         errno = res;
+      else
+         errno = [_parser errorCodeWithCurl:self];
+      return( NULL);
+   }
+
+   return( [_parser parsedObjectWithCurl:self]);
+}
+
+
+
+- (id) parseContentsOfURLString:(NSString *) url
+{
+   return( [self _parseContentsOfURLString:url
+                             byPostingData:nil]);
+}
+
+
+- (id) parseContentsOfURLString:(NSString *) url
+                  byPostingData:(NSData *) data
+{
+   NSParameterAssert( ! data || [data isKindOfClass:[NSData class]]);
+
+   return( [self _parseContentsOfURLString:url
+                             byPostingData:data]);
 }
 
 
 - (NSData *) dataWithContentsOfURLString:(NSString *) url
 {
-   CURLcode   res;
-   NSData     *data;
+   id   plist;
 
-   NSParameterAssert( [url isKindOfClass:[NSString class]]);
-
-   assert( !_data);
-   if( ! [url length])
-    [NSException raise:NSInvalidArgumentException
-                format:@"empty URL"];
-
-   curl_easy_setopt( _connection, CURLOPT_URL, [url UTF8String]);
-   curl_easy_setopt( _connection, CURLOPT_POST, 0);
-
-   res = curl_easy_perform( _connection);
-
-   data  = [_data autorelease];
-   _data = nil;
-
-   if( res != CURLE_OK)
+   [self setParser:[NSMutableData data]];
    {
-      errno = res;
-      return( NULL);
+      plist = [self _parseContentsOfURLString:url
+                                byPostingData:nil];
    }
+   [self setParser:nil];
 
-   return( data ? data : [NSData data]);
+   return( plist);
 }
 
 
 - (NSData *) dataWithContentsOfURLString:(NSString *) url
                            byPostingData:(NSData *) data
 {
-   CURLcode   res;
-   NSData     *data;
+   id   plist;
 
-   NSParameterAssert( [url isKindOfClass:[NSString class]]);
-   NSParameterAssert( [data isKindOfClass:[NSData class]]);
-
-   assert( !_data);
-   if( ! [url length])
-    [NSException raise:NSInvalidArgumentException
-                format:@"empty URL"];
-
-   curl_easy_setopt( _connection, CURLOPT_URL, [url UTF8String]);
-   curl_easy_setopt( _connection, CURLOPT_POSTFIELDS, [data bytes]);
-   curl_easy_setopt( _connection, CURLOPT_POSTFIELDSIZE_LARGE, (curl_off_t) [data length]);
-
-   res = curl_easy_perform( _connection);
-   data  = [_data autorelease];
-   _data = nil;
-
-   if( res != CURLE_OK)
+   [self setParser:[NSMutableData data]];
    {
-      errno = res;
-      return( NULL);
+      plist = [self _parseContentsOfURLString:url
+                                byPostingData:data];
    }
+   [self setParser:nil];
 
-   return( data ? data : [NSData data]);
+   return( plist);
 }
 
 
-- (void) reset
-{
-
-   [_data autorelease];
-   _data = nil;
-
-   // this wipes all the options!
-   curl_easy_reset( _connection);
-   // this gets out defaults back
-   [self setDefaultOptions];
-}
-
-
-- (void) finalize
-{
-   if( _connection)
-   {
-      curl_easy_cleanup( _connection);
-      _connection = NULL;
-   }
-   [super finalize];
-}
-
-
-
+/*
+ * Lazy option table setup
+ */
 static struct
 {
    mulle_atomic_pointer_t  _optionLookupTable;
@@ -299,7 +391,9 @@ static struct
    return( Self._optionLookupTable);
 }
 
-
+/*
+ * Interface MulleObjCCurlErrorDomain with NSError
+ */
 static NSString *  translate_curl_errno( NSInteger code)
 {
    char  *s;
@@ -332,20 +426,21 @@ static NSString *  translate_curl_errno( NSInteger code)
 @end
 
 
-@implementation MulleObjCCurl( NSURL)
+@implementation NSMutableData( MulleObjCCurlParser)
 
-- (NSData *) dataWithContentsOfURL:(NSURL *) url
-{
-   return( [self dataWithContentsOfURLString:[url absoluteString]]);
+- (BOOL) curl:(MulleObjCCurl *) curl
+   parseBytes:(void *) bytes
+       length:(NSUInteger) length
+ {
+   [self appendBytes:bytes
+              length:length];
+   return( YES);  // always happy
 }
 
 
-- (NSData *) dataWithContentsOfURL:(NSURL *) url
-                     byPostingData:(NSData *) data;
+- (id) parsedObjectWithCurl:(MulleObjCCurl *) curl
 {
-   return( [self dataWithContentsOfURLString:[url absoluteString]
-                               byPostingData:data]);
+   return( self);
 }
 
 @end
-

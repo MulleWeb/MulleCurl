@@ -1,3 +1,5 @@
+craftinfo/openssl;local;no-delete,no-header,no-link,no-share,no-subproject,no-update;FD96F6B7-E3AC-478B-A83A-136FF900EC47;;;;;
 craftinfo/curl;local;no-delete,no-header,no-link,no-share,no-subproject,no-update;bb764a95-9db3-4344-bec5-cf5acddff277;;;;;
-curl;${CURL_NODETYPE:-tar};no-all-load,no-import,no-singlephase;78cfb19c-00ec-4df6-9c13-00a6aa134000;${CURL_URL:-https://curl.haxx.se/download/curl-7.67.0.tar.gz};${CURL_BRANCH};;;base64:YWxpYXNlcz1SZWxlYXNlOmN1cmwsRGVidWc6Y3VybC1kCg==
+openssl;${OPENSSL_NODETYPE:-tar};no-all-load,no-import,no-os-linux;533C23A3-8CE3-4F6A-90C4-8B696F9BEDD7;${OPENSSL_URL:-https://github.com/openssl/openssl/archive/${MULLE_BRANCH}.tar.gz};${OPENSSL_BRANCH:-OpenSSL_1_0_2u};;;
+curl;${CURL_NODETYPE:-tar};no-all-load,no-import;78cfb19c-00ec-4df6-9c13-00a6aa134000;${CURL_URL:-https://curl.haxx.se/download/curl-7.67.0.tar.gz};${CURL_BRANCH};;;base64:YWxpYXNlcz1SZWxlYXNlOmN1cmwsRGVidWc6Y3VybC1kCg==
 MulleObjCInetFoundation;${MULLEOBJCINETFOUNDATION_NODETYPE:-tar};no-singlephase;c76f084b-7a5b-4807-802a-6ee9f2ee200f;${MULLEOBJCINETFOUNDATION_URL:-https://github.com/MulleFoundation/MulleObjCInetFoundation/archive/${MULLE_BRANCH}.tar.gz};${MULLEOBJCINETFOUNDATION_BRANCH:-latest};;;

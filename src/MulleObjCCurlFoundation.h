@@ -35,5 +35,6 @@ extern uint32_t   MulleObjCCurlFoundation_get_version( void);
 
 
 #import "MulleObjCCurl.h"
+#import "MulleObjCHTTPHeaderParser.h"
 
 #endif

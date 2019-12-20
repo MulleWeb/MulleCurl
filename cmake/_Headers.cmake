@@ -16,7 +16,9 @@ src/import-private.h
 
 set( PUBLIC_HEADERS
 src/MulleObjCCurlFoundation.h
+src/MulleObjCCurlParser.h
 src/MulleObjCCurl.h
+src/MulleObjCHTTPHeaderParser.h
 src/MulleObjCLoader+MulleObjCCurlFoundation.h
 src/import.h
 )

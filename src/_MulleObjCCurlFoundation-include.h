@@ -12,6 +12,16 @@
 #ifndef _mulle_objc_curl_foundation_include_h__
 #define _mulle_objc_curl_foundation_include_h__
 
+// How to tweak the following openssl #include
+//    remove:          `mulle-sourcetree mark openssl no-header`
+//    rename:          `mulle-sourcetree mark openssl set include whatever.h`
+//    toggle public:   `mulle-sourcetree mark openssl [no-]public`
+//    toggle optional: `mulle-sourcetree mark openssl [no-]require`
+//    remove for os:   `mulle-sourcetree mark openssl no-os-<osname>`
+# if ! defined( __linux__)
+#  include <openssl/openssl.h>   // openssl
+# endif
+
 // How to tweak the following curl #include
 //    remove:          `mulle-sourcetree mark curl no-header`
 //    rename:          `mulle-sourcetree mark curl set include whatever.h`

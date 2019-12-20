@@ -10,6 +10,7 @@ src/MulleObjCCurlFoundation.m
 src/MulleObjCCurlFoundation-shlib.m
 src/MulleObjCCurl+Private.m
 src/MulleObjCCurl.m
+src/MulleObjCHTTPHeaderParser.m
 )
 
 set( STAGE2_SOURCES

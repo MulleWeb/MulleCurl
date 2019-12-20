@@ -8,7 +8,6 @@ static NSString   *URL = @"https://www.mulle-kybernetik.com/jagdox/dehtmlify.sh"
 int  main( void)
 {
    MulleObjCCurl   *curl;
-   NSURL           *url;
    NSData          *data;
    NSError         *error;
 
@@ -18,8 +17,7 @@ int  main( void)
                        @"CURLOPT_SSL_VERIFYHOST": @(NO)
                      }];
    [curl setDesktopTimeoutOptions];
-   url  = [NSURL URLWithString:URL];
-   data = [curl dataWithContentsOfURL:url];
+   data = [curl dataWithContentsOfURLString:URL];
    if( ! data)
    {
       error = [NSError mulleCurrentErrorWithDomain:MulleObjCCurlErrorDomain];
