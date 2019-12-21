@@ -12,6 +12,9 @@ int  main( void)
    NSError         *error;
 
    curl = [[MulleObjCCurl new] autorelease];
+
+   // for testing turn off https certi checks, which are not ez
+   // crossplatform wise
    [curl setOptions:@{
                        @"CURLOPT_SSL_VERIFYPEER": @(NO),
                        @"CURLOPT_SSL_VERIFYHOST": @(NO)

@@ -41,8 +41,11 @@
 
 
 @interface MulleObjCCurl : NSObject
+{
+   void   *_chunk;
+}
 
-@property( assign) void                            *connection;   // CURL *
+@property( assign) void  *connection;   // CURL *
 
 // set these if you use the parser interface
 @property( retain) NSObject <MulleObjCCurlParser>  *parser;
@@ -51,12 +54,28 @@
 @property( retain) NSObject <MulleObjCCurlParser>  *headerParser;
 
 //
+// instead of @selector( description) you can place your own method
+// here, which may or may not be smarter about formatting dates and other stuff
+//
+@property( assign) SEL   headerValueDescriptionMethod;
+
+//
 // properties for use by the parser itself
 // userInfo could be used for storing intermediate results or so
 //
-@property( retain) id                         userInfo;
-@property( copy) NSString                     *errorDomain;
-@property( assign) NSUInteger                 errorCode;
+@property( retain) id           userInfo;
+@property( copy) NSString       *errorDomain;
+@property( assign) NSUInteger   errorCode;
+
+
+//
+// Key must not contain ':' and must be the proper HTTP Header key.
+// The Value -mulleCurlRequestHeaderValueDescription will be used, what ever that
+// might be (usually -description)
+// e.g.  @{ @"Accept": @"*/*"}
+// Overwrites previous headers
+//
+- (void) setRequestHeaders:(NSDictionary *) headers;
 
 //
 // Objc interface to curl options, you could also just get
@@ -128,4 +147,3 @@ extern NSString   *MulleObjCCurlErrorDomain; // = @"MulleObjCCurlError";
 
 @interface NSMutableData( MulleObjCCurlParser) <MulleObjCCurlParser>
 @end
-

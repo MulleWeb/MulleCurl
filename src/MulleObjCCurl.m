@@ -66,6 +66,8 @@ NSString   *MulleObjCCurlErrorDomain = @"MulleObjCCurlError";
 
    [self setDefaultOptions];
 
+   _headerValueDescriptionMethod = @selector( description);
+
    return( self);
 }
 
@@ -73,6 +75,12 @@ NSString   *MulleObjCCurlErrorDomain = @"MulleObjCCurlError";
 - (void) finalize
 {
    [super finalize];
+
+   if( _chunk)
+   {
+      curl_slist_free_all( _chunk);
+      _chunk = NULL;
+   }
 
    if( _connection)
    {
@@ -84,16 +92,69 @@ NSString   *MulleObjCCurlErrorDomain = @"MulleObjCCurlError";
 
 - (void) reset
 {
+   _headerValueDescriptionMethod = @selector( description);
+
    [self setParser:nil];
    [self setHeaderParser:nil];
    [self setUserInfo:nil];
    [self setErrorDomain:nil];
    [self setErrorCode:0];
 
+   if( _chunk)
+   {
+      curl_slist_free_all( _chunk);
+      _chunk = NULL;
+   }
+
    // this wipes all the options!
    curl_easy_reset( _connection);
    // this gets out defaults back
    [self setDefaultOptions];
+}
+
+
+/*
+ * Headers like "Accept:"
+ */
+
+// these overwrite previous headers
+- (void) setRequestHeaders:(NSDictionary *) headers
+{
+   struct mulle_buffer   buffer;
+   auto char             space[ 256];
+   size_t                size;
+   size_t                length;
+   NSString              *key;
+   id                    value;
+
+   if( _chunk)
+      curl_slist_free_all( _chunk);
+   _chunk = NULL;
+
+   mulle_buffer_init_with_static_bytes( &buffer, space, sizeof( space), NULL);
+   {
+      for( key in headers)
+      {
+         NSParameterAssert( ! [key hasSuffix:@":"]);
+
+         value = [headers :key];
+         // transform value to string (should format NSDate) properly
+         // for the intended recipient
+         value = [value performSelector:_headerValueDescriptionMethod];
+
+         mulle_buffer_remove_all( &buffer);
+         mulle_sprintf( &buffer,
+                        "%s: %s",
+                        [key UTF8String],
+                        [value UTF8String]);
+         mulle_buffer_add_byte( &buffer, 0);
+
+         _chunk = curl_slist_append( _chunk, mulle_buffer_get_bytes( &buffer));
+      }
+   }
+   mulle_buffer_done( &buffer);
+
+   curl_easy_setopt( _connection, CURLOPT_HTTPHEADER, _chunk);
 }
 
 
