@@ -9,8 +9,8 @@
 *         set MULLE_SOURCETREE_TO_C_RUN DISABLE
 */
 
-#ifndef _mulle_objc_curl_foundation_import_h__
-#define _mulle_objc_curl_foundation_import_h__
+#ifndef _mulle_curl_import_h__
+#define _mulle_curl_import_h__
 
 // How to tweak the following MulleObjCInetFoundation #import
 //    remove:          `mulle-sourcetree mark MulleObjCInetFoundation no-header`
@@ -20,7 +20,7 @@
 //    remove for os:   `mulle-sourcetree mark MulleObjCInetFoundation no-os-<osname>`
 # import <MulleObjCInetFoundation/MulleObjCInetFoundation.h>   // MulleObjCInetFoundation
 
-#include "_MulleObjCCurlFoundation-include.h"
+#include "_MulleCurl-include.h"
 
 
 #endif

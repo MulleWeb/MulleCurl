@@ -7,4 +7,59 @@ if( MULLE_TRACE_INCLUDE)
    message( STATUS "# Include \"${CMAKE_CURRENT_LIST_FILE}\"" )
 endif()
 
-# there are no libraries in the sourcetree
+#
+# Generated from sourcetree: crypto;no-all-load,no-cmakeinherit,no-header,no-import,no-os-linux,no-share;
+# Disable with: `mulle-sourcetree mark crypto no-link`
+#
+if( NOT ${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+   if( NOT CRYPTO_LIBRARY)
+      find_library( CRYPTO_LIBRARY NAMES crypto)
+      message( STATUS "CRYPTO_LIBRARY is ${CRYPTO_LIBRARY}")
+      #
+      # The order looks ascending, but due to the way this file is read
+      # it ends up being descending, which is what we need.
+      #
+      if( CRYPTO_LIBRARY)
+         #
+         # Add to CRYPTO_LIBRARY to OS_SPECIFIC_LIBRARIES list.
+         # Disable with: `mulle-sourcetree mark crypto no-cmakeadd`
+         #
+         set( OS_SPECIFIC_LIBRARIES
+            ${OS_SPECIFIC_LIBRARIES}
+            ${CRYPTO_LIBRARY}
+            CACHE INTERNAL "need to cache this"
+         )
+         # intentionally left blank
+      else()
+         message( FATAL_ERROR "CRYPTO_LIBRARY was not found")
+      endif()
+   endif()
+endif()
+
+
+#
+# Generated from sourcetree: ssl;no-all-load,no-cmakeinherit,no-import,no-share;
+# Disable with: `mulle-sourcetree mark ssl no-link`
+#
+if( NOT SSL_LIBRARY)
+   find_library( SSL_LIBRARY NAMES ssl)
+   message( STATUS "SSL_LIBRARY is ${SSL_LIBRARY}")
+   #
+   # The order looks ascending, but due to the way this file is read
+   # it ends up being descending, which is what we need.
+   #
+   if( SSL_LIBRARY)
+      #
+      # Add to SSL_LIBRARY to OS_SPECIFIC_LIBRARIES list.
+      # Disable with: `mulle-sourcetree mark ssl no-cmakeadd`
+      #
+      set( OS_SPECIFIC_LIBRARIES
+         ${OS_SPECIFIC_LIBRARIES}
+         ${SSL_LIBRARY}
+         CACHE INTERNAL "need to cache this"
+      )
+      # intentionally left blank
+   else()
+      message( FATAL_ERROR "SSL_LIBRARY was not found")
+   endif()
+endif()

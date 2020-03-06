@@ -7,76 +7,6 @@ if( MULLE_TRACE_INCLUDE)
 endif()
 
 #
-# Generated from sourcetree: openssl;no-all-load,no-import,no-os-linux;
-# Disable with: `mulle-sourcetree mark openssl no-link`
-#
-if( NOT ${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-   if( NOT OPENSSL_LIBRARY)
-      find_library( OPENSSL_LIBRARY NAMES ${CMAKE_STATIC_LIBRARY_PREFIX}openssl${CMAKE_STATIC_LIBRARY_SUFFIX} openssl NO_CMAKE_SYSTEM_PATH)
-      message( STATUS "OPENSSL_LIBRARY is ${OPENSSL_LIBRARY}")
-      #
-      # The order looks ascending, but due to the way this file is read
-      # it ends up being descending, which is what we need.
-      #
-      if( OPENSSL_LIBRARY)
-         #
-         # Add to OPENSSL_LIBRARY list.
-         # Disable with: `mulle-sourcetree mark openssl no-cmakeadd`
-         #
-         set( DEPENDENCY_LIBRARIES
-            ${DEPENDENCY_LIBRARIES}
-            ${OPENSSL_LIBRARY}
-            CACHE INTERNAL "need to cache this"
-         )
-         #
-         # Inherit ObjC loader and link dependency info.
-         # Disable with: `mulle-sourcetree mark openssl no-cmakeinherit`
-         #
-         # // temporarily expand CMAKE_MODULE_PATH
-         get_filename_component( _TMP_OPENSSL_ROOT "${OPENSSL_LIBRARY}" DIRECTORY)
-         get_filename_component( _TMP_OPENSSL_ROOT "${_TMP_OPENSSL_ROOT}" DIRECTORY)
-         #
-         #
-         # Search for "DependenciesAndLibraries.cmake" to include.
-         # Disable with: `mulle-sourcetree mark openssl no-cmakedependency`
-         #
-         foreach( _TMP_OPENSSL_NAME "openssl")
-            set( _TMP_OPENSSL_DIR "${_TMP_OPENSSL_ROOT}/include/${_TMP_OPENSSL_NAME}/cmake")
-            # use explicit path to avoid "surprises"
-            if( EXISTS "${_TMP_OPENSSL_DIR}/DependenciesAndLibraries.cmake")
-               unset( OPENSSL_DEFINITIONS)
-               list( INSERT CMAKE_MODULE_PATH 0 "${_TMP_OPENSSL_DIR}")
-               # we only want top level INHERIT_OBJC_LOADERS, so disable them
-               if( NOT NO_INHERIT_OBJC_LOADERS)
-                  set( NO_INHERIT_OBJC_LOADERS OFF)
-               endif()
-               list( APPEND _TMP_INHERIT_OBJC_LOADERS ${NO_INHERIT_OBJC_LOADERS})
-               set( NO_INHERIT_OBJC_LOADERS ON)
-               #
-               include( "${_TMP_OPENSSL_DIR}/DependenciesAndLibraries.cmake")
-               #
-               list( GET _TMP_INHERIT_OBJC_LOADERS -1 NO_INHERIT_OBJC_LOADERS)
-               list( REMOVE_AT _TMP_INHERIT_OBJC_LOADERS -1)
-               #
-               list( REMOVE_ITEM CMAKE_MODULE_PATH "${_TMP_OPENSSL_DIR}")
-               set( INHERITED_DEFINITIONS
-                  ${INHERITED_DEFINITIONS}
-                  ${OPENSSL_DEFINITIONS}
-                  CACHE INTERNAL "need to cache this"
-               )
-               break()
-            else()
-               message( STATUS "${_TMP_OPENSSL_DIR}/DependenciesAndLibraries.cmake not found")
-            endif()
-         endforeach()
-      else()
-         message( FATAL_ERROR "OPENSSL_LIBRARY was not found")
-      endif()
-   endif()
-endif()
-
-
-#
 # Generated from sourcetree: curl;no-all-load,no-import;Release:curl,Debug:curl-d
 # Disable with: `mulle-sourcetree mark curl no-link`
 #
@@ -94,7 +24,7 @@ if( NOT CURL_LIBRARY)
    #
    if( CURL_LIBRARY)
       #
-      # Add to CURL_LIBRARY list.
+      # Add to CURL_LIBRARY to DEPENDENCY_LIBRARIES list.
       # Disable with: `mulle-sourcetree mark curl no-cmakeadd`
       #
       set( DEPENDENCY_LIBRARIES
@@ -162,7 +92,7 @@ if( NOT MULLE_OBJC_INET_FOUNDATION_LIBRARY)
    #
    if( MULLE_OBJC_INET_FOUNDATION_LIBRARY)
       #
-      # Add to MULLE_OBJC_INET_FOUNDATION_LIBRARY list.
+      # Add to MULLE_OBJC_INET_FOUNDATION_LIBRARY to ALL_LOAD_DEPENDENCY_LIBRARIES list.
       # Disable with: `mulle-sourcetree mark MulleObjCInetFoundation no-cmakeadd`
       #
       set( ALL_LOAD_DEPENDENCY_LIBRARIES

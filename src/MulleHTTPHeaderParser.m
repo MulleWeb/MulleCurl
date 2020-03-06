@@ -1,6 +1,6 @@
 //
-//  MulleObjCHTTPHeaderParser.m
-//  MulleObjCCurlFoundation
+//  MulleHTTPHeaderParser.m
+//  MulleCurl
 //
 //  Copyright (C) 2019 Nat!, Mulle kybernetiK.
 //  Copyright (c) 2019 Codeon GmbH.
@@ -34,33 +34,33 @@
 //  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //  POSSIBILITY OF SUCH DAMAGE.
 //
-#import "MulleObjCHTTPHeaderParser.h"
+#import "MulleHTTPHeaderParser.h"
 
 #import "import-private.h"
 
-#import "MulleObjCCurl.h"
+#import "MulleCurl.h"
 
 #include <ctype.h>
 
 
-enum MulleObjCHTTPHeaderParserState
+enum MulleHTTPHeaderParserState
 {
-   MulleObjCHTTPHeaderParserGarbageError = -2,
-   MulleObjCHTTPHeaderParserUTF8Error = -1,
-   MulleObjCHTTPHeaderParserExpectResponse = 0,
-   MulleObjCHTTPHeaderParserExpectHeader,
-   MulleObjCHTTPHeaderParserSeenCRLF
+   MulleHTTPHeaderParserGarbageError = -2,
+   MulleHTTPHeaderParserUTF8Error = -1,
+   MulleHTTPHeaderParserExpectResponse = 0,
+   MulleHTTPHeaderParserExpectHeader,
+   MulleHTTPHeaderParserSeenCRLF
 };
 
 
 
-@implementation MulleObjCHTTPHeaderParser : NSObject
+@implementation MulleHTTPHeaderParser : NSObject
 
 - (instancetype) init
 {
    _data    = [NSMutableData new];
    _headers = [NSMutableDictionary new];
-   _state   = MulleObjCHTTPHeaderParserExpectResponse;
+   _state   = MulleHTTPHeaderParserExpectResponse;
 
    return( self);
 }
@@ -94,17 +94,17 @@ enum MulleObjCHTTPHeaderParserState
 
 - (BOOL) expectsResponse
 {
-   return( _state == MulleObjCHTTPHeaderParserExpectResponse);
+   return( _state == MulleHTTPHeaderParserExpectResponse);
 }
 
 
 - (void) setExpectsResponse:(BOOL) flag
 {
-   NSParameterAssert( _state == MulleObjCHTTPHeaderParserExpectResponse ||
-                      _state == MulleObjCHTTPHeaderParserExpectHeader);
+   NSParameterAssert( _state == MulleHTTPHeaderParserExpectResponse ||
+                      _state == MulleHTTPHeaderParserExpectHeader);
 
-   _state = flag ? MulleObjCHTTPHeaderParserExpectResponse
-                 : MulleObjCHTTPHeaderParserExpectHeader;
+   _state = flag ? MulleHTTPHeaderParserExpectResponse
+                 : MulleHTTPHeaderParserExpectHeader;
 }
 
 
@@ -160,14 +160,14 @@ enum MulleObjCHTTPHeaderParserState
 
          if( value_end == value_start)
          {
-            _state = MulleObjCHTTPHeaderParserGarbageError;
+            _state = MulleHTTPHeaderParserGarbageError;
             break;
          }
 
          _response = [[NSString alloc] mulleInitOrNilWithUTF8Characters:value_start
                                                                  length:value_end - value_start];
-         _state    = _response ? MulleObjCHTTPHeaderParserExpectHeader
-                               : MulleObjCHTTPHeaderParserUTF8Error;
+         _state    = _response ? MulleHTTPHeaderParserExpectHeader
+                               : MulleHTTPHeaderParserUTF8Error;
          break;
       }
    }
@@ -204,12 +204,12 @@ enum MulleObjCHTTPHeaderParserState
             // our termination point
             if( c == '\r' && *s == '\n')
             {
-               _state = MulleObjCHTTPHeaderParserSeenCRLF;
+               _state = MulleHTTPHeaderParserSeenCRLF;
                return( sentinel);
             }
 
             // if( _allowsMultiline)
-            _state = MulleObjCHTTPHeaderParserGarbageError;
+            _state = MulleHTTPHeaderParserGarbageError;
             [self didFailToParse];
             return( sentinel);
          }
@@ -256,7 +256,7 @@ enum MulleObjCHTTPHeaderParserState
          if( ! key || ! value)
          {
             // faulty UTF8, which we don't allow
-            _state = MulleObjCHTTPHeaderParserUTF8Error;
+            _state = MulleHTTPHeaderParserUTF8Error;
             [self didFailToParse];
             return( sentinel);
          }
@@ -299,11 +299,11 @@ enum MulleObjCHTTPHeaderParserState
    // this is where we start parsing
    s        = &start[ _index];
 
-   if( _state == MulleObjCHTTPHeaderParserExpectResponse)  // first line will be the response
+   if( _state == MulleHTTPHeaderParserExpectResponse)  // first line will be the response
       s = [self parseResponse:s
                      sentinel:sentinel];
 
-   if( _state == MulleObjCHTTPHeaderParserExpectHeader)  // first line will be the response
+   if( _state == MulleHTTPHeaderParserExpectHeader)  // first line will be the response
       s = [self parseHeaderLines:s
                         sentinel:sentinel];
 
@@ -347,12 +347,12 @@ enum MulleObjCHTTPHeaderParserState
 @end
 
 
-@implementation MulleObjCHTTPHeaderParser( MulleObjCCurlParser)
+@implementation MulleHTTPHeaderParser( MulleCurlParser)
 
 //
 // we don't bail if we can 't parse a header, but the header will be "nil"
 //
-- (BOOL) curl:(MulleObjCCurl *) curl
+- (BOOL) curl:(MulleCurl *) curl
    parseBytes:(void *) bytes
        length:(NSUInteger) length
 {
@@ -364,7 +364,7 @@ enum MulleObjCHTTPHeaderParserState
 }
 
 
-- (id) parsedObjectWithCurl:(MulleObjCCurl *) curl
+- (id) parsedObjectWithCurl:(MulleCurl *) curl
 {
    return( _headers);
 }

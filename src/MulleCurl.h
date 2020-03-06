@@ -1,6 +1,6 @@
 //
-//  MulleObjCCurl.h
-//  MulleObjCCurlFoundation
+//  MulleCurl.h
+//  MulleCurl
 //
 //  Copyright (C) 2019 Nat!, Mulle kybernetiK.
 //  Copyright (c) 2019 Codeon GmbH.
@@ -37,10 +37,14 @@
 
 #import "import.h"
 
-#import "MulleObjCCurlParser.h"
+#import "MulleCurlParser.h"
+#import "MulleHTTPHeaderParser.h"
+
+#import "MulleObjCLoader+MulleCurl.h"
 
 
-@interface MulleObjCCurl : NSObject
+
+@interface MulleCurl : NSObject
 {
    void   *_chunk;
 }
@@ -48,10 +52,10 @@
 @property( assign) void  *connection;   // CURL *
 
 // set these if you use the parser interface
-@property( retain) NSObject <MulleObjCCurlParser>  *parser;
+@property( retain) NSObject <MulleCurlParser>  *parser;
 // you can optionally also specify a header parser. In the simplest case
 // you plop in a NSMutableData and retrieve it later.
-@property( retain) NSObject <MulleObjCCurlParser>  *headerParser;
+@property( retain) NSObject <MulleCurlParser>  *headerParser;
 
 //
 // instead of @selector( description) you can place your own method
@@ -87,11 +91,18 @@
 //
 - (void) setOptions:(NSDictionary *) options;
 
+// useful for HEAD ?
+- (void) setNoBodyOptions;
+
 // choose either one for a somewhat better experience, the
 // default is neither!
 - (void) setDesktopTimeoutOptions;
 - (void) setMobileTimeoutOptions;
-- (void) setNoBodyOptions;
+
+// or set options indiviauylly like this...
+- (void) setConnectTimeout:(NSTimeInterval) interval;
+- (void) setLowSpeedTimeOut:(NSTimeInterval) interval
+           minBitsPerSecond:(NSUInteger) speedLimit;
 
 // these are always set on init and reset
 // they enable -L , turn off signaling (!) and disable verbose and progress
@@ -107,20 +118,6 @@
 //
 - (void) reset;
 
-
-//
-// You can not just get NSData but you can also plug in a parser like
-// f.e. MulleJSMNParser and translate JSON content directly into whatever
-// it is (usually a NSDictionary *) in the JSON case. Since the parsing
-// is done incremental, this should have less latency then doing
-// -dataWithContentsOfURLString: and then doing the parse afterwards (for
-// large contents)
-// -setParser: beforehand.
-//
-- (id) parseContentsOfURLString:(NSString *) url;
-- (id) parseContentsOfURLString:(NSString *) url
-                  byPostingData:(NSData *) data;
-
 //
 // Convenience: (See MulleFoundation for more conveniences)
 //
@@ -132,18 +129,67 @@
 //    +[NSError mulleCurrentErrorWithDomain:[curl errorDomain]]
 //
 // These routines will reset the parser as they actually use the
-// -parseContentsOfURLString: variants for the actual work. The header
+// -parseContentsOfURLWithString: variants for the actual work. The header
 // parser is unaffected though.
 //
-- (NSData *) dataWithContentsOfURLString:(NSString *) url;
-- (NSData *) dataWithContentsOfURLString:(NSString *) url
-                           byPostingData:(NSData *) data;
+- (NSData *) dataWithContentsOfURLWithString:(NSString *) url;
+
+//
+// If posting Data make sure that the Content-Type is set correctly.
+// the data is send "As Is".
+//
+// https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
+// https://dev.to/sidthesloth92/understanding-html-form-encoding-url-encoded-and-multipart-forms-3lpa
+
+- (NSData *) dataWithContentsOfURLWithString:(NSString *) url
+                               byPostingData:(NSData *) data;
+
+//
+// You can not just get NSData but you can also plug in a parser like
+// f.e. MulleJSMNParser and translate JSON content directly into whatever
+// it is (usually a NSDictionary *) in the JSON case. Since the parsing
+// is done incremental, this should have less latency then doing
+// -dataWithContentsOfURLWithString: and then doing the parse afterwards (for
+// large contents)
+// -setParser: beforehand.
+//
+- (id) parseContentsOfURLWithString:(NSString *) url;
+- (id) parseContentsOfURLWithString:(NSString *) url
+                      byPostingData:(NSData *) data;
 
 @end
 
-extern NSString   *MulleObjCCurlErrorDomain; // = @"MulleObjCCurlError";
 
+// not thread safe, not thread local
+@interface MulleCurl( ClassMethods)
 
++ (void) setDefaultUserAgent:(NSString *) agent;
++ (NSString *) defaultUserAgent;
 
-@interface NSMutableData( MulleObjCCurlParser) <MulleObjCCurlParser>
 @end
+
+extern NSString   *MulleCurlErrorDomain; // = @"MulleCurlError";
+
+
+#define MULLE_CURL_VERSION  ((0 << 20) | (7 << 8) | 56)
+
+
+static inline unsigned int   MulleCurl_get_version_major( void)
+{
+   return( MULLE_CURL_VERSION >> 20);
+}
+
+
+static inline unsigned int   MulleCurl_get_version_minor( void)
+{
+   return( (MULLE_CURL_VERSION >> 8) & 0xFFF);
+}
+
+
+static inline unsigned int   MulleCurl_get_version_patch( void)
+{
+   return( MULLE_CURL_VERSION & 0xFF);
+}
+
+
+extern uint32_t   MulleCurl_get_version( void);

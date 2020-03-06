@@ -1,5 +1,7 @@
 craftinfo/openssl;local;no-delete,no-header,no-link,no-share,no-subproject,no-update;FD96F6B7-E3AC-478B-A83A-136FF900EC47;;;;;
 craftinfo/curl;local;no-delete,no-header,no-link,no-share,no-subproject,no-update;bb764a95-9db3-4344-bec5-cf5acddff277;;;;;
-openssl;${OPENSSL_NODETYPE:-tar};no-all-load,no-import,no-os-linux;533C23A3-8CE3-4F6A-90C4-8B696F9BEDD7;${OPENSSL_URL:-https://github.com/openssl/openssl/archive/${MULLE_BRANCH}.tar.gz};${OPENSSL_BRANCH:-OpenSSL_1_0_2u};;;
-curl;${CURL_NODETYPE:-tar};no-all-load,no-import;78cfb19c-00ec-4df6-9c13-00a6aa134000;${CURL_URL:-https://curl.haxx.se/download/curl-7.67.0.tar.gz};${CURL_BRANCH};;;base64:YWxpYXNlcz1SZWxlYXNlOmN1cmwsRGVidWc6Y3VybC1kCg==
-MulleObjCInetFoundation;${MULLEOBJCINETFOUNDATION_NODETYPE:-tar};no-singlephase;c76f084b-7a5b-4807-802a-6ee9f2ee200f;${MULLEOBJCINETFOUNDATION_URL:-https://github.com/MulleFoundation/MulleObjCInetFoundation/archive/${MULLE_BRANCH}.tar.gz};${MULLEOBJCINETFOUNDATION_BRANCH:-latest};;;
+openssl;${OPENSSL_NODETYPE:-tar};no-all-load,no-header,no-import,no-link,no-os-linux;533C23A3-8CE3-4F6A-90C4-8B696F9BEDD7;${OPENSSL_URL:-https://github.com/openssl/openssl/archive/${MULLE_TAG}.tar.gz};;${OPENSSL_TAG:-OpenSSL_1_0_2u};;base64:YWxpYXNlcz1zc2wKaW5jbHVkZT1vcGVuc3NsL3NzbC5oCg==
+crypto;none;no-all-load,no-build,no-cmakeinherit,no-delete,no-dependency,no-fs,no-header,no-import,no-os-linux,no-share,no-update;4BFC2752-5817-46EF-9979-D8C9529144F0;;;;;
+curl;${CURL_NODETYPE:-tar};no-all-load,no-import;78cfb19c-00ec-4df6-9c13-00a6aa134000;${CURL_URL:-https://curl.haxx.se/download/curl-7.67.0.tar.gz};;${CURL_TAG};;base64:YWxpYXNlcz1SZWxlYXNlOmN1cmwsRGVidWc6Y3VybC1kCg==
+MulleObjCInetFoundation;${MULLE_OBJC_INET_FOUNDATION_NODETYPE:-tar};no-singlephase;c76f084b-7a5b-4807-802a-6ee9f2ee200f;${MULLE_OBJC_INET_FOUNDATION_URL:-https://github.com/MulleFoundation/MulleObjCInetFoundation/archive/${MULLE_TAG}.tar.gz};;${MULLE_OBJC_INET_FOUNDATION_TAG:-latest};;
+ssl;none;no-all-load,no-build,no-cmakeinherit,no-delete,no-dependency,no-fs,no-import,no-share,no-update;EE48C273-5D2B-49DC-ADC6-627F85AA4C59;;;;;include=openssl/ssl.h

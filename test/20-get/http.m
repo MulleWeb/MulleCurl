@@ -1,4 +1,4 @@
-#import <MulleObjCCurlFoundation/MulleObjCCurlFoundation.h>
+#import <MulleCurl/MulleCurl.h>
 
 #include <stdio.h>
 
@@ -7,17 +7,17 @@ static NSString   *URL = @"http://www.mulle-kybernetik.com/jagdox/dehtmlify.sh";
 
 int  main( void)
 {
-   MulleObjCCurl   *curl;
+   MulleCurl   *curl;
    NSURL           *url;
    NSData          *data;
    NSError         *error;
 
-   curl = [[MulleObjCCurl new] autorelease];
+   curl = [[MulleCurl new] autorelease];
    [curl setDesktopTimeoutOptions];
-   data = [curl dataWithContentsOfURLString:URL];
+   data = [curl dataWithContentsOfURLWithString:URL];
    if( ! data)
    {
-      error = [NSError mulleCurrentErrorWithDomain:MulleObjCCurlErrorDomain];
+      error = [NSError mulleCurrentErrorWithDomain:MulleCurlErrorDomain];
       fprintf( stderr, "%s\n", [[error description] UTF8String]);
       return( 1);
    }

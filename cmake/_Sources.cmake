@@ -6,13 +6,13 @@ if( MULLE_TRACE_INCLUDE)
 endif()
 
 set( SOURCES
-src/MulleObjCCurlFoundation.m
-src/MulleObjCCurlFoundation-shlib.m
-src/MulleObjCCurl+Private.m
-src/MulleObjCCurl.m
-src/MulleObjCHTTPHeaderParser.m
+src/MulleCurl+ClassMethods.m
+src/MulleCurl+Private.m
+src/MulleCurl.m
+src/MulleHTTPHeaderParser.m
+src/NSMutableData+MulleCurlParser.m
 )
 
 set( STAGE2_SOURCES
-src/MulleObjCLoader+MulleObjCCurlFoundation.m
+src/MulleObjCLoader+MulleCurl.m
 )

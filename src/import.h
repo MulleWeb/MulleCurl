@@ -15,6 +15,6 @@
    sourcetree, then you don't need it.
  */
 
-#import "_MulleObjCCurlFoundation-import.h"
+#import "_MulleCurl-import.h"
 
 /* You can add some more import statements here */

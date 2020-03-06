@@ -1,6 +1,6 @@
 //
-//  MulleObjCCurl.h
-//  MulleObjCCurlFoundation
+//  MulleCurl-Private.h
+//  MulleCurl
 //
 //  Copyright (C) 2019 Nat!, Mulle kybernetiK.
 //  Copyright (c) 2019 Codeon GmbH.
@@ -34,24 +34,42 @@
 //  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //  POSSIBILITY OF SUCH DAMAGE.
 //
+#ifdef OBJECTPOINT
+# undef OBJECTPOINT
+#endif
+#ifdef STRINGPOINT
+# undef STRINGPOINT
+#endif
+#ifdef FUNCTIONPOINT
+# undef FUNCTIONPOINT
+#endif
+#ifdef SLISTPOINT
+# undef SLISTPOINT
+#endif
+#ifdef OFF_T
+# undef OFF_T
+#endif
 
-#import "import.h"
+enum mulle_curl_option_type
+{
+   FUNCTIONPOINT = 1,
+   OBJECTPOINT,
+   SLISTPOINT,
+   STRINGPOINT,
+   LONG,
+   OFF_T
+};
 
 
-@class MulleObjCCurl;
+MULLE_C_NONNULL_RETURN
+NSMapTable   *MulleCurlOptionLookupTable( void);
 
-@protocol MulleObjCCurlParser
+char   *MulleCurlDefaultUserAgent( void);
 
-- (BOOL) curl:(MulleObjCCurl *) curl
-   parseBytes:(void *) bytes
-       length:(NSUInteger) length;
+@interface MulleCurl( Private)
 
-// the parsed result
-- (id) parsedObjectWithCurl:(MulleObjCCurl *) curl;
-
-@optional
-// errorCode will be asked if you change the errorDomain of the parser
-- (NSUInteger) errorCodeWithCurl:(MulleObjCCurl *) curl;
++ (NSMapTable *) optionLookupTable;
 
 @end
+
 

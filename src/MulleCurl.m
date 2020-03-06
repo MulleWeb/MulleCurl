@@ -1,6 +1,6 @@
 //
-//  MulleObjCCurl.m
-//  MulleObjCCurlFoundation
+//  MulleCurl.m
+//  MulleCurl
 //
 //  Copyright (C) 2019 Nat!, Mulle kybernetiK.
 //  Copyright (c) 2019 Codeon GmbH.
@@ -34,24 +34,16 @@
 //  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //  POSSIBILITY OF SUCH DAMAGE.
 //
-#import "MulleObjCCurl.h"
+#import "MulleCurl.h"
 
 #import "import-private.h"
 
-#import "MulleObjCCurl+Private.h"
+#import "MulleCurl+Private.h"
+#import "NSMutableData+MulleCurlParser.h"
 
 
-@interface MulleObjCCurl( Private)
+@implementation MulleCurl
 
-+ (NSMapTable *) optionLookupTable;
-
-@end
-
-
-NSString   *MulleObjCCurlErrorDomain = @"MulleObjCCurlError";
-
-
-@implementation MulleObjCCurl
 
 - (id) init
 {
@@ -161,11 +153,11 @@ NSString   *MulleObjCCurlErrorDomain = @"MulleObjCCurlError";
 /*
  * Options and internal mechanix
  */
-static size_t  receive_curl_bytes( MulleObjCCurl *self,
+static size_t  receive_curl_bytes( MulleCurl *self,
                                    void *contents,
                                    size_t sz,
                                    size_t nmemb,
-                                   id <MulleObjCCurlParser>  parser)
+                                   id <MulleCurlParser>  parser)
 {
    unsigned long long   size;
 
@@ -189,7 +181,7 @@ static size_t   receive_curl_header_bytes( char *buffer,
                                            size_t nitems,
                                            void *ctx)
 {
-   MulleObjCCurl   *self = ctx;
+   MulleCurl   *self = ctx;
 
    return( receive_curl_bytes( self, buffer, size, nitems, [self headerParser]));
 }
@@ -200,7 +192,7 @@ static size_t   receive_curl_body_bytes( void *contents,
                                          size_t nmemb,
                                          void *ctx)
 {
-   MulleObjCCurl   *self = ctx;
+   MulleCurl   *self = ctx;
 
    return( receive_curl_bytes( self, contents, sz, nmemb, [self parser]));
 }
@@ -226,15 +218,40 @@ static size_t   receive_curl_body_bytes( void *contents,
 
    curl_easy_setopt( _connection, CURLOPT_WRITEFUNCTION, receive_curl_body_bytes);
    curl_easy_setopt( _connection, CURLOPT_WRITEDATA, self);
+
+   curl_easy_setopt( _connection, CURLOPT_USERAGENT, MulleCurlDefaultUserAgent());
 }
+
+
+- (void) setConnectTimeout:(NSTimeInterval) interval
+{
+   NSUInteger   ms;
+
+   assert( interval >= 0);
+   ms = (NSUInteger) (interval * 1000 * 1000 + 0.5);
+   curl_easy_setopt( _connection, CURLOPT_CONNECTTIMEOUT_MS, ms);  // rather retry  (IMO)
+}
+
+
+- (void) setLowSpeedTimeOut:(NSTimeInterval) interval
+           minBitsPerSecond:(NSUInteger) speedLimit
+{
+   NSUInteger   secs;
+
+   assert( interval >= 0);
+   secs = (NSUInteger) (interval + 0.5);
+   curl_easy_setopt( _connection, CURLOPT_LOW_SPEED_TIME, secs);  // rather retry  (IMO)
+   curl_easy_setopt( _connection, CURLOPT_LOW_SPEED_LIMIT, speedLimit / 8); // 32 kbps min
+}
+
 
 
 - (void) setDesktopTimeoutOptions
 {
    // some default timeout settings
    // could tweak this for mobile or so
-   curl_easy_setopt( _connection, CURLOPT_CONNECTTIMEOUT_MS, 500);     // rather retry  (IMO)
-   curl_easy_setopt( _connection, CURLOPT_LOW_SPEED_TIME, 60L);        // 30s @
+   curl_easy_setopt( _connection, CURLOPT_CONNECTTIMEOUT_MS, 2000);  // rather retry  (IMO)
+   curl_easy_setopt( _connection, CURLOPT_LOW_SPEED_TIME, 60L);      // 30s @
    curl_easy_setopt( _connection, CURLOPT_LOW_SPEED_LIMIT, 32000/8); // 32 kbps min
 }
 
@@ -247,6 +264,7 @@ static size_t   receive_curl_body_bytes( void *contents,
    curl_easy_setopt( _connection, CURLOPT_LOW_SPEED_TIME, 120L);     // 30s @
    curl_easy_setopt( _connection, CURLOPT_LOW_SPEED_LIMIT, 2400/8); // 2400 bps min
 }
+
 
 - (void) setNoBodyOptions
 {
@@ -263,7 +281,7 @@ static size_t   receive_curl_body_bytes( void *contents,
    NSMapTable   *optionLookupTable;
    NSString     *key;
 
-   optionLookupTable = [MulleObjCCurl optionLookupTable];
+   optionLookupTable = [MulleCurl optionLookupTable];
 
    for( key in options)
    {
@@ -303,18 +321,18 @@ static size_t   receive_curl_body_bytes( void *contents,
 
 - (NSString *) errorDomain
 {
-   return( _errorDomain ? _errorDomain : MulleObjCCurlErrorDomain);
+   return( _errorDomain ? _errorDomain : MulleCurlErrorDomain);
 }
 
 
 - (void) setErrorDomain:(NSString *) s
 {
    [_errorDomain autorelease];
-   _errorDomain = [s isEqualToString:MulleObjCCurlErrorDomain] ? nil : [s copy];
+   _errorDomain = [s isEqualToString:MulleCurlErrorDomain] ? nil : [s copy];
 }
 
 
-- (void) setHeaderParser:(NSObject <MulleObjCCurlParser> *) parser
+- (void) setHeaderParser:(NSObject <MulleCurlParser> *) parser
 {
    if( _headerParser && ! parser)
    {
@@ -336,11 +354,11 @@ static size_t   receive_curl_body_bytes( void *contents,
 /*
  * The actual response/request
  */
-- (id) _parseContentsOfURLString:(NSString *) url
-                   byPostingData:(NSData *) data
+- (id) _parseContentsOfURLWithString:(NSString *) url
+                       byPostingData:(NSData *) data
 {
-   CURLcode   res;
-   char       *s;
+   CURLcode     res;
+   NSUInteger   length;
 
    NSParameterAssert( [url isKindOfClass:[NSString class]]);
 
@@ -354,8 +372,9 @@ static size_t   receive_curl_body_bytes( void *contents,
    curl_easy_setopt( _connection, CURLOPT_URL, [url UTF8String]);
    if( data)
    {
+      length = [data length];
+      curl_easy_setopt( _connection, CURLOPT_POSTFIELDSIZE_LARGE, (curl_off_t) length);
       curl_easy_setopt( _connection, CURLOPT_POSTFIELDS, [data bytes]);
-      curl_easy_setopt( _connection, CURLOPT_POSTFIELDSIZE_LARGE, (curl_off_t) [data length]);
    }
    else
       curl_easy_setopt( _connection, CURLOPT_POST, 0);
@@ -376,31 +395,32 @@ static size_t   receive_curl_body_bytes( void *contents,
 
 
 
-- (id) parseContentsOfURLString:(NSString *) url
+- (id) parseContentsOfURLWithString:(NSString *) url
 {
-   return( [self _parseContentsOfURLString:url
-                             byPostingData:nil]);
+   return( [self _parseContentsOfURLWithString:url
+                                 byPostingData:nil]);
 }
 
 
-- (id) parseContentsOfURLString:(NSString *) url
+- (id) parseContentsOfURLWithString:(NSString *) url
                   byPostingData:(NSData *) data
 {
    NSParameterAssert( ! data || [data isKindOfClass:[NSData class]]);
 
-   return( [self _parseContentsOfURLString:url
-                             byPostingData:data]);
+   return( [self _parseContentsOfURLWithString:url
+                                 byPostingData:data]);
 }
 
 
-- (NSData *) dataWithContentsOfURLString:(NSString *) url
+
+- (NSData *) dataWithContentsOfURLWithString:(NSString *) url
 {
    id   plist;
 
    [self setParser:[NSMutableData data]];
    {
-      plist = [self _parseContentsOfURLString:url
-                                byPostingData:nil];
+      plist = [self _parseContentsOfURLWithString:url
+                                    byPostingData:nil];
    }
    [self setParser:nil];
 
@@ -408,15 +428,15 @@ static size_t   receive_curl_body_bytes( void *contents,
 }
 
 
-- (NSData *) dataWithContentsOfURLString:(NSString *) url
+- (NSData *) dataWithContentsOfURLWithString:(NSString *) url
                            byPostingData:(NSData *) data
 {
    id   plist;
 
    [self setParser:[NSMutableData data]];
    {
-      plist = [self _parseContentsOfURLString:url
-                                byPostingData:data];
+      plist = [self _parseContentsOfURLWithString:url
+                                    byPostingData:data];
    }
    [self setParser:nil];
 
@@ -424,84 +444,15 @@ static size_t   receive_curl_body_bytes( void *contents,
 }
 
 
-/*
- * Lazy option table setup
- */
-static struct
-{
-   mulle_atomic_pointer_t  _optionLookupTable;
-} Self;
-
-
-+ (NSMapTable *) optionLookupTable
-{
-   NSMapTable   *table;
-
-   for(;;)
-   {
-      table = _mulle_atomic_pointer_read( &Self._optionLookupTable);
-      if( table)
-         return( table);
-
-      table = MulleObjCCurlOptionLookupTable();
-      if( _mulle_atomic_pointer_cas( &Self._optionLookupTable, table, NULL))
-         return( table);
-      NSFreeMapTable( table);
-   }
-
-   return( Self._optionLookupTable);
-}
-
-/*
- * Interface MulleObjCCurlErrorDomain with NSError
- */
-static NSString *  translate_curl_errno( NSInteger code)
-{
-   char  *s;
-
-   s = (char *) curl_easy_strerror( code);
-   if( ! s)
-      return( nil);
-   return( [NSString stringWithUTF8String:s]);
-}
-
-
-+ (void) initialize
-{
-   curl_global_init( CURL_GLOBAL_DEFAULT);
-   // crazy clang cast
-   [NSError registerErrorDomain:MulleObjCCurlErrorDomain
-            errorStringFunction:(NSString *(*)(NSInteger)) translate_curl_errno];
-}
-
-
-+ (void) unload
-{
-   curl_global_cleanup();
-
-   if( Self._optionLookupTable)
-      NSFreeMapTable( Self._optionLookupTable);
-   //Self._optionLookupTable = NULL;
-}
-
 @end
 
 
-@implementation NSMutableData( MulleObjCCurlParser)
 
-- (BOOL) curl:(MulleObjCCurl *) curl
-   parseBytes:(void *) bytes
-       length:(NSUInteger) length
- {
-   [self appendBytes:bytes
-              length:length];
-   return( YES);  // always happy
-}
+int   __MULLE_CURL_ranlib__;
 
 
-- (id) parsedObjectWithCurl:(MulleObjCCurl *) curl
+uint32_t   MulleCurl_get_version( void)
 {
-   return( self);
+   return( MULLE_CURL_VERSION);
 }
 
-@end

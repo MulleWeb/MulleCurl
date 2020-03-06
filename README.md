@@ -1,20 +1,30 @@
-# MulleObjCCurlFoundation
+# MulleCurl
+
+#### 🥌 HTTP client library for the MulleFoundation based on libcurl
+
+A library on top of the MulleFoundation.
 
 
-Use [libcurl](https://curl.haxx.se) to GET and POST `NSData` from URLs.
-It uses the **easy**  interface of libcurl.
+Uses [libcurl](https://curl.haxx.se) to GET and POST `NSData` from URLs.
+It uses the **easy**  interface of libcurl. The curl library is compiled
+for HTTP(S) only.
+
 Written in and for [mulle-objc](//mulle-objc.github.io).
+
+
+Build Status | Release Version
+-------------|-----------------------------------
+[![Build Status](https://travis-ci.org/MulleWeb/MulleCurl.svg?branch=release)](https://travis-ci.org/MulleWeb/MulleCurl) | ![Mulle kybernetiK tag](https://img.shields.io/github/tag/MulleWeb/MulleCurl.svg) [![Build Status](https://travis-ci.org/MulleWeb/MulleCurl.svg?branch=release)](https://travis-ci.org/MulleWeb/MulleCurl)
+
 
 
 ## Usage
 
 
-##
-
 This example fetches a text file and prints it out.
 
 ```
-#import <MulleObjCCurlFoundation/MulleObjCCurlFoundation.h>
+#import <MulleCurl/MulleCurl.h>
 
 #include <stdio.h>
 
@@ -23,20 +33,20 @@ static NSString   *URL = @"https://www.mulle-kybernetik.com/weblog/2019/mulle_ob
 
 int  main( void)
 {
-   MulleObjCCurl   *curl;
+   MulleCurl   *curl;
    NSURL           *url;
    NSData          *data;
    NSError         *error;
 
-   curl = [[MulleObjCCurl new] autorelease];
+   curl = [[MulleCurl new] autorelease];
    [curl setOptions:@{
                        @"CURLOPT_SSL_VERIFYPEER": @(NO),
                        @"CURLOPT_SSL_VERIFYHOST": @(NO)
                      }];
-   data = [curl dataWithContentsOfURLString:URL];
+   data = [curl dataWithContentsOfURLWithString:URL];
    if( ! data)
    {
-      error = [NSError mulleCurrentErrorWithDomain:MulleObjCCurlErrorDomain];
+      error = [NSError mulleCurrentErrorWithDomain:MulleCurlErrorDomain];
       fprintf( stderr, "%s\n", [[error description] UTF8String]);
       return( 1);
    }
@@ -47,12 +57,11 @@ int  main( void)
 ```
 
 Notable is the simple interface. Instead of `-dataWithContentsOfURL:error:` it
-is just `-dataWithContentsOfURLString:`. You don't have to wrap the string
+is just `-dataWithContentsOfURLWithString:`. You don't have to wrap the string
 into an NSURL and the NSError can be retrieved later
 if required.
 
-The [MulleFoundation](/MulleFoundation/MulleFoundation) adds a `NSURL`
-interface as a convenience.
+[MulleWeb](/MulleWeb/MulleWeb) adds a `NSURL` interface for convenience.
 
 
 ## Build
@@ -63,7 +72,7 @@ It has it's own virtual environment, that will be automatically setup for you
 once you enter it with:
 
 ```
-mulle-sde MulleObjCCurlFoundation
+mulle-sde MulleCurl
 ```
 
 Now you can let **mulle-sde** fetch the required dependencies and build the
@@ -75,11 +84,9 @@ mulle-sde craft
 
 ## Acknowledgements
 
-Parts of this library are from libcurl, which has this license:
+Parts of this library are from [libcurl(https://curl.haxx.se/libcurl/), which has this license:
 
 ```
-
-
 COPYRIGHT AND PERMISSION NOTICE
 
 Copyright (c) 1996 - 2019, Daniel Stenberg, daniel@haxx.se, and many contributors, see the THANKS file.

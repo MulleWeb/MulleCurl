@@ -1,0 +1,10 @@
+{
+    args = {};
+    data = "";
+    files = {};
+    form = {
+        "VfL Bochum 1848" = "";
+    };
+    json = NSNull;
+    url = "https://httpbin.org/post";
+}

@@ -10,16 +10,17 @@ src
 )
 
 set( PRIVATE_HEADERS
-src/MulleObjCCurl+Private.h
+src/MulleCurl+Private.h
 src/import-private.h
 )
 
 set( PUBLIC_HEADERS
-src/MulleObjCCurlFoundation.h
-src/MulleObjCCurlParser.h
-src/MulleObjCCurl.h
-src/MulleObjCHTTPHeaderParser.h
-src/MulleObjCLoader+MulleObjCCurlFoundation.h
+src/MulleCurlFoundation.h
+src/MulleCurlParser.h
+src/MulleCurl.h
+src/MulleHTTPHeaderParser.h
+src/MulleObjCLoader+MulleCurl.h
+src/NSMutableData+MulleCurlParser.h
 src/import.h
 )
 

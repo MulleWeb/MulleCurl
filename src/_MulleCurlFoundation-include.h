@@ -9,18 +9,8 @@
 *         set MULLE_SOURCETREE_TO_C_RUN DISABLE
 */
 
-#ifndef _mulle_objc_curl_foundation_include_h__
-#define _mulle_objc_curl_foundation_include_h__
-
-// How to tweak the following openssl #include
-//    remove:          `mulle-sourcetree mark openssl no-header`
-//    rename:          `mulle-sourcetree mark openssl set include whatever.h`
-//    toggle public:   `mulle-sourcetree mark openssl [no-]public`
-//    toggle optional: `mulle-sourcetree mark openssl [no-]require`
-//    remove for os:   `mulle-sourcetree mark openssl no-os-<osname>`
-# if ! defined( __linux__)
-#  include <openssl/openssl.h>   // openssl
-# endif
+#ifndef _mulle_curl_foundation_include_h__
+#define _mulle_curl_foundation_include_h__
 
 // How to tweak the following curl #include
 //    remove:          `mulle-sourcetree mark curl no-header`
@@ -29,5 +19,13 @@
 //    toggle optional: `mulle-sourcetree mark curl [no-]require`
 //    remove for os:   `mulle-sourcetree mark curl no-os-<osname>`
 # include <curl/curl.h>   // curl
+
+// How to tweak the following ssl #include
+//    remove:          `mulle-sourcetree mark ssl no-header`
+//    rename:          `mulle-sourcetree mark ssl set include whatever.h`
+//    toggle public:   `mulle-sourcetree mark ssl [no-]public`
+//    toggle optional: `mulle-sourcetree mark ssl [no-]require`
+//    remove for os:   `mulle-sourcetree mark ssl no-os-<osname>`
+# include <openssl/ssl.h>   // ssl
 
 #endif

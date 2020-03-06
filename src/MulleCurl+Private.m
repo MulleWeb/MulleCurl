@@ -1,6 +1,6 @@
 //
-//  MulleObjCCurl-Private.m
-//  MulleObjCCurlFoundation
+//  MulleCurl-Private.m
+//  MulleCurl
 //
 //  Copyright (C) 2019 Nat!, Mulle kybernetiK.
 //  Copyright (c) 2019 Codeon GmbH.
@@ -34,8 +34,8 @@
 //  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //  POSSIBILITY OF SUCH DAMAGE.
 //
-#import "MulleObjCCurl.h"
-#import "MulleObjCCurl+Private.h"
+#import "MulleCurl.h"
+#import "MulleCurl+Private.h"
 
 #import "import-private.h"
 
@@ -1034,8 +1034,8 @@ static struct mulle_curl_options
 // if +initialize is too slow or not used often, make it lazy and
 // ask it from here (but then we need to lock...)
 //
-MULLE_C_NON_NULL_RETURN
-NSMapTable   *MulleObjCCurlOptionLookupTable( void)
+MULLE_C_NONNULL_RETURN
+NSMapTable   *MulleCurlOptionLookupTable( void)
 {
    struct mulle_curl_options  *p;
    struct mulle_curl_options  *sentinel;

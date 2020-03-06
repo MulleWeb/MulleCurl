@@ -91,16 +91,24 @@ build_main()
    #
    # exekutor make
 
+   [ -f Makefile ] && exekutor make clean
+
    local cmdline
 
-   cmdline="./config --prefix '${PREFIX}'"
-
-   if [ -z "${SDK}" ]
+   cmdline="./Configure --prefix='${PREFIX}' darwin64-x86_64-cc"
+   if [ ! -z "${SDK}" -a "${SDK}" != "Default" ]
    then
-      cmdline="CFLAGS=-isysroot '${SDK}' ${cmdline}"
+      r_escaped_shell_string "${SDK}"
+      cmdline="CFLAGS='-isysroot ${RVAL}' ${cmdline}"
    fi
 
-   eval_exekutor "${cmdline}""
+   eval_exekutor "${cmdline}"
+   if [ $? -eq 0 -o $? -eq 255 ]
+   then
+      exekutor make
+   else
+      return 1
+   fi
 }
 
 
@@ -241,6 +249,17 @@ _init()
       exit 0
    fi
 
+   #
+   # leading backslash ? looks like we're getting called from
+   # mingw via a .BAT or so
+   #
+   case "$PATH" in
+      '\\'*)
+         PATH="${PATH//\\/\/}"
+      ;;
+   esac
+
+
    if [ -z "${MULLE_BASHFUNCTIONS_LIBEXEC_DIR}" ]
    then
       MULLE_BASHFUNCTIONS_LIBEXEC_DIR="`mulle-bashfunctions-env libexec-dir 2> /dev/null`"
@@ -261,23 +280,16 @@ _init()
       fail "failed to load bashfunctions from ${MULLE_BASHFUNCTIONS_LIBEXEC_DIR}"
 
    set -o pipefail
+
+   call_main "${OPENSSL_BUILD_FLAGS}" "$@"
 }
+
+_init "$@" # needs params
+
 ###
 ### INIT
 ###
 ########
 
 
-#
-# leading backslash ? looks like we're getting called from
-# mingw via a .BAT or so
-#
-case "$PATH" in
-   '\\'*)
-      PATH="${PATH//\\/\/}"
-   ;;
-esac
 
-
-_init "$@" # needs params
-main "$@"

@@ -1,4 +1,4 @@
-#import <MulleObjCCurlFoundation/MulleObjCCurlFoundation.h>
+#import <MulleCurl/MulleCurl.h>
 
 #include <stdio.h>
 
@@ -7,11 +7,11 @@ static NSString   *URL = @"https://www.mulle-kybernetik.com/jagdox/dehtmlify.sh"
 
 int  main( void)
 {
-   MulleObjCCurl   *curl;
+   MulleCurl   *curl;
    NSData          *data;
    NSError         *error;
 
-   curl = [[MulleObjCCurl new] autorelease];
+   curl = [MulleCurl object];
 
    // for testing turn off https certi checks, which are not ez
    // crossplatform wise
@@ -20,10 +20,10 @@ int  main( void)
                        @"CURLOPT_SSL_VERIFYHOST": @(NO)
                      }];
    [curl setDesktopTimeoutOptions];
-   data = [curl dataWithContentsOfURLString:URL];
+   data = [curl dataWithContentsOfURLWithString:URL];
    if( ! data)
    {
-      error = [NSError mulleCurrentErrorWithDomain:MulleObjCCurlErrorDomain];
+      error = [NSError mulleCurrentErrorWithDomain:MulleCurlErrorDomain];
       fprintf( stderr, "%s\n", [[error description] UTF8String]);
       return( 1);
    }

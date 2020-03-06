@@ -1,6 +1,6 @@
 //
-//  MulleObjCHTTPHeaderParser.h
-//  MulleObjCCurlFoundation
+//  NSMutableData+MulleCurlParser.m
+//  MulleCurl
 //
 //  Copyright (C) 2019 Nat!, Mulle kybernetiK.
 //  Copyright (c) 2019 Codeon GmbH.
@@ -34,44 +34,30 @@
 //  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //  POSSIBILITY OF SUCH DAMAGE.
 //
+#import "NSMutableData+MulleCurlParser.h"
 
-#import "import.h"
+#import "import-private.h"
+
+#import "MulleCurl.h"
 
 
-#import "MulleObjCCurlParser.h"
+@implementation NSMutableData( MulleCurlParser)
 
-//
-// a very simple parser, that splits line into key/values and puts them
-// into an NSDictionary leading and trailing whitespace is removed
-// Move to own HTTP Foundtion ?
-//
-@interface MulleObjCHTTPHeaderParser : NSObject
-{
-   NSMutableData         *_data;
-   NSMutableArray        *_order;
-   NSMutableDictionary   *_headers;
-   NSString              *_response;
-   NSInteger             _state;
-   NSUInteger            _index;
+- (BOOL) curl:(MulleCurl *) curl
+   parseBytes:(void *) bytes
+       length:(NSUInteger) length
+ {
+   [self appendBytes:bytes
+              length:length];
+   return( YES);  // always happy
 }
 
-@property BOOL   recordsOrder;
 
-//@property BOOL   allowsMultiline;  // not doing this yet
-
-- (BOOL) isIncomplete;
-- (NSArray *) order;
-- (NSDictionary *) headers;
-- (NSString *) response;
-
-// get destructively the internal state
-- (NSMutableArray *) extractOrder;
-- (NSMutableDictionary *) extractHeaders;
+- (id) parsedObjectWithCurl:(MulleCurl *) curl
+{
+   return( self);
+}
 
 @end
 
-
-
-@interface MulleObjCHTTPHeaderParser( MulleObjCCurlParser) <MulleObjCCurlParser>
-@end
 

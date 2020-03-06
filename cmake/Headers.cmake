@@ -14,15 +14,15 @@ include( _Headers OPTIONAL)
 
 
 # add ignored headers back in so that the generators pick them up
-if( EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/src/_MulleObjCCurlFoundation-import.h")
+if( EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/src/_MulleCurl-import.h")
    set( PUBLIC_HEADERS
-      "src/_MulleObjCCurlFoundation-import.h"
+      "src/_MulleCurl-import.h"
       ${PUBLIC_HEADERS}
    )
 endif()
-if( EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/src/_MulleObjCCurlFoundation-include.h")
+if( EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/src/_MulleCurl-include.h")
    set( PUBLIC_HEADERS
-      "src/_MulleObjCCurlFoundation-include.h"
+      "src/_MulleCurl-include.h"
       ${PUBLIC_HEADERS}
    )
 endif()
@@ -42,15 +42,15 @@ if( INSTALL_PRIVATE_HEADERS)
 endif()
 
 # add ignored headers back in so that the generators pick them up
-if( EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/src/_MulleObjCCurlFoundation-import-private.h")
+if( EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/src/_MulleCurl-import-private.h")
    set( PRIVATE_HEADERS
-      "src/_MulleObjCCurlFoundation-import-private.h"
+      "src/_MulleCurl-import-private.h"
       ${PRIVATE_HEADERS}
    )
 endif()
-if( EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/src/_MulleObjCCurlFoundation-include-private.h")
+if( EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/src/_MulleCurl-include-private.h")
    set( PRIVATE_HEADERS
-      "src/_MulleObjCCurlFoundation-include-private.h"
+      "src/_MulleCurl-include-private.h"
       ${PRIVATE_HEADERS}
    )
 endif()
