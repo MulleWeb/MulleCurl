@@ -21,7 +21,7 @@ if( NOT ${CMAKE_SYSTEM_NAME} MATCHES "Linux")
       #
       if( CRYPTO_LIBRARY)
          #
-         # Add to CRYPTO_LIBRARY to OS_SPECIFIC_LIBRARIES list.
+         # Add CRYPTO_LIBRARY to OS_SPECIFIC_LIBRARIES list.
          # Disable with: `mulle-sourcetree mark crypto no-cmakeadd`
          #
          set( OS_SPECIFIC_LIBRARIES
@@ -50,7 +50,7 @@ if( NOT SSL_LIBRARY)
    #
    if( SSL_LIBRARY)
       #
-      # Add to SSL_LIBRARY to OS_SPECIFIC_LIBRARIES list.
+      # Add SSL_LIBRARY to OS_SPECIFIC_LIBRARIES list.
       # Disable with: `mulle-sourcetree mark ssl no-cmakeadd`
       #
       set( OS_SPECIFIC_LIBRARIES

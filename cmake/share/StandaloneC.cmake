@@ -27,7 +27,7 @@ if( STANDALONE)
    endif()
 
    if( NOT STANDALONE_DEFINITIONS)
-      set( STANDALONE_DEFINITIONS ${MULLE_CURL_DEFINITIONS})
+      set( STANDALONE_DEFINITIONS ${mulle_curl_DEFINITIONS})
    endif()
 
    #

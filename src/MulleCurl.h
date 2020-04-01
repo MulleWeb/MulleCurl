@@ -38,11 +38,9 @@
 #import "import.h"
 
 #import "MulleCurlParser.h"
-#import "MulleHTTPHeaderParser.h"
-
-#import "MulleObjCLoader+MulleCurl.h"
 
 
+// MEMO: don't taint MulleCurl with NSURL
 
 @interface MulleCurl : NSObject
 {
@@ -119,7 +117,7 @@
 - (void) reset;
 
 //
-// Convenience: (See MulleFoundation for more conveniences)
+// Convenience: (See MulleWebClient for more conveniences)
 //
 // If these return NULL, and error occurred. You can retrieve the
 // appropriate NSError with:
@@ -171,7 +169,7 @@
 extern NSString   *MulleCurlErrorDomain; // = @"MulleCurlError";
 
 
-#define MULLE_CURL_VERSION  ((0 << 20) | (7 << 8) | 56)
+#define MULLE_CURL_VERSION  ((0 << 20) | (17 << 8) | 0)
 
 
 static inline unsigned int   MulleCurl_get_version_major( void)
@@ -193,3 +191,6 @@ static inline unsigned int   MulleCurl_get_version_patch( void)
 
 
 extern uint32_t   MulleCurl_get_version( void);
+
+
+#import "MulleObjCLoader+MulleCurl.h"

@@ -9,7 +9,6 @@ set( SOURCES
 src/MulleCurl+ClassMethods.m
 src/MulleCurl+Private.m
 src/MulleCurl.m
-src/MulleHTTPHeaderParser.m
 src/NSMutableData+MulleCurlParser.m
 )
 
