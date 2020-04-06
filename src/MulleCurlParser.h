@@ -49,9 +49,5 @@
 // the parsed result
 - (id) parsedObjectWithCurl:(MulleCurl *) curl;
 
-@optional
-// errorCode will be asked if you change the errorDomain of the parser
-- (NSUInteger) errorCodeWithCurl:(MulleCurl *) curl;
-
 @end
 

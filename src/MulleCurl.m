@@ -45,10 +45,44 @@
 @implementation MulleCurl
 
 
+NSString   *MulleCurlErrorDomain = @"MulleCurlError";
+
+
+void   MulleCurlSetErrorDomain( void)
+{
+   [NSError mulleSetErrorDomain:MulleCurlErrorDomain];
+}
+
+
+static NSString  *translator( NSInteger code)
+{
+   char  *s;
+
+   s = (char *) curl_easy_strerror( code);
+   if( ! s)
+      return( @"???");
+   return( [NSString stringWithUTF8String:s]);
+}
+
+
++ (void) initialize
+{
+   if( curl_global_init( CURL_GLOBAL_DEFAULT))
+      MulleObjCThrowInternalInconsistencyException( @"could not init libcurl");
+
+   [NSError registerErrorDomain:MulleCurlErrorDomain
+            errorStringFunction:translator];
+}
+
+
++ (void) deinitialize
+{
+   [NSError removeErrorDomain:MulleCurlErrorDomain];
+}
+
+
 - (id) init
 {
-   CURLcode   status;
-
    _connection = curl_easy_init();
    if( ! _connection)
    {
@@ -89,8 +123,6 @@
    [self setParser:nil];
    [self setHeaderParser:nil];
    [self setUserInfo:nil];
-   [self setErrorDomain:nil];
-   [self setErrorCode:0];
 
    if( _chunk)
    {
@@ -290,6 +322,7 @@ static size_t   receive_curl_body_bytes( void *contents,
       if( ! option)
          [NSException raise:NSInvalidArgumentException
                      format:@"unknown curl option %@", key];
+
       type     = option & 0xF;
       option >>= 4;
       switch( type)
@@ -316,19 +349,6 @@ static size_t   receive_curl_body_bytes( void *contents,
                      format:@"curl option %@ could not be set: \"%s\"",
                               curl_easy_strerror( rval)];
    }
-}
-
-
-- (NSString *) errorDomain
-{
-   return( _errorDomain ? _errorDomain : MulleCurlErrorDomain);
-}
-
-
-- (void) setErrorDomain:(NSString *) s
-{
-   [_errorDomain autorelease];
-   _errorDomain = [s isEqualToString:MulleCurlErrorDomain] ? nil : [s copy];
 }
 
 
@@ -369,6 +389,8 @@ static size_t   receive_curl_body_bytes( void *contents,
       [NSException raise:NSInvalidArgumentException
                   format:@"empty URL"];
 
+   MulleCurlSetErrorDomain();
+
    curl_easy_setopt( _connection, CURLOPT_URL, [url UTF8String]);
    if( data)
    {
@@ -382,11 +404,11 @@ static size_t   receive_curl_body_bytes( void *contents,
    res = curl_easy_perform( _connection);
    if( res != CURLE_OK)
    {
-      // allow parser to use his own errors
-      if( ! _errorDomain)
-         errno = res;
-      else
-         errno = [_parser errorCodeWithCurl:self];
+      //
+      // Parser can use his own errors, but will need to set NSError
+      // directly
+      //
+      errno = res;
       return( NULL);
    }
 
@@ -403,7 +425,7 @@ static size_t   receive_curl_body_bytes( void *contents,
 
 
 - (id) parseContentsOfURLWithString:(NSString *) url
-                  byPostingData:(NSData *) data
+                      byPostingData:(NSData *) data
 {
    NSParameterAssert( ! data || [data isKindOfClass:[NSData class]]);
 

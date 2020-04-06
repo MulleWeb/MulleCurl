@@ -65,10 +65,7 @@
 // properties for use by the parser itself
 // userInfo could be used for storing intermediate results or so
 //
-@property( retain) id           userInfo;
-@property( copy) NSString       *errorDomain;
-@property( assign) NSUInteger   errorCode;
-
+@property( retain) id   userInfo;
 
 //
 // Key must not contain ':' and must be the proper HTTP Header key.
@@ -122,9 +119,9 @@
 // If these return NULL, and error occurred. You can retrieve the
 // appropriate NSError with:
 //
-//    MulleObjCErrorGetCurrentErrorWithDomain( [curl errorDomain])
+//    MulleObjCExtractError()
 // or
-//    +[NSError mulleCurrentErrorWithDomain:[curl errorDomain]]
+//    +[NSError mulleExtract]
 //
 // These routines will reset the parser as they actually use the
 // -parseContentsOfURLWithString: variants for the actual work. The header

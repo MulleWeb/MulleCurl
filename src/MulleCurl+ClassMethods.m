@@ -41,7 +41,7 @@
 #import "MulleCurl+Private.h"
 
 
-NSString   *MulleCurlErrorDomain = @"MulleCurlError";
+extern NSString   *MulleCurlErrorDomain;
 
 
 // put in a separate file for readability

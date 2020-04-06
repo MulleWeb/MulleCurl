@@ -46,7 +46,7 @@ int  main( void)
    data = [curl dataWithContentsOfURLWithString:URL];
    if( ! data)
    {
-      error = [NSError mulleCurrentErrorWithDomain:MulleCurlErrorDomain];
+      error = [NSError mulleExtractError];
       fprintf( stderr, "%s\n", [[error description] UTF8String]);
       return( 1);
    }
@@ -58,8 +58,7 @@ int  main( void)
 
 Notable is the simple interface. Instead of `-dataWithContentsOfURL:error:` it
 is just `-dataWithContentsOfURLWithString:`. You don't have to wrap the string
-into an NSURL and the NSError can be retrieved later
-if required.
+into an NSURL and the NSError can be retrieved later if desired.
 
 [MulleWeb](/MulleWeb/MulleWeb) adds a `NSURL` interface for convenience.
 

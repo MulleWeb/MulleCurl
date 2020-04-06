@@ -23,7 +23,7 @@ int  main( void)
    data = [curl dataWithContentsOfURLWithString:URL];
    if( ! data)
    {
-      error = [NSError mulleCurrentErrorWithDomain:MulleCurlErrorDomain];
+      error = [NSError mulleExtract];
       fprintf( stderr, "%s\n", [[error description] UTF8String]);
       return( 1);
    }
