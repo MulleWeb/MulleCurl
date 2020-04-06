@@ -134,7 +134,7 @@ install_main()
    # mkdir -p "${PREFIX}/include/async"
    # exekutor cp async/async*.h "${PREFIX}/include/async"
 
-   exekutor make install
+   exekutor make install_sw
 }
 
 

@@ -89,9 +89,6 @@ static NSString *  translate_curl_errno( NSInteger code)
 }
 
 
-MULLE_OBJC_DEPENDS_ON_LIBRARY( MulleObjCInetFoundation);
-
-
 static void   MulleCurlInitDefaultUserAgent( Class self)
 {
    struct mulle_buffer      buffer;
@@ -115,6 +112,9 @@ char   *MulleCurlDefaultUserAgent( void)
 {
    return( Self._defaultUserAgent);
 }
+
+
+MULLE_OBJC_DEPENDS_ON_LIBRARY( MulleObjCStandardFoundation);
 
 
 + (void) initialize
