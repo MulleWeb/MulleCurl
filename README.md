@@ -63,23 +63,24 @@ into an NSURL and the NSError can be retrieved later if desired.
 [MulleWeb](/MulleWeb/MulleWeb) adds a `NSURL` interface for convenience.
 
 
-## Build
+## Add
 
-This is a [mulle-sde](https://mulle-sde.github.io/) project.
-
-It has it's own virtual environment, that will be automatically setup for you
-once you enter it with:
+Use [mulle-sde](//github.com/mulle-sde) to add MulleCurl to your project:
 
 ```
-mulle-sde MulleCurl
+mulle-sde dependency add --objc --github MulleWeb MulleCurl
 ```
 
-Now you can let **mulle-sde** fetch the required dependencies and build the
-project for you:
+## Install
+
+Use [mulle-sde](//github.com/mulle-sde) to build and install MulleCurl and
+all its dependencies:
 
 ```
-mulle-sde craft
+mulle-sde install --objc --prefix /usr/local \
+   https://github.com/MulleWeb/MulleCurl/archive/latest.tar.gz
 ```
+
 
 ## Acknowledgements
 
@@ -98,4 +99,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 Except as contained in this notice, the name of a copyright holder shall not be used in advertising or otherwise to promote the sale, use or other dealings in this Software without prior written authorization of the copyright holder.
 ```
+
+## Authors
+
+[Nat!](//www.mulle-kybernetik.com/weblog) for
+[Mulle kybernetiK](//www.mulle-kybernetik.com) and
+[Codeon GmbH](//www.codeon.de)
 
