@@ -1,6 +1,6 @@
 # MulleCurl
 
-#### 🥌 HTTP client library for the MulleFoundation based on libcurl
+#### 🥌 HTTP client library for mulle-objc
 
 A library on top of the MulleFoundation.
 
@@ -34,9 +34,9 @@ static NSString   *URL = @"https://www.mulle-kybernetik.com/weblog/2019/mulle_ob
 int  main( void)
 {
    MulleCurl   *curl;
-   NSURL           *url;
-   NSData          *data;
-   NSError         *error;
+   NSURL       *url;
+   NSData      *data;
+   NSError     *error;
 
    curl = [[MulleCurl new] autorelease];
    [curl setOptions:@{
