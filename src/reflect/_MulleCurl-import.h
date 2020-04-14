@@ -21,6 +21,15 @@
 //    remove for os:   `mulle-sourcetree mark MulleObjCStandardFoundation no-os-<osname>`
 # import <MulleObjCStandardFoundation/MulleObjCStandardFoundation.h>   // MulleObjCStandardFoundation
 
+// How to tweak the following MulleZlib #import
+//    remove:          `mulle-sourcetree mark MulleZlib no-header`
+//    rename:          `mulle-sourcetree mark MulleZlib set include whatever.h`
+//    toggle #import:  `mulle-sourcetree mark MulleZlib [no-]import`
+//    toggle public:   `mulle-sourcetree mark MulleZlib [no-]public`
+//    toggle optional: `mulle-sourcetree mark MulleZlib [no-]require`
+//    remove for os:   `mulle-sourcetree mark MulleZlib no-os-<osname>`
+# import <MulleZlib/MulleZlib.h>   // MulleZlib
+
 #include "_MulleCurl-include.h"
 
 
