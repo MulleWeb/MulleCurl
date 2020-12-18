@@ -13,21 +13,31 @@
 #define _MulleCurl_include_h__
 
 // How to tweak the following curl #include
-//    remove:          `mulle-sourcetree mark curl no-header`
-//    rename:          `mulle-sourcetree mark curl set include whatever.h`
-//    toggle #import:  `mulle-sourcetree mark curl [no-]import`
-//    toggle public:   `mulle-sourcetree mark curl [no-]public`
-//    toggle optional: `mulle-sourcetree mark curl [no-]require`
-//    remove for os:   `mulle-sourcetree mark curl no-os-<osname>`
-# include <curl/curl.h>   // curl
+//    remove:             `mulle-sourcetree mark curl no-header`
+//    rename:             `mulle-sde dependency|library set curl include whatever.h`
+//    toggle #import:     `mulle-sourcetree mark curl [no-]import`
+//    toggle localheader: `mulle-sourcetree mark curl [no-]localheader`
+//    toggle public:      `mulle-sourcetree mark curl [no-]public`
+//    toggle optional:    `mulle-sourcetree mark curl [no-]require`
+//    remove for os:      `mulle-sourcetree mark curl no-os-<osname>`
+# if defined( __has_include) && __has_include("curl.h")
+#   include "curl.h"   // curl
+# else
+#   include <curl/curl.h>   // curl
+# endif
 
 // How to tweak the following ssl #include
-//    remove:          `mulle-sourcetree mark ssl no-header`
-//    rename:          `mulle-sourcetree mark ssl set include whatever.h`
-//    toggle #import:  `mulle-sourcetree mark ssl [no-]import`
-//    toggle public:   `mulle-sourcetree mark ssl [no-]public`
-//    toggle optional: `mulle-sourcetree mark ssl [no-]require`
-//    remove for os:   `mulle-sourcetree mark ssl no-os-<osname>`
-# include <openssl/ssl.h>   // ssl
+//    remove:             `mulle-sourcetree mark ssl no-header`
+//    rename:             `mulle-sde dependency|library set ssl include whatever.h`
+//    toggle #import:     `mulle-sourcetree mark ssl [no-]import`
+//    toggle localheader: `mulle-sourcetree mark ssl [no-]localheader`
+//    toggle public:      `mulle-sourcetree mark ssl [no-]public`
+//    toggle optional:    `mulle-sourcetree mark ssl [no-]require`
+//    remove for os:      `mulle-sourcetree mark ssl no-os-<osname>`
+# if defined( __has_include) && __has_include("ssl.h")
+#   include "ssl.h"   // ssl
+# else
+#   include <openssl/ssl.h>   // ssl
+# endif
 
 #endif

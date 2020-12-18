@@ -439,7 +439,7 @@ static size_t   receive_curl_body_bytes( void *contents,
 {
    id   plist;
 
-   [self setParser:[NSMutableData data]];
+   [self setParser:[NSMutableData object]];
    {
       plist = [self _parseContentsOfURLWithString:url
                                     byPostingData:nil];
@@ -455,7 +455,7 @@ static size_t   receive_curl_body_bytes( void *contents,
 {
    id   plist;
 
-   [self setParser:[NSMutableData data]];
+   [self setParser:[NSMutableData object]];
    {
       plist = [self _parseContentsOfURLWithString:url
                                     byPostingData:data];

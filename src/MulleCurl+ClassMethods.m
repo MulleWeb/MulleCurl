@@ -97,13 +97,14 @@ static void   MulleCurlInitDefaultUserAgent( Class self)
    assert( ! Self._defaultUserAgent);
 
    allocator = MulleObjCClassGetAllocator( self);
-   mulle_buffer_init( &buffer, allocator);
+   mulle_buffer_init_with_capacity( &buffer, 64, allocator);
    mulle_sprintf( &buffer, "MulleCurl v%u.%u.%u",
                               MulleCurl_get_version_major(),
                               MulleCurl_get_version_minor(),
                               MulleCurl_get_version_patch());
    mulle_buffer_add_byte( &buffer, 0);
-   Self._defaultUserAgent = mulle_buffer_extract_all( &buffer);
+   mulle_buffer_size_to_fit( &buffer);
+   Self._defaultUserAgent = mulle_buffer_extract_bytes( &buffer);
    mulle_buffer_done( &buffer);
 }
 

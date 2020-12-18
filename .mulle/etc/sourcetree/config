@@ -1,7 +1,7 @@
 craftinfo/openssl;local;no-delete,no-header,no-link,no-share,no-subproject,no-update;FD96F6B7-E3AC-478B-A83A-136FF900EC47;;;;;
 craftinfo/curl;local;no-delete,no-header,no-link,no-share,no-subproject,no-update;bb764a95-9db3-4344-bec5-cf5acddff277;;;;;
 openssl;${OPENSSL_NODETYPE:-tar};no-all-load,no-header,no-import,no-link,no-os-linux;533C23A3-8CE3-4F6A-90C4-8B696F9BEDD7;${OPENSSL_URL:-https://github.com/openssl/openssl/archive/${MULLE_TAG}.tar.gz};${OPENSSL_BRANCH};${OPENSSL_TAG:-OpenSSL_1_0_2u};;base64:YWxpYXNlcz1zc2wKaW5jbHVkZT1vcGVuc3NsL3NzbC5oCg==
-curl;${CURL_NODETYPE:-tar};no-all-load,no-import;78cfb19c-00ec-4df6-9c13-00a6aa134000;${CURL_URL:-https://curl.haxx.se/download/curl-${MULLE_TAG}.tar.gz};${CURL_BRANCH};${CURL_TAG:-7.67.0};;base64:YWxpYXNlcz1SZWxlYXNlOmN1cmwsRGVidWc6Y3VybC1kCg==
+curl;${CURL_NODETYPE:-tar};no-all-load,no-import;78cfb19c-00ec-4df6-9c13-00a6aa134000;${CURL_URL:-https://curl.haxx.se/download/curl-${MULLE_TAG}.tar.gz};${CURL_BRANCH};${CURL_TAG:-7.74.0};;base64:YWxpYXNlcz1SZWxlYXNlOmN1cmwsRGVidWc6Y3VybC1kCg==
 ssl;none;no-all-load,no-build,no-cmakeinherit,no-delete,no-dependency,no-fs,no-import,no-share,no-update;EE48C273-5D2B-49DC-ADC6-627F85AA4C59;;;;;include=openssl/ssl.h
 crypto;none;no-all-load,no-build,no-cmakeinherit,no-delete,no-dependency,no-fs,no-header,no-import,no-share,no-update;4BFC2752-5817-46EF-9979-D8C9529144F0;;;;;
 MulleObjCStandardFoundation;${MULLE_OBJC_STANDARD_FOUNDATION_NODETYPE:-tar};no-singlephase;CD2DD14F-0BE9-4304-9520-04508C7787FB;${MULLE_OBJC_STANDARD_FOUNDATION_URL:-https://github.com/MulleFoundation/MulleObjCStandardFoundation/archive/${MULLE_TAG}.tar.gz};${MULLE_OBJC_STANDARD_FOUNDATION_BRANCH};${MULLE_OBJC_STANDARD_FOUNDATION_TAG:-latest};;

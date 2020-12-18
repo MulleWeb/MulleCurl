@@ -13,24 +13,38 @@
 #define _MulleCurl_import_h__
 
 // How to tweak the following MulleObjCStandardFoundation #import
-//    remove:          `mulle-sourcetree mark MulleObjCStandardFoundation no-header`
-//    rename:          `mulle-sourcetree mark MulleObjCStandardFoundation set include whatever.h`
-//    toggle #import:  `mulle-sourcetree mark MulleObjCStandardFoundation [no-]import`
-//    toggle public:   `mulle-sourcetree mark MulleObjCStandardFoundation [no-]public`
-//    toggle optional: `mulle-sourcetree mark MulleObjCStandardFoundation [no-]require`
-//    remove for os:   `mulle-sourcetree mark MulleObjCStandardFoundation no-os-<osname>`
-# import <MulleObjCStandardFoundation/MulleObjCStandardFoundation.h>   // MulleObjCStandardFoundation
+//    remove:             `mulle-sourcetree mark MulleObjCStandardFoundation no-header`
+//    rename:             `mulle-sde dependency|library set MulleObjCStandardFoundation include whatever.h`
+//    toggle #import:     `mulle-sourcetree mark MulleObjCStandardFoundation [no-]import`
+//    toggle localheader: `mulle-sourcetree mark MulleObjCStandardFoundation [no-]localheader`
+//    toggle public:      `mulle-sourcetree mark MulleObjCStandardFoundation [no-]public`
+//    toggle optional:    `mulle-sourcetree mark MulleObjCStandardFoundation [no-]require`
+//    remove for os:      `mulle-sourcetree mark MulleObjCStandardFoundation no-os-<osname>`
+# if defined( __has_include) && __has_include("MulleObjCStandardFoundation.h")
+#   import "MulleObjCStandardFoundation.h"   // MulleObjCStandardFoundation
+# else
+#   import <MulleObjCStandardFoundation/MulleObjCStandardFoundation.h>   // MulleObjCStandardFoundation
+# endif
 
 // How to tweak the following MulleZlib #import
-//    remove:          `mulle-sourcetree mark MulleZlib no-header`
-//    rename:          `mulle-sourcetree mark MulleZlib set include whatever.h`
-//    toggle #import:  `mulle-sourcetree mark MulleZlib [no-]import`
-//    toggle public:   `mulle-sourcetree mark MulleZlib [no-]public`
-//    toggle optional: `mulle-sourcetree mark MulleZlib [no-]require`
-//    remove for os:   `mulle-sourcetree mark MulleZlib no-os-<osname>`
-# import <MulleZlib/MulleZlib.h>   // MulleZlib
+//    remove:             `mulle-sourcetree mark MulleZlib no-header`
+//    rename:             `mulle-sde dependency|library set MulleZlib include whatever.h`
+//    toggle #import:     `mulle-sourcetree mark MulleZlib [no-]import`
+//    toggle localheader: `mulle-sourcetree mark MulleZlib [no-]localheader`
+//    toggle public:      `mulle-sourcetree mark MulleZlib [no-]public`
+//    toggle optional:    `mulle-sourcetree mark MulleZlib [no-]require`
+//    remove for os:      `mulle-sourcetree mark MulleZlib no-os-<osname>`
+# if defined( __has_include) && __has_include("MulleZlib.h")
+#   import "MulleZlib.h"   // MulleZlib
+# else
+#   import <MulleZlib/MulleZlib.h>   // MulleZlib
+# endif
 
-#include "_MulleCurl-include.h"
+#ifdef __has_include
+# if __has_include( "_MulleCurl-include.h")
+#  include "_MulleCurl-include.h"
+# endif
+#endif
 
 
 #endif

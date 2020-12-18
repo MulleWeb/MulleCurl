@@ -8,8 +8,8 @@ if( MULLE_TRACE_INCLUDE)
 endif()
 
 #
-# Generated from sourcetree: ssl;no-all-load,no-cmakeinherit,no-import,no-share;
-# Disable with: `mulle-sourcetree mark ssl no-link`
+# Generated from sourcetree: ssl;no-all-load,no-build,no-cmakeinherit,no-delete,no-dependency,no-fs,no-import,no-share,no-update;
+# Disable with: `mulle-sourcetree mark ssl `
 #
 if( NOT SSL_LIBRARY)
    find_library( SSL_LIBRARY NAMES ssl)
@@ -36,8 +36,8 @@ endif()
 
 
 #
-# Generated from sourcetree: crypto;no-all-load,no-cmakeinherit,no-header,no-import,no-share;
-# Disable with: `mulle-sourcetree mark crypto no-link`
+# Generated from sourcetree: crypto;no-all-load,no-build,no-cmakeinherit,no-delete,no-dependency,no-fs,no-header,no-import,no-share,no-update;
+# Disable with: `mulle-sourcetree mark crypto `
 #
 if( NOT CRYPTO_LIBRARY)
    find_library( CRYPTO_LIBRARY NAMES crypto)

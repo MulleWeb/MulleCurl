@@ -11,8 +11,4 @@ mulle-sde/c-demo;extra
 mulle-c/c-demo;extra
 mulle-objc/objc-demo;extra
 mulle-sde/sublime-text;extra
-mulle-objc/travis;extra
-mulle-c/travis;extra
-mulle-sde/travis;extra
-foundation/travis;extra
-mulle-foundation/travis;extra
+foundation/github-actions;extra
