@@ -1,0 +1,19 @@
+{
+   "name" : "MulleCurl",
+   "version" : "0.17.2",
+   "description" : "🥌 HTTP client library for mulle-objc",
+   "homepage" : "https://github.com/MulleWeb/MulleCurl",
+   "bugs" : "https://github.com/MulleWeb/MulleCurl/issues",
+   "keywords" : [],
+   "license" : "UNLICENSED",
+   "repository" : {
+      "type" : "git",
+      "url" : "MulleWeb/MulleCurl"
+   },
+   "dependencies" : {
+      "openssl" : "openssl/openssl",
+      "curl" : "https://curl.haxx.se/download/curl-7.74.0.tar.gz",
+      "MulleObjCStandardFoundation" : "MulleFoundation/MulleObjCStandardFoundation",
+      "MulleZlib" : "MulleWeb/MulleZlib"
+   }
+}
