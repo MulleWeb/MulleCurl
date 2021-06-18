@@ -7,19 +7,19 @@ export PROJECT_NAME="MulleCurl"
 #
 #
 #
-export PROJECT_IDENTIFIER="MulleCurl"
 
-
-#
-#
-#
-export PROJECT_DOWNCASE_IDENTIFIER="mulle_curl"
 
 
 #
 #
 #
-export PROJECT_UPCASE_IDENTIFIER="MULLE_CURL"
+
+
+
+#
+#
+#
+
 
 
 #

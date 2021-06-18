@@ -2,21 +2,31 @@
 
 #### 🥌 HTTP client library for mulle-objc
 
-A library on top of the MulleFoundation.
-
-
 Uses [libcurl](https://curl.haxx.se) to GET and POST `NSData` from URLs.
 It uses the **easy**  interface of libcurl. The curl library is compiled
 for HTTP(S) only.
 
 Written in and for [mulle-objc](//mulle-objc.github.io).
 
+### You are here
 
-Build Status | Release Version
--------------|-----------------------------------
-[![Build Status](https://travis-ci.org/MulleWeb/MulleCurl.svg?branch=release)](https://travis-ci.org/MulleWeb/MulleCurl) | ![Mulle kybernetiK tag](https://img.shields.io/github/tag/MulleWeb/MulleCurl.svg) [![Build Status](https://travis-ci.org/MulleWeb/MulleCurl.svg?branch=release)](https://travis-ci.org/MulleWeb/MulleCurl)
-
-
+```
+  .------------------------------------------------.
+  | MulleWebClient                                 |
+  '------------------------------------------------'
+                    .------------..----------------.
+                    | JSMN       || HTTP           |
+                    '------------''----------------'
+  .================..------------..----------------.
+  | Curl           || Plist      || Inet           |
+  '================''------------''----------------'
+  .---------..-----------------------------.
+  | Zlib    || Standard                    |
+  '---------''-----------------------------'
+  .----------------------------------------..------.
+  | Value                                  || Lock |
+  '----------------------------------------''------'
+```
 
 ## Usage
 
