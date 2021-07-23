@@ -1,3 +1,7 @@
+### 0.17.4
+
+* Various small improvements
+
 ### 0.17.3
 
 * curl 7.74

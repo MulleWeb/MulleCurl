@@ -16,7 +16,7 @@ endif()
 #
 # Generated from sourcetree: EE48C273-5D2B-49DC-ADC6-627F85AA4C59;ssl;no-all-load,no-build,no-cmake-inherit,no-delete,no-dependency,no-fs,no-import,no-share,no-update;
 # Disable with : `mulle-sourcetree mark ssl `
-# Disable for this platform: `mulle-sourcetree mark ssl no-cmake-platform-darwin`
+# Disable for this platform: `mulle-sourcetree mark ssl no-cmake-platform-linux`
 #
 if( NOT SSL_LIBRARY)
    find_library( SSL_LIBRARY NAMES ssl)
@@ -46,7 +46,7 @@ endif()
 #
 # Generated from sourcetree: 4BFC2752-5817-46EF-9979-D8C9529144F0;crypto;no-all-load,no-build,no-cmake-inherit,no-delete,no-dependency,no-fs,no-header,no-import,no-share,no-update;
 # Disable with : `mulle-sourcetree mark crypto `
-# Disable for this platform: `mulle-sourcetree mark crypto no-cmake-platform-darwin`
+# Disable for this platform: `mulle-sourcetree mark crypto no-cmake-platform-linux`
 #
 if( NOT CRYPTO_LIBRARY)
    find_library( CRYPTO_LIBRARY NAMES crypto)
