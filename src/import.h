@@ -16,5 +16,9 @@
  */
 
 #import "_MulleCurl-import.h"
+#ifndef MULLE_CURL_EXTERN_GLOBAL
+# define MULLE_CURL_EXTERN_GLOBAL MULLE_C_EXTERN_GLOBAL
+#endif
+
 
 /* You can add some more import statements here */

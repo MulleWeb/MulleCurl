@@ -103,7 +103,7 @@ int  main( void)
    [censored removeObjectForKey:@"origin"];
    [censored removeObjectForKey:@"headers"];
 
-   printf( "%s\n", [censored cStringDescription]);
+   printf( "%s\n", [censored UTF8String]);
 
    return( 0);
 }

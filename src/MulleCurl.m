@@ -167,10 +167,10 @@ static NSString  *translator( NSInteger code)
          value = [value performSelector:_headerValueDescriptionMethod];
 
          mulle_buffer_remove_all( &buffer);
-         mulle_sprintf( &buffer,
-                        "%s: %s",
-                        [key UTF8String],
-                        [value UTF8String]);
+         mulle_buffer_sprintf( &buffer,
+                               "%s: %s",
+                               [key UTF8String],
+                               [value UTF8String]);
          mulle_buffer_add_byte( &buffer, 0);
 
          _chunk = curl_slist_append( _chunk, mulle_buffer_get_bytes( &buffer));
