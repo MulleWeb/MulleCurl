@@ -87,7 +87,7 @@ static NSString  *translator( NSInteger code)
    if( ! _connection)
    {
       [self release];
-      return( self);
+      return( nil);
    }
 
    [self setDefaultOptions];
@@ -100,8 +100,6 @@ static NSString  *translator( NSInteger code)
 
 - (void) finalize
 {
-   [super finalize];
-
    if( _chunk)
    {
       curl_slist_free_all( _chunk);
@@ -113,6 +111,8 @@ static NSString  *translator( NSInteger code)
       curl_easy_cleanup( _connection);
       _connection = NULL;
    }
+
+   [super finalize];
 }
 
 

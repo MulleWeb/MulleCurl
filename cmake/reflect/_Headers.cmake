@@ -62,5 +62,6 @@ src/MulleCurlParser.h
 src/MulleCurl.h
 src/MulleObjCLoader+MulleCurl.h
 src/NSMutableData+MulleCurlParser.h
+src/reflect/_MulleCurl-versioncheck.h
 )
 

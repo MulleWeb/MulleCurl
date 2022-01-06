@@ -166,7 +166,7 @@
 extern NSString   *MulleCurlErrorDomain; // = @"MulleCurlError";
 
 
-#define MULLE_CURL_VERSION  ((0 << 20) | (17 << 8) | 4)
+#define MULLE_CURL_VERSION  ((0 << 20) | (17 << 8) | 5)
 
 
 static inline unsigned int   MulleCurl_get_version_major( void)
@@ -191,3 +191,10 @@ extern uint32_t   MulleCurl_get_version( void);
 
 
 #import "MulleObjCLoader+MulleCurl.h"
+
+
+#ifdef __has_include
+# if __has_include( "_MulleCurl-versioncheck.h")
+#  include "_MulleCurl-versioncheck.h"
+# endif
+#endif
