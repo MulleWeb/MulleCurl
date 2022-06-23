@@ -3,7 +3,7 @@
  *   Any edits will be lost.
  */
 #if defined( MULLE_OBJC_STANDARD_FOUNDATION_VERSION)
-# if MULLE_OBJC_STANDARD_FOUNDATION_VERSION < ((0 << 20) | (20 << 8) | 0)
+# if MULLE_OBJC_STANDARD_FOUNDATION_VERSION < ((0 << 20) | (20 << 8) | 1)
 #  error "MulleObjCStandardFoundation is too old"
 # endif
 # if MULLE_OBJC_STANDARD_FOUNDATION_VERSION >= ((0 << 20) | (21 << 8) | 0)
@@ -12,7 +12,7 @@
 #endif
 
 #if defined( MULLE_ZLIB_VERSION)
-# if MULLE_ZLIB_VERSION < ((0 << 20) | (15 << 8) | 6)
+# if MULLE_ZLIB_VERSION < ((0 << 20) | (15 << 8) | 7)
 #  error "MulleZlib is too old"
 # endif
 # if MULLE_ZLIB_VERSION >= ((0 << 20) | (16 << 8) | 0)

@@ -1,7 +1,6 @@
-cmake_minimum_required( VERSION 3.1)
+cmake_minimum_required( VERSION 3.15)
 
 project( MulleCurl C)
-add_definitions( -DMULLE_CURL_EXTERN_GLOBAL=extern)
 
 
 
