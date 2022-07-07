@@ -30,7 +30,6 @@ static NSString   *URL = @"https://www.mulle-kybernetik.com/weblog/2019/mulle_ob
 int  main( void)
 {
    MulleCurl   *curl;
-   NSURL       *url;
    NSData      *data;
    NSError     *error;
 
@@ -56,7 +55,7 @@ Notable is the simple interface. Instead of `-dataWithContentsOfURL:error:` it
 is just `-dataWithContentsOfURLWithString:`. You don't have to wrap the string
 into an NSURL and the NSError can be retrieved later if desired.
 
-[MulleWeb](/MulleWeb/MulleWeb) adds a `NSURL` interface for convenience.
+[MulleWeb](//github.com/MulleWeb/MulleWebClient) adds `NSURL` methods to `MulleCurl`.
 
 
 ## Add
