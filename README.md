@@ -56,7 +56,7 @@ Notable is the simple interface. Instead of `-dataWithContentsOfURL:error:` it
 is just `-dataWithContentsOfURLWithString:`. You don't have to wrap the string
 into an NSURL and the NSError can be retrieved later if desired.
 
-[MulleWeb](/MulleWeb/MulleWeb) adds a `NSURL` interface for convenience.
+[MulleWeb](//github.com/MulleWeb/MulleWebClient) adds a `NSURL` interface for convenience.
 
 
 ## Add
