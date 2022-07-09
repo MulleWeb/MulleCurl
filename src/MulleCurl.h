@@ -47,7 +47,8 @@
    void   *_chunk;
 }
 
-@property( assign) void  *connection;   // CURL *
+@property( assign) void        *connection;         // CURL *
+@property( assign) NSUInteger  validResponseCode;   // 0 : don't care, 200 = http OK (default)
 
 // set these if you use the parser interface
 @property( retain) NSObject <MulleCurlParser>  *parser;
@@ -148,9 +149,16 @@
 // large contents)
 // -setParser: beforehand.
 //
+// If _validResponseCode is set, these routines will check that the response
+// is a valid response (like 200) and return nil, if not. This simplifies
+// calling code, that just wants to get some NSData from the URL or not
+//
 - (id) parseContentsOfURLWithString:(NSString *) url;
 - (id) parseContentsOfURLWithString:(NSString *) url
                       byPostingData:(NSData *) data;
+
+// like 404 (not found) or 200 (fine)
+- (NSUInteger) lastResponseCode;
 
 @end
 

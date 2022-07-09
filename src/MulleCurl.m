@@ -371,6 +371,15 @@ static size_t   receive_curl_body_bytes( void *contents,
 }
 
 
+- (NSUInteger) lastResponseCode
+{
+   long   code;
+
+   if( curl_easy_getinfo(_connection, CURLINFO_RESPONSE_CODE, &code) != CURLE_OK)
+      return( NSNotFound);
+   return( code);
+}
+
 /*
  * The actual response/request
  */
@@ -379,6 +388,7 @@ static size_t   receive_curl_body_bytes( void *contents,
 {
    CURLcode     res;
    NSUInteger   length;
+   NSUInteger   code;
 
    NSParameterAssert( [url isKindOfClass:[NSString class]]);
 
@@ -409,7 +419,17 @@ static size_t   receive_curl_body_bytes( void *contents,
       // directly
       //
       errno = res;
-      return( NULL);
+      return( nil);
+   }
+
+   if( _validResponseCode)
+   {
+      code = [self lastResponseCode];
+      if( code == NSNotFound)
+         return( nil);
+
+      if( code != _validResponseCode)
+         return( nil);
    }
 
    return( [_parser parsedObjectWithCurl:self]);
@@ -451,7 +471,7 @@ static size_t   receive_curl_body_bytes( void *contents,
 
 
 - (NSData *) dataWithContentsOfURLWithString:(NSString *) url
-                           byPostingData:(NSData *) data
+                               byPostingData:(NSData *) data
 {
    id   plist;
 
