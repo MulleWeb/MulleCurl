@@ -15,6 +15,7 @@ endif()
 # Generated from sourcetree: 78cfb19c-00ec-4df6-9c13-00a6aa134000;curl;no-all-load,no-import;Release:curl,Debug:curl-d
 # Disable with : `mulle-sourcetree mark curl no-link`
 # Disable for this platform: `mulle-sourcetree mark curl no-cmake-platform-${MULLE_UNAME}`
+# Disable for a sdk: `mulle-sourcetree mark curl no-cmake-sdk-<name>`
 #
 if( NOT CURL_LIBRARY)
    if( "${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
@@ -91,6 +92,7 @@ endif()
 # Generated from sourcetree: CD2DD14F-0BE9-4304-9520-04508C7787FB;MulleObjCStandardFoundation;no-singlephase;
 # Disable with : `mulle-sourcetree mark MulleObjCStandardFoundation no-link`
 # Disable for this platform: `mulle-sourcetree mark MulleObjCStandardFoundation no-cmake-platform-${MULLE_UNAME}`
+# Disable for a sdk: `mulle-sourcetree mark MulleObjCStandardFoundation no-cmake-sdk-<name>`
 #
 if( NOT MULLE_OBJC_STANDARD_FOUNDATION_LIBRARY)
    find_library( MULLE_OBJC_STANDARD_FOUNDATION_LIBRARY NAMES ${CMAKE_STATIC_LIBRARY_PREFIX}MulleObjCStandardFoundation${CMAKE_DEBUG_POSTFIX}${CMAKE_STATIC_LIBRARY_SUFFIX} ${CMAKE_STATIC_LIBRARY_PREFIX}MulleObjCStandardFoundation${CMAKE_STATIC_LIBRARY_SUFFIX} MulleObjCStandardFoundation NO_CMAKE_SYSTEM_PATH NO_SYSTEM_ENVIRONMENT_PATH)
@@ -171,6 +173,7 @@ endif()
 # Generated from sourcetree: f3c54219-3d56-4d37-8e04-2aed97ace766;MulleZlib;no-singlephase;
 # Disable with : `mulle-sourcetree mark MulleZlib no-link`
 # Disable for this platform: `mulle-sourcetree mark MulleZlib no-cmake-platform-${MULLE_UNAME}`
+# Disable for a sdk: `mulle-sourcetree mark MulleZlib no-cmake-sdk-<name>`
 #
 if( NOT MULLE_ZLIB_LIBRARY)
    find_library( MULLE_ZLIB_LIBRARY NAMES ${CMAKE_STATIC_LIBRARY_PREFIX}MulleZlib${CMAKE_DEBUG_POSTFIX}${CMAKE_STATIC_LIBRARY_SUFFIX} ${CMAKE_STATIC_LIBRARY_PREFIX}MulleZlib${CMAKE_STATIC_LIBRARY_SUFFIX} MulleZlib NO_CMAKE_SYSTEM_PATH NO_SYSTEM_ENVIRONMENT_PATH)

@@ -1,3 +1,8 @@
+## 0.18.0
+
+* optionally use response code (200) to figure out if received data is valid
+
+
 ### 0.17.6
 
 * moved generic headers into src/generic

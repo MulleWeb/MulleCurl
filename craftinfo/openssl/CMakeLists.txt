@@ -21,7 +21,7 @@ foreach( BORING_FILE ${BORING_FILES} )
 endforeach()
 
 if( SCRIPTS)
-	install( FILES "${SCRIPTS}" DESTINATION "bin"
+	install( FILES ${SCRIPTS} DESTINATION "bin"
 	         PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ
 	                     GROUP_EXECUTE GROUP_READ
 	                     WORLD_EXECUTE WORLD_READ

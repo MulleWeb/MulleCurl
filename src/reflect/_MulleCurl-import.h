@@ -13,25 +13,25 @@
 
 // You can tweak the following #import with these commands.
 // (Use CD2DD14F-0BE9-4304-9520-04508C7787FB instead of MulleObjCStandardFoundation if there are duplicate entries)
-//    remove:             `mulle-sde dependency mark MulleObjCStandardFoundation no-header`
-//    rename:             `mulle-sde dependency|library set MulleObjCStandardFoundation include whatever.h`
-//    reorder:            `mulle-sde dependency move MulleObjCStandardFoundation <up|down>`
+//    remove #import: : `mulle-sde dependency mark MulleObjCStandardFoundation no-header`
+//    rename:              `mulle-sde dependency|library set MulleObjCStandardFoundation include whatever.h`
+//    reorder:             `mulle-sde dependency move MulleObjCStandardFoundation <up|down>`
 //    toggle #import:     `mulle-sde dependency mark MulleObjCStandardFoundation [no-]import`
-//    toggle public:      `mulle-sde dependency mark MulleObjCStandardFoundation [no-]public`
-//    toggle optional:    `mulle-sde dependency mark MulleObjCStandardFoundation [no-]require`
-//    remove for platform:`mulle-sde dependency mark MulleObjCStandardFoundation no-platform-<uname>`
+//    toggle public:       `mulle-sde dependency mark MulleObjCStandardFoundation [no-]public`
+//    toggle optional:     `mulle-sde dependency mark MulleObjCStandardFoundation [no-]require`
+//    remove for platform: `mulle-sde dependency mark MulleObjCStandardFoundation no-platform-<uname>`
 //        (use `mulle-sourcetree-to-c --unames` to list known values)
 #import <MulleObjCStandardFoundation/MulleObjCStandardFoundation.h>   // MulleObjCStandardFoundation
 
 // You can tweak the following #import with these commands.
 // (Use f3c54219-3d56-4d37-8e04-2aed97ace766 instead of MulleZlib if there are duplicate entries)
-//    remove:             `mulle-sde dependency mark MulleZlib no-header`
-//    rename:             `mulle-sde dependency|library set MulleZlib include whatever.h`
-//    reorder:            `mulle-sde dependency move MulleZlib <up|down>`
+//    remove #import: : `mulle-sde dependency mark MulleZlib no-header`
+//    rename:              `mulle-sde dependency|library set MulleZlib include whatever.h`
+//    reorder:             `mulle-sde dependency move MulleZlib <up|down>`
 //    toggle #import:     `mulle-sde dependency mark MulleZlib [no-]import`
-//    toggle public:      `mulle-sde dependency mark MulleZlib [no-]public`
-//    toggle optional:    `mulle-sde dependency mark MulleZlib [no-]require`
-//    remove for platform:`mulle-sde dependency mark MulleZlib no-platform-<uname>`
+//    toggle public:       `mulle-sde dependency mark MulleZlib [no-]public`
+//    toggle optional:     `mulle-sde dependency mark MulleZlib [no-]require`
+//    remove for platform: `mulle-sde dependency mark MulleZlib no-platform-<uname>`
 //        (use `mulle-sourcetree-to-c --unames` to list known values)
 #import <MulleZlib/MulleZlib.h>   // MulleZlib
 

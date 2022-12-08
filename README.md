@@ -3,11 +3,16 @@
 #### 🥌 HTTP client library for mulle-objc
 
 Uses [libcurl](https://curl.haxx.se) to GET and POST `NSData` from URLs.
-It uses the **easy**  interface of libcurl. The curl library is compiled
+It uses the **easy** interface of libcurl. The curl library is compiled
 for HTTP(S) only.
 
 Written in and for [mulle-objc](//mulle-objc.github.io).
 
+> #### Note
+>
+> On linux ensure, that openssl is available:
+> `sudo apt-get install libssl-dev` (debian/ubuntu)
+>
 
 ### You are here
 
@@ -19,7 +24,7 @@ Written in and for [mulle-objc](//mulle-objc.github.io).
 
 This example fetches a text file and prints it out.
 
-```
+``` objc
 #import <MulleCurl/MulleCurl.h>
 
 #include <stdio.h>
@@ -63,7 +68,7 @@ into an NSURL and the NSError can be retrieved later if desired.
 
 Use [mulle-sde](//github.com/mulle-sde) to add MulleCurl to your project:
 
-```
+``` sh
 mulle-sde dependency add --objc --github MulleWeb MulleCurl
 ```
 
@@ -72,7 +77,7 @@ mulle-sde dependency add --objc --github MulleWeb MulleCurl
 Use [mulle-sde](//github.com/mulle-sde) to build and install MulleCurl and
 all its dependencies:
 
-```
+``` sh
 mulle-sde install --objc --prefix /usr/local \
    https://github.com/MulleWeb/MulleCurl/archive/latest.tar.gz
 ```
