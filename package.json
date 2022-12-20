@@ -8,7 +8,7 @@
    "license" : "UNLICENSED",
    "repository" : {
       "type" : "git",
-      "url" : "MulleWeb/MulleCurl"
+      "url" : "github:MulleWeb/MulleCurl"
    },
    "dependencies" : {
       "openssl" : "git://github.com/openssl/openssl",
