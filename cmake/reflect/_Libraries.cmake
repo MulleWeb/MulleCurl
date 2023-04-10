@@ -18,7 +18,9 @@ endif()
 # Disable for a sdk: `mulle-sourcetree mark ssl no-cmake-sdk-<name>`
 #
 if( NOT SSL_LIBRARY)
-   find_library( SSL_LIBRARY NAMES ssl)
+   find_library( SSL_LIBRARY NAMES
+      ssl
+   )
    message( STATUS "SSL_LIBRARY is ${SSL_LIBRARY}")
    #
    # The order looks ascending, but due to the way this file is read
@@ -29,11 +31,7 @@ if( NOT SSL_LIBRARY)
       # Add SSL_LIBRARY to OS_SPECIFIC_LIBRARIES list.
       # Disable with: `mulle-sourcetree mark ssl no-cmake-add`
       #
-      set( OS_SPECIFIC_LIBRARIES
-         ${OS_SPECIFIC_LIBRARIES}
-         ${SSL_LIBRARY}
-         CACHE INTERNAL "need to cache this"
-      )
+      list( APPEND OS_SPECIFIC_LIBRARIES ${SSL_LIBRARY})
       # intentionally left blank
    else()
       # Disable with: `mulle-sourcetree mark ssl no-require-link`
@@ -49,7 +47,9 @@ endif()
 # Disable for a sdk: `mulle-sourcetree mark crypto no-cmake-sdk-<name>`
 #
 if( NOT CRYPTO_LIBRARY)
-   find_library( CRYPTO_LIBRARY NAMES crypto)
+   find_library( CRYPTO_LIBRARY NAMES
+      crypto
+   )
    message( STATUS "CRYPTO_LIBRARY is ${CRYPTO_LIBRARY}")
    #
    # The order looks ascending, but due to the way this file is read
@@ -60,11 +60,7 @@ if( NOT CRYPTO_LIBRARY)
       # Add CRYPTO_LIBRARY to OS_SPECIFIC_LIBRARIES list.
       # Disable with: `mulle-sourcetree mark crypto no-cmake-add`
       #
-      set( OS_SPECIFIC_LIBRARIES
-         ${OS_SPECIFIC_LIBRARIES}
-         ${CRYPTO_LIBRARY}
-         CACHE INTERNAL "need to cache this"
-      )
+      list( APPEND OS_SPECIFIC_LIBRARIES ${CRYPTO_LIBRARY})
       # intentionally left blank
    else()
       # Disable with: `mulle-sourcetree mark crypto no-require-link`

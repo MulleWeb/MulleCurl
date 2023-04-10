@@ -1,0 +1,12 @@
+Uses [libcurl](https://curl.haxx.se) to GET and POST `NSData` from URLs.
+It uses the **easy** interface of libcurl. The curl library is compiled
+for HTTP(S) only.
+
+Written in and for [mulle-objc](//mulle-objc.github.io).
+
+> #### Note
+>
+> On linux ensure, that openssl is available:
+> `sudo apt-get install libssl-dev` (debian/ubuntu)
+>
+
