@@ -1,0 +1,45 @@
+## Usage
+
+
+This example fetches a text file and prints it out.
+
+``` objc
+#import <MulleCurl/MulleCurl.h>
+
+#include <stdio.h>
+
+static NSString   *URL = @"https://www.mulle-kybernetik.com/weblog/2019/mulle_objc_0_16_release.html";
+
+
+int  main( void)
+{
+   MulleCurl   *curl;
+   NSData      *data;
+   NSError     *error;
+
+   curl = [[MulleCurl new] autorelease];
+   [curl setOptions:@{
+                       @"CURLOPT_SSL_VERIFYPEER": @(NO),
+                       @"CURLOPT_SSL_VERIFYHOST": @(NO)
+                     }];
+   data = [curl dataWithContentsOfURLWithString:URL];
+   if( ! data)
+   {
+      error = [NSError mulleExtractError];
+      fprintf( stderr, "%s\n", [[error description] UTF8String]);
+      return( 1);
+   }
+
+   printf( "%.*s", (int) [data length], [data bytes]);
+   return( 0);
+}
+```
+
+Notable is the simple interface. Instead of `-dataWithContentsOfURL:error:` it
+is just `-dataWithContentsOfURLWithString:`. You don't have to wrap the string
+into an NSURL and the NSError can be retrieved later if desired.
+
+[MulleWeb](//github.com/MulleWeb/MulleWebClient) adds a `NSURL` interface for
+convenience.
+
+

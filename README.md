@@ -2,6 +2,7 @@
 
 #### 🥌 HTTP client library for mulle-objc
 
+
 Uses [libcurl](https://curl.haxx.se) to GET and POST `NSData` from URLs.
 It uses the **easy** interface of libcurl. The curl library is compiled
 for HTTP(S) only.
@@ -14,9 +15,11 @@ Written in and for [mulle-objc](//mulle-objc.github.io).
 > `sudo apt-get install libssl-dev` (debian/ubuntu)
 >
 
-### You are here
 
-![Overview](overview.dot.svg)
+| Release Version                                       | Release Notes
+|-------------------------------------------------------|--------------
+| ![Mulle kybernetiK tag](https://img.shields.io/github/tag//MulleCurl.svg?branch=release) [![Build Status](https://github.com//MulleCurl/workflows/CI/badge.svg?branch=release)](//github.com//MulleCurl/actions)| [RELEASENOTES](RELEASENOTES.md) |
+
 
 
 ## Usage
@@ -64,46 +67,64 @@ into an NSURL and the NSError can be retrieved later if desired.
 convenience.
 
 
+
+
+
+
+## Overview
+![Overview](overview.dot.svg)
+
+| Requirement                                  | Description
+|----------------------------------------------|-----------------------
+| [openssl](https://github.com/openssl/openssl)             | 
+| [curl](https://curl.haxx.se/download/curl-7.86.0.tar.gz)             | 
+| [MulleFoundationBase](https://github.com/MulleFoundation/MulleFoundationBase)             | 🛸 MulleFoundationBase does something
+| [MulleZlib](https://github.com/MulleWeb/MulleZlib)             | 🐘 Zlib compression for mulle-objc
+| [mulle-objc-list](https://github.com/mulle-objc/mulle-objc-list)             | 📒 Lists mulle-objc runtime information contained in executables.
+
+
 ## Add
 
 Use [mulle-sde](//github.com/mulle-sde) to add MulleCurl to your project:
 
 ``` sh
-mulle-sde dependency add --objc --github MulleWeb MulleCurl
+mulle-sde add github:MulleWeb/MulleCurl
 ```
 
 ## Install
 
-Use [mulle-sde](//github.com/mulle-sde) to build and install MulleCurl and
-all its dependencies:
+### Install with mulle-sde
+
+Use [mulle-sde](//github.com/mulle-sde) to build and install MulleCurl and all dependencies:
 
 ``` sh
-mulle-sde install --objc --prefix /usr/local \
-   https://github.com/MulleWeb/MulleCurl/archive/latest.tar.gz
+mulle-sde install --prefix /usr/local \
+   https://github.com//MulleCurl/archive/latest.tar.gz
 ```
 
+### Manual Installation
 
-## Acknowledgements
+Install the [requirements](#Overview) and then install
+**MulleCurl**
+with [cmake](https://cmake.org). Here `/usr/local` is chosen as the install
+prefix:
 
-Parts of this library are from [libcurl(https://curl.haxx.se/libcurl/), which has this license:
-
-```
-COPYRIGHT AND PERMISSION NOTICE
-
-Copyright (c) 1996 - 2019, Daniel Stenberg, daniel@haxx.se, and many contributors, see the THANKS file.
-
-All rights reserved.
-
-Permission to use, copy, modify, and distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT OF THIRD PARTY RIGHTS. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-Except as contained in this notice, the name of a copyright holder shall not be used in advertising or otherwise to promote the sale, use or other dealings in this Software without prior written authorization of the copyright holder.
+``` sh
+cmake -B build \
+      -DCMAKE_INSTALL_PREFIX=/usr/local \
+      -DCMAKE_PREFIX_PATH=/usr/local \
+      -DCMAKE_BUILD_TYPE=Release &&
+cmake --build build --config Release &&
+cmake --install build --config Release
 ```
 
-## Authors
+## Platforms and Compilers
 
-[Nat!](//www.mulle-kybernetik.com/weblog) for
-[Mulle kybernetiK](//www.mulle-kybernetik.com) and
-[Codeon GmbH](//www.codeon.de)
+All platforms and compilers supported by
+[mulle-c11](//github.com/mulle-c/mulle-c11).
+
+
+## Author
+
+[Nat!](https://mulle-kybernetik.com/weblog) for Mulle kybernetiK
 

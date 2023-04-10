@@ -174,7 +174,7 @@
 extern NSString   *MulleCurlErrorDomain; // = @"MulleCurlError";
 
 
-#define MULLE_CURL_VERSION  ((0 << 20) | (18 << 8) | 0)
+#define MULLE_CURL_VERSION  ((0 << 20) | (18 << 8) | 1)
 
 
 static inline unsigned int   MulleCurl_get_version_major( void)

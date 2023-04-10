@@ -1,0 +1,53 @@
+{
+   project =
+   {
+      description="🥌 HTTP client library for mulle-objc";
+      domain="github";
+      name="MulleCurl";
+      user="MulleWeb";
+      repo="MulleCurl";
+      homepage="https://github.com/MulleWeb/MulleCurl";
+      license="UNLICENSED"
+   };
+   dependencies =
+   (
+      {
+         domain="github";
+         name="openssl";
+         repo="openssl";
+         url="https://github.com/openssl/openssl";
+         user="openssl";
+      },
+      {
+         domain="generic";
+         name="curl";
+         repo="curl";
+         url="https://curl.haxx.se/download/curl-7.86.0.tar.gz";
+         user="";
+      },
+      {
+         description="🛸 MulleFoundationBase does something";
+         domain="github";
+         name="MulleFoundationBase";
+         repo="MulleFoundationBase";
+         url="https://github.com/MulleFoundation/MulleFoundationBase";
+         user="MulleFoundation";
+      },
+      {
+         description="🐘 Zlib compression for mulle-objc";
+         domain="github";
+         name="MulleZlib";
+         repo="MulleZlib";
+         url="https://github.com/MulleWeb/MulleZlib";
+         user="MulleWeb";
+      },
+      {
+         description="📒 Lists mulle-objc runtime information contained in executables.";
+         domain="github";
+         name="mulle-objc-list";
+         repo="mulle-objc-list";
+         url="https://github.com/mulle-objc/mulle-objc-list";
+         user="mulle-objc";
+      }
+   )
+}
