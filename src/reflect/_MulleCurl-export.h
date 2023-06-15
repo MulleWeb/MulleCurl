@@ -9,6 +9,13 @@
  *
  *      mulle-sde environment set MULLE_MATCH_TO_C_RUN DISABLE
  */
+#ifndef mulle_curl_export_h__
+#define mulle_curl_export_h__
+
+
 #import "MulleCurlParser.h"
 #import "MulleObjCLoader+MulleCurl.h"
 #import "NSMutableData+MulleCurlParser.h"
+
+
+#endif

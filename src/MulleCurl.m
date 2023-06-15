@@ -146,8 +146,6 @@ static NSString  *translator( NSInteger code)
 {
    struct mulle_buffer   buffer;
    auto char             space[ 256];
-   size_t                size;
-   size_t                length;
    NSString              *key;
    id                    value;
 
