@@ -11,27 +11,33 @@
  *
  */
 
-// You can tweak the following #import with these commands.
-// (Use 7471542C-7E1A-4714-86BC-9ED490614DF9 instead of MulleFoundationBase if there are duplicate entries)
-//    remove #import: : `mulle-sde dependency mark MulleFoundationBase no-header`
-//    rename:              `mulle-sde dependency|library set MulleFoundationBase include whatever.h`
-//    reorder:             `mulle-sde dependency move MulleFoundationBase <up|down>`
-//    toggle #import:     `mulle-sde dependency mark MulleFoundationBase [no-]import`
-//    toggle public:       `mulle-sde dependency mark MulleFoundationBase [no-]public`
-//    toggle optional:     `mulle-sde dependency mark MulleFoundationBase [no-]require`
-//    remove for platform: `mulle-sde dependency mark MulleFoundationBase no-platform-<uname>`
+// To remove the following dependency (headers and library) completely:
+//   `mulle-sde dependency remove MulleFoundationBase`
+// (Use 7471542C-7E1A-4714-86BC-9ED490614DF9 instead of MulleFoundationBase, if there are duplicate entries)
+//
+// You can tweak the following #import with these commands:
+//    remove #import      : `mulle-sde dependency mark MulleFoundationBase no-header`
+//    rename              : `mulle-sde dependency|library set MulleFoundationBase include whatever.h`
+//    reorder             : `mulle-sde dependency move MulleFoundationBase <up|down>`
+//    toggle #import      : `mulle-sde dependency mark MulleFoundationBase [no-]import`
+//    toggle public       : `mulle-sde dependency mark MulleFoundationBase [no-]public`
+//    toggle optional     : `mulle-sde dependency mark MulleFoundationBase [no-]require`
+//    remove for platform : `mulle-sde dependency mark MulleFoundationBase no-platform-<uname>`
 //        (use `mulle-sourcetree-to-c --unames` to list known values)
 #import <MulleFoundationBase/MulleFoundationBase.h>   // MulleFoundationBase
 
-// You can tweak the following #import with these commands.
-// (Use f3c54219-3d56-4d37-8e04-2aed97ace766 instead of MulleZlib if there are duplicate entries)
-//    remove #import: : `mulle-sde dependency mark MulleZlib no-header`
-//    rename:              `mulle-sde dependency|library set MulleZlib include whatever.h`
-//    reorder:             `mulle-sde dependency move MulleZlib <up|down>`
-//    toggle #import:     `mulle-sde dependency mark MulleZlib [no-]import`
-//    toggle public:       `mulle-sde dependency mark MulleZlib [no-]public`
-//    toggle optional:     `mulle-sde dependency mark MulleZlib [no-]require`
-//    remove for platform: `mulle-sde dependency mark MulleZlib no-platform-<uname>`
+// To remove the following dependency (headers and library) completely:
+//   `mulle-sde dependency remove MulleZlib`
+// (Use f3c54219-3d56-4d37-8e04-2aed97ace766 instead of MulleZlib, if there are duplicate entries)
+//
+// You can tweak the following #import with these commands:
+//    remove #import      : `mulle-sde dependency mark MulleZlib no-header`
+//    rename              : `mulle-sde dependency|library set MulleZlib include whatever.h`
+//    reorder             : `mulle-sde dependency move MulleZlib <up|down>`
+//    toggle #import      : `mulle-sde dependency mark MulleZlib [no-]import`
+//    toggle public       : `mulle-sde dependency mark MulleZlib [no-]public`
+//    toggle optional     : `mulle-sde dependency mark MulleZlib [no-]require`
+//    remove for platform : `mulle-sde dependency mark MulleZlib no-platform-<uname>`
 //        (use `mulle-sourcetree-to-c --unames` to list known values)
 #import <MulleZlib/MulleZlib.h>   // MulleZlib
 

@@ -2,7 +2,6 @@
 
 #### 🥌 HTTP client library for mulle-objc
 
-
 Uses [libcurl](https://curl.haxx.se) to GET and POST `NSData` from URLs.
 It uses the **easy** interface of libcurl. The curl library is compiled
 for HTTP(S) only.
@@ -16,9 +15,10 @@ Written in and for [mulle-objc](//mulle-objc.github.io).
 >
 
 
+
 | Release Version                                       | Release Notes
 |-------------------------------------------------------|--------------
-| ![Mulle kybernetiK tag](https://img.shields.io/github/tag//MulleCurl.svg?branch=release) [![Build Status](https://github.com//MulleCurl/workflows/CI/badge.svg?branch=release)](//github.com//MulleCurl/actions)| [RELEASENOTES](RELEASENOTES.md) |
+| ![Mulle kybernetiK tag](https://img.shields.io/github/tag/MulleWeb/MulleCurl.svg?branch=release) [![Build Status](https://github.com/MulleWeb/MulleCurl/workflows/CI/badge.svg?branch=release)](//github.com/MulleWeb/MulleCurl/actions) | [RELEASENOTES](RELEASENOTES.md) |
 
 
 
@@ -71,16 +71,9 @@ convenience.
 
 
 
-## Overview
-![Overview](overview.dot.svg)
+### You are here
 
-| Requirement                                  | Description
-|----------------------------------------------|-----------------------
-| [openssl](https://github.com/openssl/openssl)             | 
-| [curl](https://curl.haxx.se/download/curl-7.86.0.tar.gz)             | 
-| [MulleFoundationBase](https://github.com/MulleFoundation/MulleFoundationBase)             | 🛸 MulleFoundationBase does something
-| [MulleZlib](https://github.com/MulleWeb/MulleZlib)             | 🐘 Zlib compression for mulle-objc
-| [mulle-objc-list](https://github.com/mulle-objc/mulle-objc-list)             | 📒 Lists mulle-objc runtime information contained in executables.
+![Overview](overview.dot.svg)
 
 
 ## Add
@@ -127,7 +120,7 @@ cmake --build build --config Release &&
 cmake --install build --config Release
 ```
 
-## Platforms and Compilers
+### Platforms and Compilers
 
 All platforms and compilers supported by
 [mulle-c11](//github.com/mulle-c/mulle-c11).
@@ -135,5 +128,5 @@ All platforms and compilers supported by
 
 ## Author
 
-[Nat!](https://mulle-kybernetik.com/weblog) for Mulle kybernetiK
+[Nat!](https://mulle-kybernetik.com/weblog) for Mulle kybernetiK  
 

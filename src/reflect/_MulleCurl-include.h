@@ -14,27 +14,33 @@
 #ifndef _mulle_curl_include_h__
 #define _mulle_curl_include_h__
 
-// You can tweak the following #include with these commands.
-// (Use EE48C273-5D2B-49DC-ADC6-627F85AA4C59 instead of ssl if there are duplicate entries)
-//    remove #include:: `mulle-sde dependency mark ssl no-header`
-//    rename:              `mulle-sde dependency|library set ssl include whatever.h`
-//    reorder:             `mulle-sde dependency move ssl <up|down>`
-//    toggle #include:    `mulle-sde dependency mark ssl [no-]import`
-//    toggle public:       `mulle-sde dependency mark ssl [no-]public`
-//    toggle optional:     `mulle-sde dependency mark ssl [no-]require`
-//    remove for platform: `mulle-sde dependency mark ssl no-platform-<uname>`
+// To remove the following dependency (headers and library) completely:
+//   `mulle-sde dependency remove ssl`
+// (Use EE48C273-5D2B-49DC-ADC6-627F85AA4C59 instead of ssl, if there are duplicate entries)
+//
+// You can tweak the following #include with these commands:
+//    remove #include: `mulle-sde dependency mark ssl no-header`
+//    rename              : `mulle-sde dependency|library set ssl include whatever.h`
+//    reorder             : `mulle-sde dependency move ssl <up|down>`
+//    toggle #include: `mulle-sde dependency mark ssl [no-]import`
+//    toggle public       : `mulle-sde dependency mark ssl [no-]public`
+//    toggle optional     : `mulle-sde dependency mark ssl [no-]require`
+//    remove for platform : `mulle-sde dependency mark ssl no-platform-<uname>`
 //        (use `mulle-sourcetree-to-c --unames` to list known values)
 #include <openssl/ssl.h>   // ssl
 
-// You can tweak the following #include with these commands.
-// (Use 78cfb19c-00ec-4df6-9c13-00a6aa134000 instead of curl if there are duplicate entries)
-//    remove #include:: `mulle-sde dependency mark curl no-header`
-//    rename:              `mulle-sde dependency|library set curl include whatever.h`
-//    reorder:             `mulle-sde dependency move curl <up|down>`
-//    toggle #include:    `mulle-sde dependency mark curl [no-]import`
-//    toggle public:       `mulle-sde dependency mark curl [no-]public`
-//    toggle optional:     `mulle-sde dependency mark curl [no-]require`
-//    remove for platform: `mulle-sde dependency mark curl no-platform-<uname>`
+// To remove the following dependency (headers and library) completely:
+//   `mulle-sde dependency remove curl`
+// (Use 78cfb19c-00ec-4df6-9c13-00a6aa134000 instead of curl, if there are duplicate entries)
+//
+// You can tweak the following #include with these commands:
+//    remove #include: `mulle-sde dependency mark curl no-header`
+//    rename              : `mulle-sde dependency|library set curl include whatever.h`
+//    reorder             : `mulle-sde dependency move curl <up|down>`
+//    toggle #include: `mulle-sde dependency mark curl [no-]import`
+//    toggle public       : `mulle-sde dependency mark curl [no-]public`
+//    toggle optional     : `mulle-sde dependency mark curl [no-]require`
+//    remove for platform : `mulle-sde dependency mark curl no-platform-<uname>`
 //        (use `mulle-sourcetree-to-c --unames` to list known values)
 #include <curl/curl.h>   // curl
 

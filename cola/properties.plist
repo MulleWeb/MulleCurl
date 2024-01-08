@@ -7,7 +7,7 @@
       user="MulleWeb";
       repo="MulleCurl";
       homepage="https://github.com/MulleWeb/MulleCurl";
-      license="UNLICENSED"
+      license="BSD-3-Clause"
    };
    dependencies =
    (
