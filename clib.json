@@ -1,0 +1,36 @@
+{
+   "name" : "MulleCurl",
+   "version" : "0.18.2",
+   "description" : "🥌 HTTP client library for mulle-objc",
+   "keywords" : [],
+   "license" : "BSD-3-Clause",
+   "repo" : "MulleWeb/MulleCurl",
+   "src" : [
+      "src/generic/import-private.h",
+      "src/generic/import.h",
+      "src/MulleCurl+ClassMethods.m",
+      "src/MulleCurl+Private.h",
+      "src/MulleCurl+Private.m",
+      "src/MulleCurl.h",
+      "src/MulleCurl.m",
+      "src/MulleCurlParser.h",
+      "src/MulleObjCLoader+MulleCurl.h",
+      "src/MulleObjCLoader+MulleCurl.m",
+      "src/NSMutableData+MulleCurlParser.h",
+      "src/NSMutableData+MulleCurlParser.m",
+      "src/reflect/objc-loader.inc",
+      "src/reflect/_MulleCurl-export.h",
+      "src/reflect/_MulleCurl-import-private.h",
+      "src/reflect/_MulleCurl-import.h",
+      "src/reflect/_MulleCurl-include-private.h",
+      "src/reflect/_MulleCurl-include.h",
+      "src/reflect/_MulleCurl-provide.h",
+      "src/reflect/_MulleCurl-versioncheck.h"
+   ],
+   "dependencies" : {
+      "openssl/openssl": "*",
+      "MulleFoundation/MulleFoundationBase": "*",
+      "MulleWeb/MulleZlib": "*",
+      "mulle-objc/mulle-objc-list": "*"
+   }
+}

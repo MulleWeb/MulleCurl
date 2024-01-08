@@ -9,8 +9,8 @@
  *
  *      mulle-sde environment set MULLE_MATCH_TO_C_RUN DISABLE
  */
-#ifndef mulle_curl_provide_h__
-#define mulle_curl_provide_h__
+#ifndef _mulle_curl__provide_h__
+#define _mulle_curl__provide_h__
 
 
 // no headers

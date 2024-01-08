@@ -7,10 +7,10 @@
 
 #if defined( MULLE_FOUNDATION_BASE_VERSION)
 # ifndef MULLE_FOUNDATION_BASE_VERSION_MIN
-#  define MULLE_FOUNDATION_BASE_VERSION_MIN  ((0 << 20) | (22 << 8) | 0)
+#  define MULLE_FOUNDATION_BASE_VERSION_MIN  ((0UL << 20) | (22 << 8) | 0)
 # endif
 # ifndef MULLE_FOUNDATION_BASE_VERSION_MAX
-#  define MULLE_FOUNDATION_BASE_VERSION_MAX  ((0 << 20) | (23 << 8) | 0)
+#  define MULLE_FOUNDATION_BASE_VERSION_MAX  ((0UL << 20) | (23 << 8) | 0)
 # endif
 # if MULLE_FOUNDATION_BASE_VERSION < MULLE_FOUNDATION_BASE_VERSION_MIN
 #  error "MulleFoundationBase is too old"
@@ -22,10 +22,10 @@
 
 #if defined( MULLE_ZLIB_VERSION)
 # ifndef MULLE_ZLIB_VERSION_MIN
-#  define MULLE_ZLIB_VERSION_MIN  ((0 << 20) | (15 << 8) | 10)
+#  define MULLE_ZLIB_VERSION_MIN  ((0UL << 20) | (15 << 8) | 10)
 # endif
 # ifndef MULLE_ZLIB_VERSION_MAX
-#  define MULLE_ZLIB_VERSION_MAX  ((0 << 20) | (16 << 8) | 0)
+#  define MULLE_ZLIB_VERSION_MAX  ((0UL << 20) | (16 << 8) | 0)
 # endif
 # if MULLE_ZLIB_VERSION < MULLE_ZLIB_VERSION_MIN
 #  error "MulleZlib is too old"
