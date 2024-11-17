@@ -3,6 +3,8 @@
    {
       description="🥌 HTTP client library for mulle-objc";
       domain="github";
+      language="c";
+      dialect="objc";
       name="MulleCurl";
       user="MulleWeb";
       repo="MulleCurl";
@@ -22,7 +24,7 @@
          domain="generic";
          name="curl";
          repo="curl";
-         url="https://curl.haxx.se/download/curl-8.4.0.tar.gz";
+         url="https://curl.haxx.se/download/curl-8.5.0.tar.gz";
          user="";
       },
       {

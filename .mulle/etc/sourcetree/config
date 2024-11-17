@@ -1,5 +1,5 @@
-craftinfo/openssl;local;no-delete,no-header,no-link,no-share,no-subproject,no-update;FD96F6B7-E3AC-478B-A83A-136FF900EC47;;;;;
-craftinfo/curl;local;no-delete,no-header,no-link,no-share,no-subproject,no-update;bb764a95-9db3-4344-bec5-cf5acddff277;;;;;
+craftinfo/openssl-craftinfo;local;no-delete,no-header,no-link,no-share,no-subproject,no-update;FD96F6B7-E3AC-478B-A83A-136FF900EC47;;;;;
+craftinfo/curl-craftinfo;local;no-delete,no-header,no-link,no-share,no-subproject,no-update;bb764a95-9db3-4344-bec5-cf5acddff277;;;;;
 openssl;${OPENSSL_NODETYPE:-tar};no-all-load,no-header,no-import,no-link,no-platform-linux;533C23A3-8CE3-4F6A-90C4-8B696F9BEDD7;${OPENSSL_URL:-https://github.com/openssl/openssl/archive/${MULLE_TAG}.tar.gz};${OPENSSL_BRANCH};${OPENSSL_TAG:-OpenSSL_1_1_1w};;base64:YWxpYXNlcz1zc2wKaW5jbHVkZT1vcGVuc3NsL3NzbC5oCg==
 ssl;none;no-all-load,no-build,no-cmake-inherit,no-delete,no-dependency,no-fs,no-import,no-share,no-update;EE48C273-5D2B-49DC-ADC6-627F85AA4C59;;;;;include=openssl/ssl.h
 crypto;none;no-all-load,no-build,no-cmake-inherit,no-delete,no-dependency,no-fs,no-header,no-import,no-share,no-update;4BFC2752-5817-46EF-9979-D8C9529144F0;;;;;

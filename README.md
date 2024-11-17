@@ -102,7 +102,7 @@ Install the requirements:
 | Requirements                                 | Description
 |----------------------------------------------|-----------------------
 | [openssl](https://github.com/openssl/openssl)             | 
-| [curl](https://curl.haxx.se/download/curl-8.4.0.tar.gz)             | 
+| [curl](https://curl.haxx.se/download/curl-8.5.0.tar.gz)             | 
 | [MulleFoundationBase](https://github.com/MulleFoundation/MulleFoundationBase)             | 🧱 MulleFoundationBase amalgamates Foundations projects
 | [MulleZlib](https://github.com/MulleWeb/MulleZlib)             | 🐘 Zlib compression for mulle-objc
 | [mulle-objc-list](https://github.com/mulle-objc/mulle-objc-list)             | 📒 Lists mulle-objc runtime information contained in executables.
