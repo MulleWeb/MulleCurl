@@ -1,3 +1,9 @@
+### 0.18.3
+
+
+* modernize mulle-buffer code
+* new curl version
+
 ### 0.18.2
 
 * Various small improvements
