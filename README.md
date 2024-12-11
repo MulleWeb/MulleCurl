@@ -18,7 +18,7 @@ Written in and for [mulle-objc](//mulle-objc.github.io).
 
 | Release Version                                       | Release Notes
 |-------------------------------------------------------|--------------
-| ![Mulle kybernetiK tag](https://img.shields.io/github/tag/MulleWeb/MulleCurl.svg?branch=release) [![Build Status](https://github.com/MulleWeb/MulleCurl/workflows/CI/badge.svg?branch=release)](//github.com/MulleWeb/MulleCurl/actions) | [RELEASENOTES](RELEASENOTES.md) |
+| ![Mulle kybernetiK tag](https://img.shields.io/github/tag/MulleWeb/MulleCurl.svg) [![Build Status](https://github.com/MulleWeb/MulleCurl/workflows/CI/badge.svg)](//github.com/MulleWeb/MulleCurl/actions) | [RELEASENOTES](RELEASENOTES.md) |
 
 
 
