@@ -1,6 +1,6 @@
 cmake_minimum_required( VERSION 3.15)
 
-project( MulleCurl VERSION 0.18.3 LANGUAGES C)
+project( MulleCurl VERSION 0.18.4 LANGUAGES C)
 
 
 
