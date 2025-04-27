@@ -43,3 +43,5 @@ cola/wilted/
 *-build-*/
 .idea/
 *.bak
+.mulle/etc/make/build-dir
+vgcore.*
