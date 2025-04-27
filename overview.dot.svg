@@ -18,7 +18,7 @@
 <!-- curl -->
 <g id="node2" class="node">
 <title>curl</title>
-<g id="a_node2"><a xlink:href="https://curl.haxx.se//curl" xlink:title="curl">
+<g id="a_node2"><a xlink:href="https://curl.haxx.se/curl" xlink:title="curl">
 <polygon fill="lightgrey" stroke="black" points="1452,-180 1398,-180 1398,-144 1452,-144 1452,-180"/>
 <text text-anchor="middle" x="1425" y="-158.3" font-family="Times,serif" font-size="14.00">curl</text>
 </a>
@@ -168,7 +168,7 @@
 <!-- MulleObjCRegexFoundation -->
 <g id="node12" class="node">
 <title>MulleObjCRegexFoundation</title>
-<g id="a_node12"><a xlink:href="https://github.com/MulleFoundation/MulleObjCRegexFoundation" xlink:title="MulleObjCRegexFoundation">
+<g id="a_node12"><a xlink:href="https://github.com/MulleFoundation/MulleObjCRegexFoundation@*" xlink:title="MulleObjCRegexFoundation">
 <polygon fill="lightgrey" stroke="black" points="1664.5,-108 1447.5,-108 1447.5,-72 1664.5,-72 1664.5,-108"/>
 <text text-anchor="middle" x="1556" y="-86.3" font-family="Times,serif" font-size="14.00">MulleObjCRegexFoundation</text>
 </a>

@@ -24,7 +24,7 @@
          domain="generic";
          name="curl";
          repo="curl";
-         url="https://curl.haxx.se/download/curl-8.5.0.tar.gz";
+         url="https://curl.haxx.se/curl/tree/";
          user="";
       },
       {

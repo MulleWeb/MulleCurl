@@ -16,9 +16,9 @@ Written in and for [mulle-objc](//mulle-objc.github.io).
 
 
 
-| Release Version                                       | Release Notes
-|-------------------------------------------------------|--------------
-| ![Mulle kybernetiK tag](https://img.shields.io/github/tag/MulleWeb/MulleCurl.svg) [![Build Status](https://github.com/MulleWeb/MulleCurl/workflows/CI/badge.svg)](//github.com/MulleWeb/MulleCurl/actions) | [RELEASENOTES](RELEASENOTES.md) |
+| Release Version                                       | Release Notes  | AI Documentation
+|-------------------------------------------------------|----------------|---------------
+| ![Mulle kybernetiK tag](https://img.shields.io/github/tag/MulleWeb/MulleCurl.svg) [![Build Status](https://github.com/MulleWeb/MulleCurl/workflows/CI/badge.svg)](//github.com/MulleWeb/MulleCurl/actions) | [RELEASENOTES](RELEASENOTES.md) | [DeepWiki for MulleCurl](https://deepwiki.com/MulleWeb/MulleCurl)
 
 
 
@@ -102,7 +102,7 @@ Install the requirements:
 | Requirements                                 | Description
 |----------------------------------------------|-----------------------
 | [openssl](https://github.com/openssl/openssl)             | 
-| [curl](https://curl.haxx.se/download/curl-8.5.0.tar.gz)             | 
+| [curl](https://curl.haxx.se/curl/tree/)             | 
 | [MulleFoundationBase](https://github.com/MulleFoundation/MulleFoundationBase)             | 🧱 MulleFoundationBase amalgamates Foundations projects
 | [MulleZlib](https://github.com/MulleWeb/MulleZlib)             | 🐘 Zlib compression for mulle-objc
 | [mulle-objc-list](https://github.com/mulle-objc/mulle-objc-list)             | 📒 Lists mulle-objc runtime information contained in executables.
