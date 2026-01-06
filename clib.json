@@ -1,9 +1,9 @@
 {
    "name" : "MulleCurl",
-   "version" : "0.18.2",
+   "version" : "0.18.5",
    "description" : "🥌 HTTP client library for mulle-objc",
    "keywords" : [],
-   "license" : "BSD-3-Clause",
+   "license" : "UNLICENSED",
    "repo" : "MulleWeb/MulleCurl",
    "src" : [
       "src/generic/import-private.h",

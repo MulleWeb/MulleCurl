@@ -231,20 +231,20 @@ static size_t   receive_curl_body_bytes( void *contents,
 - (void) setDebugOptions
 {
    // only display curl output in debug mode
-   curl_easy_setopt( _connection, CURLOPT_VERBOSE, YES);
-   curl_easy_setopt( _connection, CURLOPT_NOPROGRESS, NO);
+   curl_easy_setopt( _connection, CURLOPT_VERBOSE, (long) YES);
+   curl_easy_setopt( _connection, CURLOPT_NOPROGRESS, (long) NO);
 }
 
 
 - (void) setDefaultOptions
 {
    // only display curl output in debug mode
-   curl_easy_setopt( _connection, CURLOPT_VERBOSE, NO);
-   curl_easy_setopt( _connection, CURLOPT_NOPROGRESS, YES);
+   curl_easy_setopt( _connection, CURLOPT_VERBOSE, (long) NO);
+   curl_easy_setopt( _connection, CURLOPT_NOPROGRESS, (long) YES);
 
    // settings for programmatic I/O
-   curl_easy_setopt( _connection, CURLOPT_NOSIGNAL, YES);
-   curl_easy_setopt( _connection, CURLOPT_FOLLOWLOCATION, YES);
+   curl_easy_setopt( _connection, CURLOPT_NOSIGNAL, (long) YES);
+   curl_easy_setopt( _connection, CURLOPT_FOLLOWLOCATION, (long) YES);
 
    curl_easy_setopt( _connection, CURLOPT_WRITEFUNCTION, receive_curl_body_bytes);
    curl_easy_setopt( _connection, CURLOPT_WRITEDATA, self);
@@ -280,9 +280,9 @@ static size_t   receive_curl_body_bytes( void *contents,
 {
    // some default timeout settings
    // could tweak this for mobile or so
-   curl_easy_setopt( _connection, CURLOPT_CONNECTTIMEOUT_MS, 2000);  // rather retry  (IMO)
+   curl_easy_setopt( _connection, CURLOPT_CONNECTTIMEOUT_MS, 2000L);  // rather retry  (IMO)
    curl_easy_setopt( _connection, CURLOPT_LOW_SPEED_TIME, 60L);      // 30s @
-   curl_easy_setopt( _connection, CURLOPT_LOW_SPEED_LIMIT, 32000/8); // 32 kbps min
+   curl_easy_setopt( _connection, CURLOPT_LOW_SPEED_LIMIT, 32000L/8); // 32 kbps min
 }
 
 
@@ -290,15 +290,15 @@ static size_t   receive_curl_body_bytes( void *contents,
 {
    // some default timeout settings
    // could tweak this for mobile or so
-   curl_easy_setopt( _connection, CURLOPT_CONNECTTIMEOUT_MS, 5000);  //
+   curl_easy_setopt( _connection, CURLOPT_CONNECTTIMEOUT_MS, 5000L);  //
    curl_easy_setopt( _connection, CURLOPT_LOW_SPEED_TIME, 120L);     // 30s @
-   curl_easy_setopt( _connection, CURLOPT_LOW_SPEED_LIMIT, 2400/8); // 2400 bps min
+   curl_easy_setopt( _connection, CURLOPT_LOW_SPEED_LIMIT, 2400L/8); // 2400 bps min
 }
 
 
 - (void) setNoBodyOptions
 {
-   curl_easy_setopt( _connection, CURLOPT_NOBODY, 1);  // useful for header only
+   curl_easy_setopt( _connection, CURLOPT_NOBODY, 1L);  // useful for header only
 }
 
 
@@ -407,7 +407,7 @@ static size_t   receive_curl_body_bytes( void *contents,
       curl_easy_setopt( _connection, CURLOPT_POSTFIELDS, [data bytes]);
    }
    else
-      curl_easy_setopt( _connection, CURLOPT_POST, 0);
+      curl_easy_setopt( _connection, CURLOPT_POST, 0L);
 
    res = curl_easy_perform( _connection);
    if( res != CURLE_OK)
