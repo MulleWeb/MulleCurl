@@ -158,7 +158,11 @@ static struct mulle_curl_options
   CINIT(HTTPHEADER, SLISTPOINT, 23),
 
   /* This points to a linked list of post entries, struct curl_httppost */
+#if !CURL_AT_LEAST_VERSION(7,56,0)
   CINIT(HTTPPOST, OBJECTPOINT, 24),
+#else
+  CINIT(MIMEPOST, OBJECTPOINT, 269),  /* use this instead of HTTPPOST */
+#endif
 
   /* name of the file keeping your private SSL-certificate */
   CINIT(SSLCERT, STRINGPOINT, 25),
@@ -214,7 +218,6 @@ static struct mulle_curl_options
   CINIT(NOPROGRESS, LONG, 43),   /* shut off the progress meter */
   CINIT(NOBODY, LONG, 44),       /* use HEAD to get http document */
   CINIT(FAILONERROR, LONG, 45),  /* no output on http error codes >= 400 */
-  CINIT(UPLOAD, LONG, 46),       /* this is an upload */
   CINIT(POST, LONG, 47),         /* HTTP POST method */
   CINIT(DIRLISTONLY, LONG, 48),  /* bare names when listing directories */
 
@@ -227,7 +230,11 @@ static struct mulle_curl_options
   CINIT(FOLLOWLOCATION, LONG, 52),  /* use Location: Luke! */
 
   CINIT(TRANSFERTEXT, LONG, 53), /* transfer data in text/ASCII format */
+#if !CURL_AT_LEAST_VERSION(7,12,1)
   CINIT(PUT, LONG, 54),          /* HTTP PUT */
+#else
+  CINIT(UPLOAD, LONG, 46),       /* use this instead of PUT */
+#endif
 
   /* 55 = OBSOLETE */
 
@@ -235,7 +242,11 @@ static struct mulle_curl_options
    * Function that will be called instead of the internal progress display
    * function. This function should be defined as the curl_progress_callback
    * prototype defines. */
+#if !CURL_AT_LEAST_VERSION(7,32,0)
   CINIT(PROGRESSFUNCTION, FUNCTIONPOINT, 56),
+#else
+  CINIT(XFERINFOFUNCTION, FUNCTIONPOINT, 219),  /* use this instead of PROGRESSFUNCTION */
+#endif
 
   /* Data passed to the CURLOPT_PROGRESSFUNCTION and CURLOPT_XFERINFOFUNCTION
      callbacks */
@@ -261,7 +272,9 @@ static struct mulle_curl_options
   /* Set the krb4/5 security level, this also enables krb4/5 awareness.  This
    * is a string, 'clear', 'safe', 'confidential' or 'private'.  If the string
    * is set but doesn't match one of these, 'private' will be used.  */
-  CINIT(KRBLEVEL, STRINGPOINT, 63),
+#if !CURL_AT_LEAST_VERSION(8,17,0)
+  CINIT(KRBLEVEL, STRINGPOINT, 63),  /* removed in 8.17.0 */
+#endif
 
   /* Set if we should verify the peer in ssl handshake, set 1 to verify. */
   CINIT(SSL_VERIFYPEER, LONG, 64),
@@ -302,10 +315,14 @@ static struct mulle_curl_options
 
   /* Set to a file name that contains random data for libcurl to use to
      seed the random engine when doing SSL connects. */
-  CINIT(RANDOM_FILE, STRINGPOINT, 76),
+#if !CURL_AT_LEAST_VERSION(7,84,0)
+  CINIT(RANDOM_FILE, STRINGPOINT, 76),  /* serves no purpose since 7.84.0 */
+#endif
 
   /* Set to the Entropy Gathering Daemon socket pathname */
-  CINIT(EGDSOCKET, STRINGPOINT, 77),
+#if !CURL_AT_LEAST_VERSION(7,84,0)
+  CINIT(EGDSOCKET, STRINGPOINT, 77),    /* serves no purpose since 7.84.0 */
+#endif
 
   /* Time-out connect operations after this amount of seconds, if connects are
      OK within this time, then fine... This only aborts the connect phase. */
@@ -359,7 +376,11 @@ static struct mulle_curl_options
   CINIT(SSLENGINE_DEFAULT, LONG, 90),
 
   /* Non-zero value means to use the global dns cache */
+#if !CURL_AT_LEAST_VERSION(7,11,1)
   CINIT(DNS_USE_GLOBAL_CACHE, LONG, 91), /* DEPRECATED, do not use! */
+#else
+  CINIT(SHARE, OBJECTPOINT, 100),  /* use this instead of DNS_USE_GLOBAL_CACHE */
+#endif
 
   /* DNS cache timeout */
   CINIT(DNS_CACHE_TIMEOUT, LONG, 92),
@@ -389,7 +410,6 @@ static struct mulle_curl_options
   CINIT(NOSIGNAL, LONG, 99),
 
   /* Provide a CURLShare for mutexing non-ts data */
-  CINIT(SHARE, OBJECTPOINT, 100),
 
   /* indicates type of proxy. accepted values are CURLPROXY_HTTP (default),
      CURLPROXY_HTTPS, CURLPROXY_SOCKS4, CURLPROXY_SOCKS4A and
@@ -513,8 +533,13 @@ static struct mulle_curl_options
   */
   CINIT(FTPSSLAUTH, LONG, 129),
 
+#if !CURL_AT_LEAST_VERSION(7,18,0)
   CINIT(IOCTLFUNCTION, FUNCTIONPOINT, 130),
   CINIT(IOCTLDATA, OBJECTPOINT, 131),
+#else
+  CINIT(SEEKFUNCTION, FUNCTIONPOINT, 167),   /* use this instead of IOCTLFUNCTION */
+  CINIT(SEEKDATA, OBJECTPOINT, 168),         /* use this instead of IOCTLDATA */
+#endif
 
   /* 132 OBSOLETE. Gone in 7.16.0 */
   /* 133 OBSOLETE. Gone in 7.16.0 */
@@ -553,16 +578,22 @@ static struct mulle_curl_options
 
   /* Function that will be called to convert from the
      network encoding (instead of using the iconv calls in libcurl) */
-  CINIT(CONV_FROM_NETWORK_FUNCTION, FUNCTIONPOINT, 142),
+#if !CURL_AT_LEAST_VERSION(7,82,0)
+  CINIT(CONV_FROM_NETWORK_FUNCTION, FUNCTIONPOINT, 142),  /* serves no purpose since 7.82.0 */
+#endif
 
   /* Function that will be called to convert to the
      network encoding (instead of using the iconv calls in libcurl) */
-  CINIT(CONV_TO_NETWORK_FUNCTION, FUNCTIONPOINT, 143),
+#if !CURL_AT_LEAST_VERSION(7,82,0)
+  CINIT(CONV_TO_NETWORK_FUNCTION, FUNCTIONPOINT, 143),    /* serves no purpose since 7.82.0 */
+#endif
 
   /* Function that will be called to convert from UTF8
      (instead of using the iconv calls in libcurl)
      Note that this is used only for SSL certificate processing */
-  CINIT(CONV_FROM_UTF8_FUNCTION, FUNCTIONPOINT, 144),
+#if !CURL_AT_LEAST_VERSION(7,82,0)
+  CINIT(CONV_FROM_UTF8_FUNCTION, FUNCTIONPOINT, 144),     /* serves no purpose since 7.82.0 */
+#endif
 
   /* if the connection proceeds too quickly then need to slow it down */
   /* limit-rate: maximum number of bytes per second to send or receive */
@@ -625,8 +656,6 @@ static struct mulle_curl_options
   CINIT(PROXY_TRANSFER_MODE, LONG, 166),
 
   /* Callback function for seeking in the input stream */
-  CINIT(SEEKFUNCTION, FUNCTIONPOINT, 167),
-  CINIT(SEEKDATA, OBJECTPOINT, 168),
 
   /* CRL file */
   CINIT(CRLFILE, STRINGPOINT, 169),
@@ -662,7 +691,11 @@ static struct mulle_curl_options
   CINIT(TFTP_BLKSIZE, LONG, 178),
 
   /* Socks Service */
+#if !CURL_AT_LEAST_VERSION(7,49,0)
   CINIT(SOCKS5_GSSAPI_SERVICE, STRINGPOINT, 179), /* DEPRECATED, do not use! */
+#else
+  CINIT(PROXY_SERVICE_NAME, STRINGPOINT, 235),    /* use this instead of SOCKS5_GSSAPI_SERVICE */
+#endif
 
   /* Socks Service */
   CINIT(SOCKS5_GSSAPI_NEC, LONG, 180),
@@ -671,12 +704,20 @@ static struct mulle_curl_options
      transfer, which thus helps the app which takes URLs from users or other
      external inputs and want to restrict what protocol(s) to deal
      with. Defaults to CURLPROTO_ALL. */
+#if !CURL_AT_LEAST_VERSION(7,85,0)
   CINIT(PROTOCOLS, LONG, 181),
+#else
+  CINIT(PROTOCOLS_STR, STRINGPOINT, 318),          /* use this instead of PROTOCOLS */
+#endif
 
   /* set the bitmask for the protocols that libcurl is allowed to follow to,
      as a subset of the CURLOPT_PROTOCOLS ones. That means the protocol needs
      to be set in both bitmasks to be allowed to get redirected to. */
+#if !CURL_AT_LEAST_VERSION(7,85,0)
   CINIT(REDIR_PROTOCOLS, LONG, 182),
+#else
+  CINIT(REDIR_PROTOCOLS_STR, STRINGPOINT, 319),    /* use this instead of REDIR_PROTOCOLS */
+#endif
 
   /* set the SSH knownhost file name to use */
   CINIT(SSH_KNOWNHOSTS, STRINGPOINT, 183),
@@ -819,7 +860,9 @@ static struct mulle_curl_options
   CINIT(LOGIN_OPTIONS, STRINGPOINT, 224),
 
   /* Enable/disable TLS NPN extension (http2 over ssl might fail without) */
-  CINIT(SSL_ENABLE_NPN, LONG, 225),
+#if !CURL_AT_LEAST_VERSION(7,86,0)
+  CINIT(SSL_ENABLE_NPN, LONG, 225),                /* has no function since 7.86.0 */
+#endif
 
   /* Enable/disable TLS ALPN extension (http2 over ssl might fail without) */
   CINIT(SSL_ENABLE_ALPN, LONG, 226),
@@ -846,13 +889,14 @@ static struct mulle_curl_options
   CINIT(SSL_VERIFYSTATUS, LONG, 232),
 
   /* Set if we should enable TLS false start. */
-  CINIT(SSL_FALSESTART, LONG, 233),
+#if !CURL_AT_LEAST_VERSION(8,15,0)
+  CINIT(SSL_FALSESTART, LONG, 233),                /* has no function since 8.15.0 */
+#endif
 
   /* Do not squash dot-dot sequences */
   CINIT(PATH_AS_IS, LONG, 234),
 
   /* Proxy Service Name */
-  CINIT(PROXY_SERVICE_NAME, STRINGPOINT, 235),
 
   /* Service Name */
   CINIT(SERVICE_NAME, STRINGPOINT, 236),
@@ -966,7 +1010,6 @@ static struct mulle_curl_options
   CINIT(SSH_COMPRESSION, LONG, 268),
 
   /* Post MIME data. */
-  CINIT(MIMEPOST, OBJECTPOINT, 269),
 
   /* Time to use with the CURLOPT_TIMECONDITION. Specified in number of
      seconds since 1 Jan 1970. */

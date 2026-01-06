@@ -1,3 +1,7 @@
+### 0.18.5
+
+* fixed a plethora of useless warnings, none of them helped find anything
+
 ### 0.18.4
 
 Various small improvements

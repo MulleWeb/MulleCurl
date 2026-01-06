@@ -38,7 +38,7 @@ else()
          # intentionally left blank
       else()
          # Disable with: `mulle-sourcetree mark ssl no-require-link`
-         message( SEND_ERROR "SSL_LIBRARY was not found")
+         message( SEND_ERROR "SSL_LIBRARY was not found in ssl")
       endif()
    endif()
 endif()
@@ -71,7 +71,7 @@ else()
          # intentionally left blank
       else()
          # Disable with: `mulle-sourcetree mark crypto no-require-link`
-         message( SEND_ERROR "CRYPTO_LIBRARY was not found")
+         message( SEND_ERROR "CRYPTO_LIBRARY was not found in crypto")
       endif()
    endif()
 endif()
