@@ -1,3 +1,7 @@
+### 0.18.6
+
+* turn off ZSTD compression for now until someone complains
+
 ### 0.18.5
 
 * fixed a plethora of useless warnings, none of them helped find anything
