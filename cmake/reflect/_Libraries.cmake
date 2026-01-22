@@ -75,3 +75,73 @@ else()
       endif()
    endif()
 endif()
+
+
+#
+# Generated from sourcetree: A56B487A-7396-4D4B-AA7B-623F374684FA;CoreFoundation;no-build,no-cmake-inherit,no-delete,no-dependency,no-fs,no-import,no-share,no-update,only-framework,only-platform-darwin;
+# Disable with : `mulle-sourcetree mark CoreFoundation `
+# Disable for this platform: `mulle-sourcetree mark CoreFoundation no-cmake-platform-${MULLE_UNAME}`
+# Disable for a sdk: `mulle-sourcetree mark CoreFoundation no-cmake-sdk-<name>`
+#
+if( ${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+   if( COLLECT_ALL_LOAD_OS_SPECIFIC_FRAMEWORKS_AS_NAMES)
+      list( APPEND ALL_LOAD_OS_SPECIFIC_FRAMEWORKS "CoreFoundation")
+   else()
+      if( NOT CORE_FOUNDATION_FRAMEWORK)
+         find_library( CORE_FOUNDATION_FRAMEWORK NAMES
+            CoreFoundation
+         )
+         message( STATUS "CORE_FOUNDATION_FRAMEWORK is ${CORE_FOUNDATION_FRAMEWORK}")
+         #
+         # The order looks ascending, but due to the way this file is read
+         # it ends up being descending, which is what we need.
+         #
+         if( CORE_FOUNDATION_FRAMEWORK)
+            #
+            # Add CORE_FOUNDATION_FRAMEWORK to ALL_LOAD_OS_SPECIFIC_FRAMEWORKS list.
+            # Disable with: `mulle-sourcetree mark CoreFoundation no-cmake-add`
+            #
+            list( APPEND ALL_LOAD_OS_SPECIFIC_FRAMEWORKS ${CORE_FOUNDATION_FRAMEWORK})
+            # intentionally left blank
+         else()
+            # Disable with: `mulle-sourcetree mark CoreFoundation no-require-link`
+            message( SEND_ERROR "CORE_FOUNDATION_FRAMEWORK was not found in CoreFoundation")
+         endif()
+      endif()
+   endif()
+endif()
+
+
+#
+# Generated from sourcetree: B3B65A22-31FC-43CE-AF35-46BC30A3AE01;SystemConfiguration;no-build,no-cmake-inherit,no-delete,no-dependency,no-fs,no-import,no-share,no-update,only-framework,only-platform-darwin;
+# Disable with : `mulle-sourcetree mark SystemConfiguration `
+# Disable for this platform: `mulle-sourcetree mark SystemConfiguration no-cmake-platform-${MULLE_UNAME}`
+# Disable for a sdk: `mulle-sourcetree mark SystemConfiguration no-cmake-sdk-<name>`
+#
+if( ${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+   if( COLLECT_ALL_LOAD_OS_SPECIFIC_FRAMEWORKS_AS_NAMES)
+      list( APPEND ALL_LOAD_OS_SPECIFIC_FRAMEWORKS "SystemConfiguration")
+   else()
+      if( NOT SYSTEM_CONFIGURATION_FRAMEWORK)
+         find_library( SYSTEM_CONFIGURATION_FRAMEWORK NAMES
+            SystemConfiguration
+         )
+         message( STATUS "SYSTEM_CONFIGURATION_FRAMEWORK is ${SYSTEM_CONFIGURATION_FRAMEWORK}")
+         #
+         # The order looks ascending, but due to the way this file is read
+         # it ends up being descending, which is what we need.
+         #
+         if( SYSTEM_CONFIGURATION_FRAMEWORK)
+            #
+            # Add SYSTEM_CONFIGURATION_FRAMEWORK to ALL_LOAD_OS_SPECIFIC_FRAMEWORKS list.
+            # Disable with: `mulle-sourcetree mark SystemConfiguration no-cmake-add`
+            #
+            list( APPEND ALL_LOAD_OS_SPECIFIC_FRAMEWORKS ${SYSTEM_CONFIGURATION_FRAMEWORK})
+            # intentionally left blank
+         else()
+            # Disable with: `mulle-sourcetree mark SystemConfiguration no-require-link`
+            message( SEND_ERROR "SYSTEM_CONFIGURATION_FRAMEWORK was not found in SystemConfiguration")
+         endif()
+      endif()
+   endif()
+endif()
