@@ -78,7 +78,7 @@ endif()
 
 
 #
-# Generated from sourcetree: A56B487A-7396-4D4B-AA7B-623F374684FA;CoreFoundation;no-build,no-cmake-inherit,no-delete,no-dependency,no-fs,no-import,no-share,no-update,only-framework,only-platform-darwin;
+# Generated from sourcetree: A56B487A-7396-4D4B-AA7B-623F374684FA;CoreFoundation;no-build,no-cmake-inherit,no-delete,no-dependency,no-fs,no-header,no-import,no-share,no-update,only-framework,only-platform-darwin;
 # Disable with : `mulle-sourcetree mark CoreFoundation `
 # Disable for this platform: `mulle-sourcetree mark CoreFoundation no-cmake-platform-${MULLE_UNAME}`
 # Disable for a sdk: `mulle-sourcetree mark CoreFoundation no-cmake-sdk-<name>`
@@ -113,7 +113,7 @@ endif()
 
 
 #
-# Generated from sourcetree: B3B65A22-31FC-43CE-AF35-46BC30A3AE01;SystemConfiguration;no-build,no-cmake-inherit,no-delete,no-dependency,no-fs,no-import,no-share,no-update,only-framework,only-platform-darwin;
+# Generated from sourcetree: B3B65A22-31FC-43CE-AF35-46BC30A3AE01;SystemConfiguration;no-build,no-cmake-inherit,no-delete,no-dependency,no-fs,no-header,no-import,no-share,no-update,only-framework,only-platform-darwin;
 # Disable with : `mulle-sourcetree mark SystemConfiguration `
 # Disable for this platform: `mulle-sourcetree mark SystemConfiguration no-cmake-platform-${MULLE_UNAME}`
 # Disable for a sdk: `mulle-sourcetree mark SystemConfiguration no-cmake-sdk-<name>`
