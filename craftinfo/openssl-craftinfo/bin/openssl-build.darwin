@@ -124,8 +124,17 @@ build_main()
    log_entry "build_main" "$@"
 
    local cmdline
+   local arch
 
-   cmdline="./Configure --prefix='${PREFIX}' darwin64-x86_64-cc"
+   arch="$(uname -m)"
+   case "${arch}" in
+      arm64|aarch64)
+         cmdline="./Configure --prefix='${PREFIX}' darwin64-arm64-cc"
+      ;;
+      *)
+         cmdline="./Configure --prefix='${PREFIX}' darwin64-x86_64-cc"
+      ;;
+   esac
    if [ ! -z "${SDK}" -a "${SDK}" != "Default" ]
    then
       r_escaped_shell_string "${SDK}"
