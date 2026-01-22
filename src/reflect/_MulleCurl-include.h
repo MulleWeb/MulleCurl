@@ -44,4 +44,38 @@
 //        (use `mulle-sourcetree-to-c --unames` to list known values)
 #include <curl/curl.h>   // curl
 
+// To remove the following dependency (headers and library) completely:
+//   `mulle-sde dependency remove CoreFoundation`
+// (Use A56B487A-7396-4D4B-AA7B-623F374684FA instead of CoreFoundation, if there are duplicate entries)
+//
+// You can tweak the following #include with these commands:
+//    remove #include: `mulle-sde dependency mark CoreFoundation no-header`
+//    rename              : `mulle-sde dependency|library set CoreFoundation include whatever.h`
+//    reorder             : `mulle-sde dependency move CoreFoundation <up|down>`
+//    toggle #include: `mulle-sde dependency mark CoreFoundation [no-]import`
+//    toggle public       : `mulle-sde dependency mark CoreFoundation [no-]public`
+//    toggle optional     : `mulle-sde dependency mark CoreFoundation [no-]require`
+//    remove for platform : `mulle-sde dependency mark CoreFoundation no-platform-<uname>`
+//        (use `mulle-sourcetree-to-c --unames` to list known values)
+# if defined( __APPLE__)
+# include <CoreFoundation/CoreFoundation.h>   // CoreFoundation
+#endif
+
+// To remove the following dependency (headers and library) completely:
+//   `mulle-sde dependency remove SystemConfiguration`
+// (Use B3B65A22-31FC-43CE-AF35-46BC30A3AE01 instead of SystemConfiguration, if there are duplicate entries)
+//
+// You can tweak the following #include with these commands:
+//    remove #include: `mulle-sde dependency mark SystemConfiguration no-header`
+//    rename              : `mulle-sde dependency|library set SystemConfiguration include whatever.h`
+//    reorder             : `mulle-sde dependency move SystemConfiguration <up|down>`
+//    toggle #include: `mulle-sde dependency mark SystemConfiguration [no-]import`
+//    toggle public       : `mulle-sde dependency mark SystemConfiguration [no-]public`
+//    toggle optional     : `mulle-sde dependency mark SystemConfiguration [no-]require`
+//    remove for platform : `mulle-sde dependency mark SystemConfiguration no-platform-<uname>`
+//        (use `mulle-sourcetree-to-c --unames` to list known values)
+# if defined( __APPLE__)
+# include <SystemConfiguration/SystemConfiguration.h>   // SystemConfiguration
+#endif
+
 #endif
