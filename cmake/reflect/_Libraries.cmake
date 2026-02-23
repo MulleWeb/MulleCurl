@@ -12,66 +12,70 @@ if( MULLE_TRACE_INCLUDE)
 endif()
 
 #
-# Generated from sourcetree: EE48C273-5D2B-49DC-ADC6-627F85AA4C59;ssl;no-all-load,no-build,no-cmake-inherit,no-delete,no-dependency,no-fs,no-import,no-share,no-update;
+# Generated from sourcetree: EE48C273-5D2B-49DC-ADC6-627F85AA4C59;ssl;no-all-load,no-build,no-cmake-inherit,no-delete,no-dependency,no-fs,no-import,no-platform-windows,no-share,no-update;
 # Disable with : `mulle-sourcetree mark ssl `
 # Disable for this platform: `mulle-sourcetree mark ssl no-cmake-platform-${MULLE_UNAME}`
 # Disable for a sdk: `mulle-sourcetree mark ssl no-cmake-sdk-<name>`
 #
-if( COLLECT_OS_SPECIFIC_LIBRARIES_AS_NAMES)
-   list( APPEND OS_SPECIFIC_LIBRARIES "ssl")
-else()
-   if( NOT SSL_LIBRARY)
-      find_library( SSL_LIBRARY NAMES
-         ssl
-      )
-      message( STATUS "SSL_LIBRARY is ${SSL_LIBRARY}")
-      #
-      # The order looks ascending, but due to the way this file is read
-      # it ends up being descending, which is what we need.
-      #
-      if( SSL_LIBRARY)
+if( NOT ${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+   if( COLLECT_OS_SPECIFIC_LIBRARIES_AS_NAMES)
+      list( APPEND OS_SPECIFIC_LIBRARIES "ssl")
+   else()
+      if( NOT SSL_LIBRARY)
+         find_library( SSL_LIBRARY NAMES
+            ssl
+         )
+         message( STATUS "SSL_LIBRARY is ${SSL_LIBRARY}")
          #
-         # Add SSL_LIBRARY to OS_SPECIFIC_LIBRARIES list.
-         # Disable with: `mulle-sourcetree mark ssl no-cmake-add`
+         # The order looks ascending, but due to the way this file is read
+         # it ends up being descending, which is what we need.
          #
-         list( APPEND OS_SPECIFIC_LIBRARIES ${SSL_LIBRARY})
-         # intentionally left blank
-      else()
-         # Disable with: `mulle-sourcetree mark ssl no-require-link`
-         message( SEND_ERROR "SSL_LIBRARY was not found in ssl")
+         if( SSL_LIBRARY)
+            #
+            # Add SSL_LIBRARY to OS_SPECIFIC_LIBRARIES list.
+            # Disable with: `mulle-sourcetree mark ssl no-cmake-add`
+            #
+            list( APPEND OS_SPECIFIC_LIBRARIES ${SSL_LIBRARY})
+            # intentionally left blank
+         else()
+            # Disable with: `mulle-sourcetree mark ssl no-require-link`
+            message( SEND_ERROR "SSL_LIBRARY was not found in ssl")
+         endif()
       endif()
    endif()
 endif()
 
 
 #
-# Generated from sourcetree: 4BFC2752-5817-46EF-9979-D8C9529144F0;crypto;no-all-load,no-build,no-cmake-inherit,no-delete,no-dependency,no-fs,no-header,no-import,no-share,no-update;
+# Generated from sourcetree: 4BFC2752-5817-46EF-9979-D8C9529144F0;crypto;no-all-load,no-build,no-cmake-inherit,no-delete,no-dependency,no-fs,no-header,no-import,no-platform-windows,no-share,no-update;
 # Disable with : `mulle-sourcetree mark crypto `
 # Disable for this platform: `mulle-sourcetree mark crypto no-cmake-platform-${MULLE_UNAME}`
 # Disable for a sdk: `mulle-sourcetree mark crypto no-cmake-sdk-<name>`
 #
-if( COLLECT_OS_SPECIFIC_LIBRARIES_AS_NAMES)
-   list( APPEND OS_SPECIFIC_LIBRARIES "crypto")
-else()
-   if( NOT CRYPTO_LIBRARY)
-      find_library( CRYPTO_LIBRARY NAMES
-         crypto
-      )
-      message( STATUS "CRYPTO_LIBRARY is ${CRYPTO_LIBRARY}")
-      #
-      # The order looks ascending, but due to the way this file is read
-      # it ends up being descending, which is what we need.
-      #
-      if( CRYPTO_LIBRARY)
+if( NOT ${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+   if( COLLECT_OS_SPECIFIC_LIBRARIES_AS_NAMES)
+      list( APPEND OS_SPECIFIC_LIBRARIES "crypto")
+   else()
+      if( NOT CRYPTO_LIBRARY)
+         find_library( CRYPTO_LIBRARY NAMES
+            crypto
+         )
+         message( STATUS "CRYPTO_LIBRARY is ${CRYPTO_LIBRARY}")
          #
-         # Add CRYPTO_LIBRARY to OS_SPECIFIC_LIBRARIES list.
-         # Disable with: `mulle-sourcetree mark crypto no-cmake-add`
+         # The order looks ascending, but due to the way this file is read
+         # it ends up being descending, which is what we need.
          #
-         list( APPEND OS_SPECIFIC_LIBRARIES ${CRYPTO_LIBRARY})
-         # intentionally left blank
-      else()
-         # Disable with: `mulle-sourcetree mark crypto no-require-link`
-         message( SEND_ERROR "CRYPTO_LIBRARY was not found in crypto")
+         if( CRYPTO_LIBRARY)
+            #
+            # Add CRYPTO_LIBRARY to OS_SPECIFIC_LIBRARIES list.
+            # Disable with: `mulle-sourcetree mark crypto no-cmake-add`
+            #
+            list( APPEND OS_SPECIFIC_LIBRARIES ${CRYPTO_LIBRARY})
+            # intentionally left blank
+         else()
+            # Disable with: `mulle-sourcetree mark crypto no-require-link`
+            message( SEND_ERROR "CRYPTO_LIBRARY was not found in crypto")
+         endif()
       endif()
    endif()
 endif()

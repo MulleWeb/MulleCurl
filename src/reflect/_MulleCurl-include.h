@@ -22,12 +22,14 @@
 //    remove #include: `mulle-sde dependency mark ssl no-header`
 //    rename              : `mulle-sde dependency|library set ssl include whatever.h`
 //    reorder             : `mulle-sde dependency move ssl <up|down>`
-//    toggle #include: `mulle-sde dependency mark ssl [no-]import`
+//    toggle objc         : `mulle-sde dependency mark ssl [no-]import`
 //    toggle public       : `mulle-sde dependency mark ssl [no-]public`
 //    toggle optional     : `mulle-sde dependency mark ssl [no-]require`
 //    remove for platform : `mulle-sde dependency mark ssl no-platform-<uname>`
 //        (use `mulle-sourcetree-to-c --unames` to list known values)
-#include <openssl/ssl.h>   // ssl
+# if ! defined( _WIN32)
+# include <openssl/ssl.h>   // ssl
+#endif
 
 // To remove the following dependency (headers and library) completely:
 //   `mulle-sde dependency remove curl`
@@ -37,7 +39,7 @@
 //    remove #include: `mulle-sde dependency mark curl no-header`
 //    rename              : `mulle-sde dependency|library set curl include whatever.h`
 //    reorder             : `mulle-sde dependency move curl <up|down>`
-//    toggle #include: `mulle-sde dependency mark curl [no-]import`
+//    toggle objc         : `mulle-sde dependency mark curl [no-]import`
 //    toggle public       : `mulle-sde dependency mark curl [no-]public`
 //    toggle optional     : `mulle-sde dependency mark curl [no-]require`
 //    remove for platform : `mulle-sde dependency mark curl no-platform-<uname>`

@@ -19,7 +19,7 @@
 //    remove #import      : `mulle-sde dependency mark MulleFoundationBase no-header`
 //    rename              : `mulle-sde dependency|library set MulleFoundationBase include whatever.h`
 //    reorder             : `mulle-sde dependency move MulleFoundationBase <up|down>`
-//    toggle #import      : `mulle-sde dependency mark MulleFoundationBase [no-]import`
+//    toggle objc         : `mulle-sde dependency mark MulleFoundationBase [no-]import`
 //    toggle public       : `mulle-sde dependency mark MulleFoundationBase [no-]public`
 //    toggle optional     : `mulle-sde dependency mark MulleFoundationBase [no-]require`
 //    remove for platform : `mulle-sde dependency mark MulleFoundationBase no-platform-<uname>`
@@ -34,7 +34,7 @@
 //    remove #import      : `mulle-sde dependency mark MulleZlib no-header`
 //    rename              : `mulle-sde dependency|library set MulleZlib include whatever.h`
 //    reorder             : `mulle-sde dependency move MulleZlib <up|down>`
-//    toggle #import      : `mulle-sde dependency mark MulleZlib [no-]import`
+//    toggle objc         : `mulle-sde dependency mark MulleZlib [no-]import`
 //    toggle public       : `mulle-sde dependency mark MulleZlib [no-]public`
 //    toggle optional     : `mulle-sde dependency mark MulleZlib [no-]require`
 //    remove for platform : `mulle-sde dependency mark MulleZlib no-platform-<uname>`

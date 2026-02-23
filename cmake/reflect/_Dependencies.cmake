@@ -80,22 +80,25 @@ else()
             # use explicit path to avoid "surprises"
             if( IS_DIRECTORY "${_TMP_CURL_DIR}")
                list( INSERT CMAKE_MODULE_PATH 0 "${_TMP_CURL_DIR}")
-               # we only want top level INHERIT_OBJC_LOADERS, so disable them
-               if( NOT NO_INHERIT_OBJC_LOADERS)
-                  set( NO_INHERIT_OBJC_LOADERS OFF)
+               # we only want top level INHERIT_OBJC_DEPS, so disable them
+               if( NOT NO_INHERIT_OBJC_DEPS)
+                  set( NO_INHERIT_OBJC_DEPS OFF)
                endif()
-               list( APPEND _TMP_INHERIT_OBJC_LOADERS ${NO_INHERIT_OBJC_LOADERS})
-               set( NO_INHERIT_OBJC_LOADERS ON)
+               list( APPEND _TMP_INHERIT_OBJC_DEPS ${NO_INHERIT_OBJC_DEPS})
+               set( NO_INHERIT_OBJC_DEPS ON)
                #
                include( "${_TMP_CURL_DIR}/DependenciesAndLibraries.cmake" OPTIONAL)
                #
-               list( GET _TMP_INHERIT_OBJC_LOADERS -1 NO_INHERIT_OBJC_LOADERS)
-               list( REMOVE_AT _TMP_INHERIT_OBJC_LOADERS -1)
+               list( GET _TMP_INHERIT_OBJC_DEPS -1 NO_INHERIT_OBJC_DEPS)
+               list( REMOVE_AT _TMP_INHERIT_OBJC_DEPS -1)
                list( REMOVE_ITEM CMAKE_MODULE_PATH "${_TMP_CURL_DIR}")
                #
                unset( CURL_DEFINITIONS)
+               unset( CURL_RENDEZVOUS_GLOBALS)
                include( "${_TMP_CURL_DIR}/Definitions.cmake" OPTIONAL)
                list( APPEND INHERITED_DEFINITIONS ${CURL_DEFINITIONS})
+               include( "${_TMP_CURL_DIR}/Definitions.cmake" OPTIONAL)
+               list( APPEND RENDEZVOUS_GLOBALS ${CURL_RENDEZVOUS_GLOBALS})
                break()
             else()
                message( STATUS "${_TMP_CURL_DIR} not found")
@@ -169,22 +172,25 @@ else()
                list( REMOVE_ITEM CMAKE_MODULE_PATH "${_TMP_MULLE_FOUNDATION_BASE_DIR}")
                #
                unset( MULLE_FOUNDATION_BASE_DEFINITIONS)
+               unset( MULLE_FOUNDATION_BASE_RENDEZVOUS_GLOBALS)
                include( "${_TMP_MULLE_FOUNDATION_BASE_DIR}/Definitions.cmake" OPTIONAL)
                list( APPEND INHERITED_DEFINITIONS ${MULLE_FOUNDATION_BASE_DEFINITIONS})
+               include( "${_TMP_MULLE_FOUNDATION_BASE_DIR}/Definitions.cmake" OPTIONAL)
+               list( APPEND RENDEZVOUS_GLOBALS ${MULLE_FOUNDATION_BASE_RENDEZVOUS_GLOBALS})
                break()
             else()
                message( STATUS "${_TMP_MULLE_FOUNDATION_BASE_DIR} not found")
             endif()
          endforeach()
          #
-         # Search for "MulleObjCLoader+<name>.h" in include directory.
+         # Search for "MulleObjCDeps+<name>.h" in include directory.
          # Disable with: `mulle-sourcetree mark MulleFoundationBase no-cmake-loader`
          #
-         if( NOT NO_INHERIT_OBJC_LOADERS)
+         if( NOT NO_INHERIT_OBJC_DEPS)
             foreach( _TMP_MULLE_FOUNDATION_BASE_NAME "MulleFoundationBase")
-               set( _TMP_MULLE_FOUNDATION_BASE_FILE "${_TMP_MULLE_FOUNDATION_BASE_ROOT}/include/${_TMP_MULLE_FOUNDATION_BASE_NAME}/MulleObjCLoader+${_TMP_MULLE_FOUNDATION_BASE_NAME}.h")
+               set( _TMP_MULLE_FOUNDATION_BASE_FILE "${_TMP_MULLE_FOUNDATION_BASE_ROOT}/include/${_TMP_MULLE_FOUNDATION_BASE_NAME}/MulleObjCDeps+${_TMP_MULLE_FOUNDATION_BASE_NAME}.h")
                if( EXISTS "${_TMP_MULLE_FOUNDATION_BASE_FILE}")
-                  list( APPEND INHERITED_OBJC_LOADERS ${_TMP_MULLE_FOUNDATION_BASE_FILE})
+                  list( APPEND INHERITED_OBJC_DEPS ${_TMP_MULLE_FOUNDATION_BASE_FILE})
                   break()
                endif()
             endforeach()
@@ -257,22 +263,25 @@ else()
                list( REMOVE_ITEM CMAKE_MODULE_PATH "${_TMP_MULLE_ZLIB_DIR}")
                #
                unset( MULLE_ZLIB_DEFINITIONS)
+               unset( MULLE_ZLIB_RENDEZVOUS_GLOBALS)
                include( "${_TMP_MULLE_ZLIB_DIR}/Definitions.cmake" OPTIONAL)
                list( APPEND INHERITED_DEFINITIONS ${MULLE_ZLIB_DEFINITIONS})
+               include( "${_TMP_MULLE_ZLIB_DIR}/Definitions.cmake" OPTIONAL)
+               list( APPEND RENDEZVOUS_GLOBALS ${MULLE_ZLIB_RENDEZVOUS_GLOBALS})
                break()
             else()
                message( STATUS "${_TMP_MULLE_ZLIB_DIR} not found")
             endif()
          endforeach()
          #
-         # Search for "MulleObjCLoader+<name>.h" in include directory.
+         # Search for "MulleObjCDeps+<name>.h" in include directory.
          # Disable with: `mulle-sourcetree mark MulleZlib no-cmake-loader`
          #
-         if( NOT NO_INHERIT_OBJC_LOADERS)
+         if( NOT NO_INHERIT_OBJC_DEPS)
             foreach( _TMP_MULLE_ZLIB_NAME "MulleZlib")
-               set( _TMP_MULLE_ZLIB_FILE "${_TMP_MULLE_ZLIB_ROOT}/include/${_TMP_MULLE_ZLIB_NAME}/MulleObjCLoader+${_TMP_MULLE_ZLIB_NAME}.h")
+               set( _TMP_MULLE_ZLIB_FILE "${_TMP_MULLE_ZLIB_ROOT}/include/${_TMP_MULLE_ZLIB_NAME}/MulleObjCDeps+${_TMP_MULLE_ZLIB_NAME}.h")
                if( EXISTS "${_TMP_MULLE_ZLIB_FILE}")
-                  list( APPEND INHERITED_OBJC_LOADERS ${_TMP_MULLE_ZLIB_FILE})
+                  list( APPEND INHERITED_OBJC_DEPS ${_TMP_MULLE_ZLIB_FILE})
                   break()
                endif()
             endforeach()

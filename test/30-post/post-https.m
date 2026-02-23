@@ -39,7 +39,7 @@ static NSString   *URL = @"https://httpbin.org/post";
    parseBytes:(void *) bytes
        length:(NSUInteger) length
 {
-   fprintf( stderr, "~~~ Received: %.*s\n", (int) length, bytes);
+   fprintf( stderr, "~~~ Received: %.*s\n", (int) length, (char *) bytes);
 
    [self parseBytes:bytes
              length:length];

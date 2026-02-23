@@ -67,8 +67,8 @@ int  main( void)
 
    printf( "%s\n", [[headerParser response] UTF8String]);
    printf( "%s\n", [[order description] UTF8String]);
-   printf( "%ld headers\n", (long) [headers count]);
-   printf( "%ld bytes in body\n", [data length]);
+   printf( "%td headers\n", [headers count]);
+   printf( "%td bytes in body\n", [data length]);
 
    return( 0);
 }
