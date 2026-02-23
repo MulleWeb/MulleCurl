@@ -198,7 +198,7 @@ static inline unsigned int   MulleCurl_get_version_patch( void)
 extern uint32_t   MulleCurl_get_version( void);
 
 
-#import "MulleObjCLoader+MulleCurl.h"
+#import "MulleObjCDeps+MulleCurl.h"
 
 
 #ifdef __has_include

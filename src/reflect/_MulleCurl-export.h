@@ -14,7 +14,7 @@
 
 
 #import "MulleCurlParser.h"
-#import "MulleObjCLoader+MulleCurl.h"
+#import "MulleObjCDeps+MulleCurl.h"
 #import "NSMutableData+MulleCurlParser.h"
 
 

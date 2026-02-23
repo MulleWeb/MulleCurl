@@ -259,7 +259,7 @@ static size_t   receive_curl_body_bytes( void *contents,
 
    assert( interval >= 0);
    ms = (NSUInteger) (interval * 1000 * 1000 + 0.5);
-   curl_easy_setopt( _connection, CURLOPT_CONNECTTIMEOUT_MS, ms);  // rather retry  (IMO)
+   curl_easy_setopt( _connection, CURLOPT_CONNECTTIMEOUT_MS, (long) ms);
 }
 
 
@@ -270,8 +270,8 @@ static size_t   receive_curl_body_bytes( void *contents,
 
    assert( interval >= 0);
    secs = (NSUInteger) (interval + 0.5);
-   curl_easy_setopt( _connection, CURLOPT_LOW_SPEED_TIME, secs);  // rather retry  (IMO)
-   curl_easy_setopt( _connection, CURLOPT_LOW_SPEED_LIMIT, speedLimit / 8); // 32 kbps min
+   curl_easy_setopt( _connection, CURLOPT_LOW_SPEED_TIME, (long) secs);
+   curl_easy_setopt( _connection, CURLOPT_LOW_SPEED_LIMIT, (long) (speedLimit / 8));
 }
 
 
@@ -325,15 +325,15 @@ static size_t   receive_curl_body_bytes( void *contents,
       option >>= 4;
       switch( type)
       {
-      case LONG  :
+      case MULLE_CURL_LONG  :
          rval = curl_easy_setopt( _connection, option, [value longValue]);
          break;
 
-      case OFF_T  :
+      case MULLE_CURL_OFF_T  :
          rval = curl_easy_setopt( _connection, option, (curl_off_t) [value longLongValue]);
          break;
 
-      case STRINGPOINT  :
+      case MULLE_CURL_STRINGPOINT  :
          rval = curl_easy_setopt( _connection, option, [value UTF8String]);
          break;
 
