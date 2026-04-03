@@ -25,7 +25,7 @@
 #endif
 #if defined( MULLE_ZLIB_VERSION)
 # ifndef MULLE_ZLIB_VERSION_MIN
-#  define MULLE_ZLIB_VERSION_MIN  ((0UL << 20) | (15 << 8) | 13)
+#  define MULLE_ZLIB_VERSION_MIN  ((0UL << 20) | (15 << 8) | 0)
 # endif
 # ifndef MULLE_ZLIB_VERSION_MAX
 #  define MULLE_ZLIB_VERSION_MAX  ((0UL << 20) | (16 << 8) | 0)
