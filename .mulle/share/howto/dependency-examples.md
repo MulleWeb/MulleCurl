@@ -37,4 +37,38 @@ mulle-sde move MulleObjC below MyLibrary
 mulle-sde move mulle-testallocator to bottom
 ```
 
+## Adding the right startup library
+
+For executables you need to match the startup library with the library you are
+building on top of.
+
+You do a `mulle-sourcetree list -r` and then consult this table from top to
+bottom.
+
+| You have                      | Startup Library
+|-------------------------------|--------------------------
+| `Foundation`                  | `MulleFoundation/Foundation-startup`
+| `MulleFoundation`             | `MulleFoundation/MulleFoundation-startup`
+| `MulleFoundationBase`         | `MulleFoundation/MulleObjCStandardFoundation-startup`  (sic)
+| `MulleObjCStandardFoundation` | `MulleFoundation/MulleObjCStandardFoundation-startup`
+| `MulleObjC`                   | `mulle-objc/MulleObjC-startup`
+| `mulle-objc-runtime`          | `mulle-objc/mulle-objc-runtime-startup`
+
+Example: You don't see neither`Foundation` nor `MulleFoundation` but you see
+all the others you pick `MulleObjCStandardFoundation-startup`.
+
+You add the library with
+`mulle-sde add --startup github:MulleFoundation/MulleObjCStandardFoundation-startup`.
+Make it the bottom dependency (or second to bottom if mulle-testallocator is
+present).
+
+## Error Messages and Solutions
+
+### `mulle-sde fatal error: Did not find a linkable 'mulle-scion' library ...`
+
+Look in the depedency folder `mulle-sde dependency-tree` if this is not really
+a library, mark it as such: `mulle-sde mark mulle-scion no-link`.
+
+If its build under a different name, alias it: `mulle-sde set mulle-scion aliases 'alias1`
+
 
