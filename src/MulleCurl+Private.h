@@ -51,7 +51,7 @@ NSMapTable   *MulleCurlOptionLookupTable( void);
 
 char   *MulleCurlDefaultUserAgent( void);
 
-@interface MulleCurl( Private)
+@interface MulleCurl( PrivateFuture)
 
 + (NSMapTable *) optionLookupTable;
 

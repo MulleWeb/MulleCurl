@@ -18,6 +18,8 @@ static NSString   *URL = @"http://www.mulle-kybernetik.com/jagdox/dehtmlify.sh";
    parseBytes:(void *) bytes
        length:(NSUInteger) length
 {
+   MULLE_C_UNUSED( curl);
+
    [_data appendBytes:bytes
                length:length];
    [self parse];
@@ -28,6 +30,8 @@ static NSString   *URL = @"http://www.mulle-kybernetik.com/jagdox/dehtmlify.sh";
 
 - (id) parsedObjectWithCurl:(MulleCurl *) curl
 {
+   MULLE_C_UNUSED( curl);
+
    return( _headers);
 }
 
@@ -50,7 +54,8 @@ int  main( void)
    [headerParser setRecordsOrder:YES];
 
    [curl setDesktopTimeoutOptions];
-   [curl setHeaderParser:headerParser];
+   // TODO: compiler bug ? why do i need to cast like this ?
+   [curl setHeaderParser:(NSObject <MulleCurlParser> *) headerParser];
 //   [curl setNoBodyOptions];
 
    data = [curl dataWithContentsOfURLWithString:URL];

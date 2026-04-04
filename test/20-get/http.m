@@ -9,9 +9,9 @@ static NSString   *URL = @"http://www.mulle-kybernetik.com/jagdox/dehtmlify.sh";
 int  main( void)
 {
    MulleCurl   *curl;
-   NSURL           *url;
-   NSData          *data;
-   NSError         *error;
+   NSURL       *url;
+   NSData      *data;
+   NSError     *error;
 
    curl = [[MulleCurl new] autorelease];
    [curl setDesktopTimeoutOptions];

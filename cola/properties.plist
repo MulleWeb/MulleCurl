@@ -14,13 +14,6 @@
    dependencies =
    (
       {
-         domain="github";
-         name="openssl";
-         repo="openssl";
-         url="https://github.com/openssl/openssl";
-         user="openssl";
-      },
-      {
          domain="generic";
          name="curl";
          repo="curl";
