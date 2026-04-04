@@ -39,6 +39,8 @@ static NSString   *URL = @"https://httpbin.org/post";
    parseBytes:(void *) bytes
        length:(NSUInteger) length
 {
+   MULLE_C_UNUSED( curl);
+
    fprintf( stderr, "~~~ Received: %.*s\n", (int) length, (char *) bytes);
 
    [self parseBytes:bytes
@@ -50,6 +52,8 @@ static NSString   *URL = @"https://httpbin.org/post";
 // the parsed result
 - (id) parsedObjectWithCurl:(MulleCurl *) curl
 {
+   MULLE_C_UNUSED( curl);
+
    return( [self object]);
 }
 
@@ -57,6 +61,8 @@ static NSString   *URL = @"https://httpbin.org/post";
 // errorCode will be asked if you change the errorDomain of the parser
 - (NSUInteger) errorCodeWithCurl:(MulleCurl *) curl
 {
+   MULLE_C_UNUSED( curl);
+
    return( errno);
 }
 

@@ -1,11 +1,12 @@
 {
    "name" : "MulleCurl",
-   "version" : "0.18.5",
+   "version" : "0.19.0",
    "description" : "🥌 HTTP client library for mulle-objc",
    "keywords" : [],
    "license" : "UNLICENSED",
    "repo" : "MulleWeb/MulleCurl",
    "src" : [
+      "asset/dox/TOC.md",
       "src/generic/import-private.h",
       "src/generic/import.h",
       "src/MulleCurl+ClassMethods.m",
@@ -28,7 +29,6 @@
       "src/reflect/_MulleCurl-versioncheck.h"
    ],
    "dependencies" : {
-      "openssl/openssl": "*",
       "MulleFoundation/MulleFoundationBase": "*",
       "MulleWeb/MulleZlib": "*",
       "mulle-objc/mulle-objc-list": "*"

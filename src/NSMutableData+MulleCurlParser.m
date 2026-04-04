@@ -47,6 +47,8 @@
    parseBytes:(void *) bytes
        length:(NSUInteger) length
  {
+   MULLE_C_UNUSED( curl);
+
    [self appendBytes:bytes
               length:length];
    return( YES);  // always happy
@@ -55,6 +57,8 @@
 
 - (id) parsedObjectWithCurl:(MulleCurl *) curl
 {
+   MULLE_C_UNUSED( curl);
+
    return( self);
 }
 
