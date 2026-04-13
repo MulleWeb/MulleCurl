@@ -33,7 +33,7 @@ endif()
 # Disable for a sdk: `mulle-sourcetree mark curl no-cmake-sdk-<name>`
 #
 if( COLLECT_DEPENDENCY_LIBRARIES_AS_NAMES)
-   list( APPEND DEPENDENCY_LIBRARIES "Release:curl")
+   list( APPEND DEPENDENCY_LIBRARIES "curl")
 else()
    if( NOT CURL_LIBRARY)
       if( "${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
@@ -195,9 +195,17 @@ else()
             # use explicit path to avoid "surprises"
             if( IS_DIRECTORY "${_TMP_MULLE_FOUNDATION_BASE_DIR}")
                list( INSERT CMAKE_MODULE_PATH 0 "${_TMP_MULLE_FOUNDATION_BASE_DIR}")
+               # we only want top level INHERIT_OBJC_DEPS, so disable them
+               if( NOT NO_INHERIT_OBJC_DEPS)
+                  set( NO_INHERIT_OBJC_DEPS OFF)
+               endif()
+               list( APPEND _TMP_INHERIT_OBJC_DEPS ${NO_INHERIT_OBJC_DEPS})
+               set( NO_INHERIT_OBJC_DEPS ON)
                #
                include( "${_TMP_MULLE_FOUNDATION_BASE_DIR}/DependenciesAndLibraries.cmake" OPTIONAL)
                #
+               list( GET _TMP_INHERIT_OBJC_DEPS -1 NO_INHERIT_OBJC_DEPS)
+               list( REMOVE_AT _TMP_INHERIT_OBJC_DEPS -1)
                list( REMOVE_ITEM CMAKE_MODULE_PATH "${_TMP_MULLE_FOUNDATION_BASE_DIR}")
                #
                unset( MULLE_FOUNDATION_BASE_DEFINITIONS)
@@ -292,9 +300,17 @@ else()
             # use explicit path to avoid "surprises"
             if( IS_DIRECTORY "${_TMP_MULLE_ZLIB_DIR}")
                list( INSERT CMAKE_MODULE_PATH 0 "${_TMP_MULLE_ZLIB_DIR}")
+               # we only want top level INHERIT_OBJC_DEPS, so disable them
+               if( NOT NO_INHERIT_OBJC_DEPS)
+                  set( NO_INHERIT_OBJC_DEPS OFF)
+               endif()
+               list( APPEND _TMP_INHERIT_OBJC_DEPS ${NO_INHERIT_OBJC_DEPS})
+               set( NO_INHERIT_OBJC_DEPS ON)
                #
                include( "${_TMP_MULLE_ZLIB_DIR}/DependenciesAndLibraries.cmake" OPTIONAL)
                #
+               list( GET _TMP_INHERIT_OBJC_DEPS -1 NO_INHERIT_OBJC_DEPS)
+               list( REMOVE_AT _TMP_INHERIT_OBJC_DEPS -1)
                list( REMOVE_ITEM CMAKE_MODULE_PATH "${_TMP_MULLE_ZLIB_DIR}")
                #
                unset( MULLE_ZLIB_DEFINITIONS)
