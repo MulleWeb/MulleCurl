@@ -1,14 +1,6 @@
 ### 0.19.1
 
-Various small improvements
 
-## 0.19.0
+feature: add MulleObjCFuture protocol conformance to MulleCurl
 
-
-
-
-
-
-
-
-* works with wine w/o openssl
+* MulleCurl now conforms to the MulleObjCFuture protocol
