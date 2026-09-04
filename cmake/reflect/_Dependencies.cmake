@@ -37,54 +37,69 @@ if( COLLECT_DEPENDENCY_LIBRARIES_AS_NAMES)
 else()
    if( NOT CURL_LIBRARY)
       if( "${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
-         find_library( CURL_LIBRARY NAMES
-            ${MULLE_PREFERRED_LIBRARY_PREFIX}curl-d${CMAKE_DEBUG_POSTFIX}${MULLE_PREFERRED_LIBRARY_SUFFIX}
-            ${MULLE_PREFERRED_LIBRARY_PREFIX}curl-d${MULLE_PREFERRED_LIBRARY_SUFFIX}
-            ${MULLE_FALLBACK_LIBRARY_PREFIX}curl-d${CMAKE_DEBUG_POSTFIX}${MULLE_FALLBACK_LIBRARY_SUFFIX}
-            ${MULLE_FALLBACK_LIBRARY_PREFIX}curl-d${MULLE_FALLBACK_LIBRARY_SUFFIX}
-            curl-d
-            NO_CMAKE_SYSTEM_PATH NO_SYSTEM_ENVIRONMENT_PATH NO_CMAKE_FIND_ROOT_PATH
-         )
-         if( NOT CURL_LIBRARY AND NOT DEPENDENCY_IGNORE_SYSTEM_LIBARIES)
+         foreach( _TMP_CURL_LIBRARY_TARGET curl curl-d)
+            if( TARGET ${_TMP_CURL_LIBRARY_TARGET})
+               set( CURL_LIBRARY ${_TMP_CURL_LIBRARY_TARGET})
+               break()
+            endif()
+         endforeach()
+         if( NOT CURL_LIBRARY)
             find_library( CURL_LIBRARY NAMES
                ${MULLE_PREFERRED_LIBRARY_PREFIX}curl-d${CMAKE_DEBUG_POSTFIX}${MULLE_PREFERRED_LIBRARY_SUFFIX}
                ${MULLE_PREFERRED_LIBRARY_PREFIX}curl-d${MULLE_PREFERRED_LIBRARY_SUFFIX}
                ${MULLE_FALLBACK_LIBRARY_PREFIX}curl-d${CMAKE_DEBUG_POSTFIX}${MULLE_FALLBACK_LIBRARY_SUFFIX}
                ${MULLE_FALLBACK_LIBRARY_PREFIX}curl-d${MULLE_FALLBACK_LIBRARY_SUFFIX}
                curl-d
+               NO_CMAKE_SYSTEM_PATH NO_SYSTEM_ENVIRONMENT_PATH NO_CMAKE_FIND_ROOT_PATH
             )
+            if( NOT CURL_LIBRARY AND NOT DEPENDENCY_IGNORE_SYSTEM_LIBARIES)
+               find_library( CURL_LIBRARY NAMES
+                  ${MULLE_PREFERRED_LIBRARY_PREFIX}curl-d${CMAKE_DEBUG_POSTFIX}${MULLE_PREFERRED_LIBRARY_SUFFIX}
+                  ${MULLE_PREFERRED_LIBRARY_PREFIX}curl-d${MULLE_PREFERRED_LIBRARY_SUFFIX}
+                  ${MULLE_FALLBACK_LIBRARY_PREFIX}curl-d${CMAKE_DEBUG_POSTFIX}${MULLE_FALLBACK_LIBRARY_SUFFIX}
+                  ${MULLE_FALLBACK_LIBRARY_PREFIX}curl-d${MULLE_FALLBACK_LIBRARY_SUFFIX}
+                  curl-d
+               )
+            endif()
          endif()
       endif()
       if( NOT CURL_LIBRARY)
-         find_library( CURL_LIBRARY NAMES
-            ${MULLE_PREFERRED_LIBRARY_PREFIX}curl${CMAKE_DEBUG_POSTFIX}${MULLE_PREFERRED_LIBRARY_SUFFIX}
-            ${MULLE_PREFERRED_LIBRARY_PREFIX}curl${MULLE_PREFERRED_LIBRARY_SUFFIX}
-            ${MULLE_FALLBACK_LIBRARY_PREFIX}curl${CMAKE_DEBUG_POSTFIX}${MULLE_FALLBACK_LIBRARY_SUFFIX}
-            ${MULLE_FALLBACK_LIBRARY_PREFIX}curl${MULLE_FALLBACK_LIBRARY_SUFFIX}
-            curl
-            NO_CMAKE_SYSTEM_PATH NO_SYSTEM_ENVIRONMENT_PATH NO_CMAKE_FIND_ROOT_PATH
-         )
-         if( NOT CURL_LIBRARY AND NOT DEPENDENCY_IGNORE_SYSTEM_LIBARIES)
+         foreach( _TMP_CURL_LIBRARY_TARGET curl curl-d)
+            if( TARGET ${_TMP_CURL_LIBRARY_TARGET})
+               set( CURL_LIBRARY ${_TMP_CURL_LIBRARY_TARGET})
+               break()
+            endif()
+         endforeach()
+         if( NOT CURL_LIBRARY)
             find_library( CURL_LIBRARY NAMES
                ${MULLE_PREFERRED_LIBRARY_PREFIX}curl${CMAKE_DEBUG_POSTFIX}${MULLE_PREFERRED_LIBRARY_SUFFIX}
                ${MULLE_PREFERRED_LIBRARY_PREFIX}curl${MULLE_PREFERRED_LIBRARY_SUFFIX}
                ${MULLE_FALLBACK_LIBRARY_PREFIX}curl${CMAKE_DEBUG_POSTFIX}${MULLE_FALLBACK_LIBRARY_SUFFIX}
                ${MULLE_FALLBACK_LIBRARY_PREFIX}curl${MULLE_FALLBACK_LIBRARY_SUFFIX}
                curl
+               NO_CMAKE_SYSTEM_PATH NO_SYSTEM_ENVIRONMENT_PATH NO_CMAKE_FIND_ROOT_PATH
             )
+            if( NOT CURL_LIBRARY AND NOT DEPENDENCY_IGNORE_SYSTEM_LIBARIES)
+               find_library( CURL_LIBRARY NAMES
+                  ${MULLE_PREFERRED_LIBRARY_PREFIX}curl${CMAKE_DEBUG_POSTFIX}${MULLE_PREFERRED_LIBRARY_SUFFIX}
+                  ${MULLE_PREFERRED_LIBRARY_PREFIX}curl${MULLE_PREFERRED_LIBRARY_SUFFIX}
+                  ${MULLE_FALLBACK_LIBRARY_PREFIX}curl${CMAKE_DEBUG_POSTFIX}${MULLE_FALLBACK_LIBRARY_SUFFIX}
+                  ${MULLE_FALLBACK_LIBRARY_PREFIX}curl${MULLE_FALLBACK_LIBRARY_SUFFIX}
+                  curl
+               )
+            endif()
          endif()
       endif()
       message( STATUS "CURL_LIBRARY is ${CURL_LIBRARY}")
-      #
-      # The order looks ascending, but due to the way this file is read
-      # it ends up being descending, which is what we need.
-      #
-      if( CURL_LIBRARY)
+   endif()
+   if( CURL_LIBRARY)
          #
          # Add CURL_LIBRARY to DEPENDENCY_LIBRARIES list.
          # Disable with: `mulle-sourcetree mark curl no-cmake-add`
          #
-         list( APPEND DEPENDENCY_LIBRARIES ${CURL_LIBRARY})
+         if( NOT ${CURL_LIBRARY} IN_LIST DEPENDENCY_LIBRARIES)
+            list( APPEND DEPENDENCY_LIBRARIES ${CURL_LIBRARY})
+         endif()
          #
          # Inherit information from dependency.
          # Encompasses: no-cmake-searchpath,no-cmake-dependency,no-cmake-loader
@@ -127,14 +142,13 @@ else()
                message( STATUS "${_TMP_CURL_DIR} not found")
             endif()
          endforeach()
-      else()
-         # Disable with: `mulle-sourcetree mark curl no-require-link`
-         message( SEND_ERROR "CURL_LIBRARY was not found in ${MULLE_PREFERRED_LIBRARY_PREFIX}curl-d${CMAKE_DEBUG_POSTFIX}${MULLE_PREFERRED_LIBRARY_SUFFIX}
+   else()
+      # Disable with: `mulle-sourcetree mark curl no-require-link`
+      message( SEND_ERROR "CURL_LIBRARY was not found in ${MULLE_PREFERRED_LIBRARY_PREFIX}curl-d${CMAKE_DEBUG_POSTFIX}${MULLE_PREFERRED_LIBRARY_SUFFIX}
 ${MULLE_PREFERRED_LIBRARY_PREFIX}curl-d${MULLE_PREFERRED_LIBRARY_SUFFIX}
 ${MULLE_FALLBACK_LIBRARY_PREFIX}curl-d${CMAKE_DEBUG_POSTFIX}${MULLE_FALLBACK_LIBRARY_SUFFIX}
 ${MULLE_FALLBACK_LIBRARY_PREFIX}curl-d${MULLE_FALLBACK_LIBRARY_SUFFIX}
 curl-d")
-      endif()
    endif()
 endif()
 
@@ -149,34 +163,41 @@ if( COLLECT_ALL_LOAD_DEPENDENCY_LIBRARIES_AS_NAMES)
    list( APPEND ALL_LOAD_DEPENDENCY_LIBRARIES "MulleFoundationBase")
 else()
    if( NOT MULLE_FOUNDATION_BASE_LIBRARY)
-      find_library( MULLE_FOUNDATION_BASE_LIBRARY NAMES
-         ${MULLE_PREFERRED_LIBRARY_PREFIX}MulleFoundationBase${CMAKE_DEBUG_POSTFIX}${MULLE_PREFERRED_LIBRARY_SUFFIX}
-         ${MULLE_PREFERRED_LIBRARY_PREFIX}MulleFoundationBase${MULLE_PREFERRED_LIBRARY_SUFFIX}
-         ${MULLE_FALLBACK_LIBRARY_PREFIX}MulleFoundationBase${CMAKE_DEBUG_POSTFIX}${MULLE_FALLBACK_LIBRARY_SUFFIX}
-         ${MULLE_FALLBACK_LIBRARY_PREFIX}MulleFoundationBase${MULLE_FALLBACK_LIBRARY_SUFFIX}
-         MulleFoundationBase
-         NO_CMAKE_SYSTEM_PATH NO_SYSTEM_ENVIRONMENT_PATH NO_CMAKE_FIND_ROOT_PATH
-      )
-      if( NOT MULLE_FOUNDATION_BASE_LIBRARY AND NOT DEPENDENCY_IGNORE_SYSTEM_LIBARIES)
+      foreach( _TMP_MULLE_FOUNDATION_BASE_LIBRARY_TARGET MulleFoundationBase)
+         if( TARGET ${_TMP_MULLE_FOUNDATION_BASE_LIBRARY_TARGET})
+            set( MULLE_FOUNDATION_BASE_LIBRARY ${_TMP_MULLE_FOUNDATION_BASE_LIBRARY_TARGET})
+            break()
+         endif()
+      endforeach()
+      if( NOT MULLE_FOUNDATION_BASE_LIBRARY)
          find_library( MULLE_FOUNDATION_BASE_LIBRARY NAMES
             ${MULLE_PREFERRED_LIBRARY_PREFIX}MulleFoundationBase${CMAKE_DEBUG_POSTFIX}${MULLE_PREFERRED_LIBRARY_SUFFIX}
             ${MULLE_PREFERRED_LIBRARY_PREFIX}MulleFoundationBase${MULLE_PREFERRED_LIBRARY_SUFFIX}
             ${MULLE_FALLBACK_LIBRARY_PREFIX}MulleFoundationBase${CMAKE_DEBUG_POSTFIX}${MULLE_FALLBACK_LIBRARY_SUFFIX}
             ${MULLE_FALLBACK_LIBRARY_PREFIX}MulleFoundationBase${MULLE_FALLBACK_LIBRARY_SUFFIX}
             MulleFoundationBase
+            NO_CMAKE_SYSTEM_PATH NO_SYSTEM_ENVIRONMENT_PATH NO_CMAKE_FIND_ROOT_PATH
          )
+         if( NOT MULLE_FOUNDATION_BASE_LIBRARY AND NOT DEPENDENCY_IGNORE_SYSTEM_LIBARIES)
+            find_library( MULLE_FOUNDATION_BASE_LIBRARY NAMES
+               ${MULLE_PREFERRED_LIBRARY_PREFIX}MulleFoundationBase${CMAKE_DEBUG_POSTFIX}${MULLE_PREFERRED_LIBRARY_SUFFIX}
+               ${MULLE_PREFERRED_LIBRARY_PREFIX}MulleFoundationBase${MULLE_PREFERRED_LIBRARY_SUFFIX}
+               ${MULLE_FALLBACK_LIBRARY_PREFIX}MulleFoundationBase${CMAKE_DEBUG_POSTFIX}${MULLE_FALLBACK_LIBRARY_SUFFIX}
+               ${MULLE_FALLBACK_LIBRARY_PREFIX}MulleFoundationBase${MULLE_FALLBACK_LIBRARY_SUFFIX}
+               MulleFoundationBase
+            )
+         endif()
       endif()
       message( STATUS "MULLE_FOUNDATION_BASE_LIBRARY is ${MULLE_FOUNDATION_BASE_LIBRARY}")
-      #
-      # The order looks ascending, but due to the way this file is read
-      # it ends up being descending, which is what we need.
-      #
-      if( MULLE_FOUNDATION_BASE_LIBRARY)
+   endif()
+   if( MULLE_FOUNDATION_BASE_LIBRARY)
          #
          # Add MULLE_FOUNDATION_BASE_LIBRARY to ALL_LOAD_DEPENDENCY_LIBRARIES list.
          # Disable with: `mulle-sourcetree mark MulleFoundationBase no-cmake-add`
          #
-         list( APPEND ALL_LOAD_DEPENDENCY_LIBRARIES ${MULLE_FOUNDATION_BASE_LIBRARY})
+         if( NOT ${MULLE_FOUNDATION_BASE_LIBRARY} IN_LIST ALL_LOAD_DEPENDENCY_LIBRARIES)
+            list( APPEND ALL_LOAD_DEPENDENCY_LIBRARIES ${MULLE_FOUNDATION_BASE_LIBRARY})
+         endif()
          #
          # Inherit information from dependency.
          # Encompasses: no-cmake-searchpath,no-cmake-dependency,no-cmake-loader
@@ -232,14 +253,13 @@ else()
                endif()
             endforeach()
          endif()
-      else()
-         # Disable with: `mulle-sourcetree mark MulleFoundationBase no-require-link`
-         message( SEND_ERROR "MULLE_FOUNDATION_BASE_LIBRARY was not found in ${MULLE_PREFERRED_LIBRARY_PREFIX}MulleFoundationBase${CMAKE_DEBUG_POSTFIX}${MULLE_PREFERRED_LIBRARY_SUFFIX}
+   else()
+      # Disable with: `mulle-sourcetree mark MulleFoundationBase no-require-link`
+      message( SEND_ERROR "MULLE_FOUNDATION_BASE_LIBRARY was not found in ${MULLE_PREFERRED_LIBRARY_PREFIX}MulleFoundationBase${CMAKE_DEBUG_POSTFIX}${MULLE_PREFERRED_LIBRARY_SUFFIX}
 ${MULLE_PREFERRED_LIBRARY_PREFIX}MulleFoundationBase${MULLE_PREFERRED_LIBRARY_SUFFIX}
 ${MULLE_FALLBACK_LIBRARY_PREFIX}MulleFoundationBase${CMAKE_DEBUG_POSTFIX}${MULLE_FALLBACK_LIBRARY_SUFFIX}
 ${MULLE_FALLBACK_LIBRARY_PREFIX}MulleFoundationBase${MULLE_FALLBACK_LIBRARY_SUFFIX}
 MulleFoundationBase")
-      endif()
    endif()
 endif()
 
@@ -254,34 +274,41 @@ if( COLLECT_ALL_LOAD_DEPENDENCY_LIBRARIES_AS_NAMES)
    list( APPEND ALL_LOAD_DEPENDENCY_LIBRARIES "MulleZlib")
 else()
    if( NOT MULLE_ZLIB_LIBRARY)
-      find_library( MULLE_ZLIB_LIBRARY NAMES
-         ${MULLE_PREFERRED_LIBRARY_PREFIX}MulleZlib${CMAKE_DEBUG_POSTFIX}${MULLE_PREFERRED_LIBRARY_SUFFIX}
-         ${MULLE_PREFERRED_LIBRARY_PREFIX}MulleZlib${MULLE_PREFERRED_LIBRARY_SUFFIX}
-         ${MULLE_FALLBACK_LIBRARY_PREFIX}MulleZlib${CMAKE_DEBUG_POSTFIX}${MULLE_FALLBACK_LIBRARY_SUFFIX}
-         ${MULLE_FALLBACK_LIBRARY_PREFIX}MulleZlib${MULLE_FALLBACK_LIBRARY_SUFFIX}
-         MulleZlib
-         NO_CMAKE_SYSTEM_PATH NO_SYSTEM_ENVIRONMENT_PATH NO_CMAKE_FIND_ROOT_PATH
-      )
-      if( NOT MULLE_ZLIB_LIBRARY AND NOT DEPENDENCY_IGNORE_SYSTEM_LIBARIES)
+      foreach( _TMP_MULLE_ZLIB_LIBRARY_TARGET MulleZlib)
+         if( TARGET ${_TMP_MULLE_ZLIB_LIBRARY_TARGET})
+            set( MULLE_ZLIB_LIBRARY ${_TMP_MULLE_ZLIB_LIBRARY_TARGET})
+            break()
+         endif()
+      endforeach()
+      if( NOT MULLE_ZLIB_LIBRARY)
          find_library( MULLE_ZLIB_LIBRARY NAMES
             ${MULLE_PREFERRED_LIBRARY_PREFIX}MulleZlib${CMAKE_DEBUG_POSTFIX}${MULLE_PREFERRED_LIBRARY_SUFFIX}
             ${MULLE_PREFERRED_LIBRARY_PREFIX}MulleZlib${MULLE_PREFERRED_LIBRARY_SUFFIX}
             ${MULLE_FALLBACK_LIBRARY_PREFIX}MulleZlib${CMAKE_DEBUG_POSTFIX}${MULLE_FALLBACK_LIBRARY_SUFFIX}
             ${MULLE_FALLBACK_LIBRARY_PREFIX}MulleZlib${MULLE_FALLBACK_LIBRARY_SUFFIX}
             MulleZlib
+            NO_CMAKE_SYSTEM_PATH NO_SYSTEM_ENVIRONMENT_PATH NO_CMAKE_FIND_ROOT_PATH
          )
+         if( NOT MULLE_ZLIB_LIBRARY AND NOT DEPENDENCY_IGNORE_SYSTEM_LIBARIES)
+            find_library( MULLE_ZLIB_LIBRARY NAMES
+               ${MULLE_PREFERRED_LIBRARY_PREFIX}MulleZlib${CMAKE_DEBUG_POSTFIX}${MULLE_PREFERRED_LIBRARY_SUFFIX}
+               ${MULLE_PREFERRED_LIBRARY_PREFIX}MulleZlib${MULLE_PREFERRED_LIBRARY_SUFFIX}
+               ${MULLE_FALLBACK_LIBRARY_PREFIX}MulleZlib${CMAKE_DEBUG_POSTFIX}${MULLE_FALLBACK_LIBRARY_SUFFIX}
+               ${MULLE_FALLBACK_LIBRARY_PREFIX}MulleZlib${MULLE_FALLBACK_LIBRARY_SUFFIX}
+               MulleZlib
+            )
+         endif()
       endif()
       message( STATUS "MULLE_ZLIB_LIBRARY is ${MULLE_ZLIB_LIBRARY}")
-      #
-      # The order looks ascending, but due to the way this file is read
-      # it ends up being descending, which is what we need.
-      #
-      if( MULLE_ZLIB_LIBRARY)
+   endif()
+   if( MULLE_ZLIB_LIBRARY)
          #
          # Add MULLE_ZLIB_LIBRARY to ALL_LOAD_DEPENDENCY_LIBRARIES list.
          # Disable with: `mulle-sourcetree mark MulleZlib no-cmake-add`
          #
-         list( APPEND ALL_LOAD_DEPENDENCY_LIBRARIES ${MULLE_ZLIB_LIBRARY})
+         if( NOT ${MULLE_ZLIB_LIBRARY} IN_LIST ALL_LOAD_DEPENDENCY_LIBRARIES)
+            list( APPEND ALL_LOAD_DEPENDENCY_LIBRARIES ${MULLE_ZLIB_LIBRARY})
+         endif()
          #
          # Inherit information from dependency.
          # Encompasses: no-cmake-searchpath,no-cmake-dependency,no-cmake-loader
@@ -337,13 +364,12 @@ else()
                endif()
             endforeach()
          endif()
-      else()
-         # Disable with: `mulle-sourcetree mark MulleZlib no-require-link`
-         message( SEND_ERROR "MULLE_ZLIB_LIBRARY was not found in ${MULLE_PREFERRED_LIBRARY_PREFIX}MulleZlib${CMAKE_DEBUG_POSTFIX}${MULLE_PREFERRED_LIBRARY_SUFFIX}
+   else()
+      # Disable with: `mulle-sourcetree mark MulleZlib no-require-link`
+      message( SEND_ERROR "MULLE_ZLIB_LIBRARY was not found in ${MULLE_PREFERRED_LIBRARY_PREFIX}MulleZlib${CMAKE_DEBUG_POSTFIX}${MULLE_PREFERRED_LIBRARY_SUFFIX}
 ${MULLE_PREFERRED_LIBRARY_PREFIX}MulleZlib${MULLE_PREFERRED_LIBRARY_SUFFIX}
 ${MULLE_FALLBACK_LIBRARY_PREFIX}MulleZlib${CMAKE_DEBUG_POSTFIX}${MULLE_FALLBACK_LIBRARY_SUFFIX}
 ${MULLE_FALLBACK_LIBRARY_PREFIX}MulleZlib${MULLE_FALLBACK_LIBRARY_SUFFIX}
 MulleZlib")
-      endif()
    endif()
 endif()

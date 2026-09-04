@@ -22,25 +22,31 @@ if( NOT ${CMAKE_SYSTEM_NAME} MATCHES "Windows")
       list( APPEND OS_SPECIFIC_LIBRARIES "ssl")
    else()
       if( NOT SSL_LIBRARY)
-         find_library( SSL_LIBRARY NAMES
-            ssl
-         )
+         foreach( _TMP_SSL_LIBRARY_TARGET ssl)
+            if( TARGET ${_TMP_SSL_LIBRARY_TARGET})
+               set( SSL_LIBRARY ${_TMP_SSL_LIBRARY_TARGET})
+               break()
+            endif()
+         endforeach()
+         if( NOT SSL_LIBRARY)
+            find_library( SSL_LIBRARY NAMES
+               ssl
+            )
+         endif()
          message( STATUS "SSL_LIBRARY is ${SSL_LIBRARY}")
-         #
-         # The order looks ascending, but due to the way this file is read
-         # it ends up being descending, which is what we need.
-         #
-         if( SSL_LIBRARY)
+      endif()
+      if( SSL_LIBRARY)
             #
             # Add SSL_LIBRARY to OS_SPECIFIC_LIBRARIES list.
             # Disable with: `mulle-sourcetree mark ssl no-cmake-add`
             #
-            list( APPEND OS_SPECIFIC_LIBRARIES ${SSL_LIBRARY})
+            if( NOT ${SSL_LIBRARY} IN_LIST OS_SPECIFIC_LIBRARIES)
+               list( APPEND OS_SPECIFIC_LIBRARIES ${SSL_LIBRARY})
+            endif()
             # intentionally left blank
-         else()
-            # Disable with: `mulle-sourcetree mark ssl no-require-link`
-            message( SEND_ERROR "SSL_LIBRARY was not found in ssl")
-         endif()
+      else()
+         # Disable with: `mulle-sourcetree mark ssl no-require-link`
+         message( SEND_ERROR "SSL_LIBRARY was not found in ssl")
       endif()
    endif()
 endif()
@@ -57,25 +63,31 @@ if( NOT ${CMAKE_SYSTEM_NAME} MATCHES "Windows")
       list( APPEND OS_SPECIFIC_LIBRARIES "crypto")
    else()
       if( NOT CRYPTO_LIBRARY)
-         find_library( CRYPTO_LIBRARY NAMES
-            crypto
-         )
+         foreach( _TMP_CRYPTO_LIBRARY_TARGET crypto)
+            if( TARGET ${_TMP_CRYPTO_LIBRARY_TARGET})
+               set( CRYPTO_LIBRARY ${_TMP_CRYPTO_LIBRARY_TARGET})
+               break()
+            endif()
+         endforeach()
+         if( NOT CRYPTO_LIBRARY)
+            find_library( CRYPTO_LIBRARY NAMES
+               crypto
+            )
+         endif()
          message( STATUS "CRYPTO_LIBRARY is ${CRYPTO_LIBRARY}")
-         #
-         # The order looks ascending, but due to the way this file is read
-         # it ends up being descending, which is what we need.
-         #
-         if( CRYPTO_LIBRARY)
+      endif()
+      if( CRYPTO_LIBRARY)
             #
             # Add CRYPTO_LIBRARY to OS_SPECIFIC_LIBRARIES list.
             # Disable with: `mulle-sourcetree mark crypto no-cmake-add`
             #
-            list( APPEND OS_SPECIFIC_LIBRARIES ${CRYPTO_LIBRARY})
+            if( NOT ${CRYPTO_LIBRARY} IN_LIST OS_SPECIFIC_LIBRARIES)
+               list( APPEND OS_SPECIFIC_LIBRARIES ${CRYPTO_LIBRARY})
+            endif()
             # intentionally left blank
-         else()
-            # Disable with: `mulle-sourcetree mark crypto no-require-link`
-            message( SEND_ERROR "CRYPTO_LIBRARY was not found in crypto")
-         endif()
+      else()
+         # Disable with: `mulle-sourcetree mark crypto no-require-link`
+         message( SEND_ERROR "CRYPTO_LIBRARY was not found in crypto")
       endif()
    endif()
 endif()
@@ -92,25 +104,31 @@ if( ${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
       list( APPEND ALL_LOAD_OS_SPECIFIC_FRAMEWORKS "CoreFoundation")
    else()
       if( NOT CORE_FOUNDATION_FRAMEWORK)
-         find_library( CORE_FOUNDATION_FRAMEWORK NAMES
-            CoreFoundation
-         )
+         foreach( _TMP_CORE_FOUNDATION_FRAMEWORK_TARGET CoreFoundation)
+            if( TARGET ${_TMP_CORE_FOUNDATION_FRAMEWORK_TARGET})
+               set( CORE_FOUNDATION_FRAMEWORK ${_TMP_CORE_FOUNDATION_FRAMEWORK_TARGET})
+               break()
+            endif()
+         endforeach()
+         if( NOT CORE_FOUNDATION_FRAMEWORK)
+            find_library( CORE_FOUNDATION_FRAMEWORK NAMES
+               CoreFoundation
+            )
+         endif()
          message( STATUS "CORE_FOUNDATION_FRAMEWORK is ${CORE_FOUNDATION_FRAMEWORK}")
-         #
-         # The order looks ascending, but due to the way this file is read
-         # it ends up being descending, which is what we need.
-         #
-         if( CORE_FOUNDATION_FRAMEWORK)
+      endif()
+      if( CORE_FOUNDATION_FRAMEWORK)
             #
             # Add CORE_FOUNDATION_FRAMEWORK to ALL_LOAD_OS_SPECIFIC_FRAMEWORKS list.
             # Disable with: `mulle-sourcetree mark CoreFoundation no-cmake-add`
             #
-            list( APPEND ALL_LOAD_OS_SPECIFIC_FRAMEWORKS ${CORE_FOUNDATION_FRAMEWORK})
+            if( NOT ${CORE_FOUNDATION_FRAMEWORK} IN_LIST ALL_LOAD_OS_SPECIFIC_FRAMEWORKS)
+               list( APPEND ALL_LOAD_OS_SPECIFIC_FRAMEWORKS ${CORE_FOUNDATION_FRAMEWORK})
+            endif()
             # intentionally left blank
-         else()
-            # Disable with: `mulle-sourcetree mark CoreFoundation no-require-link`
-            message( SEND_ERROR "CORE_FOUNDATION_FRAMEWORK was not found in CoreFoundation")
-         endif()
+      else()
+         # Disable with: `mulle-sourcetree mark CoreFoundation no-require-link`
+         message( SEND_ERROR "CORE_FOUNDATION_FRAMEWORK was not found in CoreFoundation")
       endif()
    endif()
 endif()
@@ -127,25 +145,31 @@ if( ${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
       list( APPEND ALL_LOAD_OS_SPECIFIC_FRAMEWORKS "SystemConfiguration")
    else()
       if( NOT SYSTEM_CONFIGURATION_FRAMEWORK)
-         find_library( SYSTEM_CONFIGURATION_FRAMEWORK NAMES
-            SystemConfiguration
-         )
+         foreach( _TMP_SYSTEM_CONFIGURATION_FRAMEWORK_TARGET SystemConfiguration)
+            if( TARGET ${_TMP_SYSTEM_CONFIGURATION_FRAMEWORK_TARGET})
+               set( SYSTEM_CONFIGURATION_FRAMEWORK ${_TMP_SYSTEM_CONFIGURATION_FRAMEWORK_TARGET})
+               break()
+            endif()
+         endforeach()
+         if( NOT SYSTEM_CONFIGURATION_FRAMEWORK)
+            find_library( SYSTEM_CONFIGURATION_FRAMEWORK NAMES
+               SystemConfiguration
+            )
+         endif()
          message( STATUS "SYSTEM_CONFIGURATION_FRAMEWORK is ${SYSTEM_CONFIGURATION_FRAMEWORK}")
-         #
-         # The order looks ascending, but due to the way this file is read
-         # it ends up being descending, which is what we need.
-         #
-         if( SYSTEM_CONFIGURATION_FRAMEWORK)
+      endif()
+      if( SYSTEM_CONFIGURATION_FRAMEWORK)
             #
             # Add SYSTEM_CONFIGURATION_FRAMEWORK to ALL_LOAD_OS_SPECIFIC_FRAMEWORKS list.
             # Disable with: `mulle-sourcetree mark SystemConfiguration no-cmake-add`
             #
-            list( APPEND ALL_LOAD_OS_SPECIFIC_FRAMEWORKS ${SYSTEM_CONFIGURATION_FRAMEWORK})
+            if( NOT ${SYSTEM_CONFIGURATION_FRAMEWORK} IN_LIST ALL_LOAD_OS_SPECIFIC_FRAMEWORKS)
+               list( APPEND ALL_LOAD_OS_SPECIFIC_FRAMEWORKS ${SYSTEM_CONFIGURATION_FRAMEWORK})
+            endif()
             # intentionally left blank
-         else()
-            # Disable with: `mulle-sourcetree mark SystemConfiguration no-require-link`
-            message( SEND_ERROR "SYSTEM_CONFIGURATION_FRAMEWORK was not found in SystemConfiguration")
-         endif()
+      else()
+         # Disable with: `mulle-sourcetree mark SystemConfiguration no-require-link`
+         message( SEND_ERROR "SYSTEM_CONFIGURATION_FRAMEWORK was not found in SystemConfiguration")
       endif()
    endif()
 endif()

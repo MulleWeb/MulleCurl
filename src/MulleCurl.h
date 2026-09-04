@@ -2,11 +2,10 @@
 //  MulleCurl.h
 //  MulleCurl
 //
-//  Copyright (C) 2019 Nat!, Mulle kybernetiK.
+//  Copyright (c) 2020 Nat! - Mulle kybernetiK.
 //  Copyright (c) 2019 Codeon GmbH.
 //  All rights reserved.
 //
-//  Coded by Nat!
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
@@ -34,7 +33,6 @@
 //  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //  POSSIBILITY OF SUCH DAMAGE.
 //
-
 #import "import.h"
 
 #import "MulleCurlParser.h"
@@ -174,7 +172,7 @@
 extern NSString   *MulleCurlErrorDomain; // = @"MulleCurlError";
 
 
-#define MULLE_CURL_VERSION  ((0UL << 20) | (19 << 8) | 1)
+#define MULLE_CURL_VERSION  ((0UL << 20) | (19 << 8) | 2)
 
 
 static inline unsigned int   MulleCurl_get_version_major( void)
