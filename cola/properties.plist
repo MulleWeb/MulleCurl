@@ -2,6 +2,7 @@
    project =
    {
       description="🥌 HTTP client library for mulle-objc";
+      version="0.19.2";
       domain="github";
       language="c";
       dialect="objc";

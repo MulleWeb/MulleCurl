@@ -7,7 +7,7 @@
 
 #if defined( MULLE_FOUNDATION_BASE_VERSION)
 # ifndef MULLE_FOUNDATION_BASE_VERSION_MIN
-#  define MULLE_FOUNDATION_BASE_VERSION_MIN  ((0UL << 20) | (29 << 8) | 0)
+#  define MULLE_FOUNDATION_BASE_VERSION_MIN  ((0UL << 20) | (29 << 8) | 1)
 # endif
 # ifndef MULLE_FOUNDATION_BASE_VERSION_MAX
 #  define MULLE_FOUNDATION_BASE_VERSION_MAX  ((0UL << 20) | (30 << 8) | 0)
@@ -25,7 +25,7 @@
 #endif
 #if defined( MULLE_ZLIB_VERSION)
 # ifndef MULLE_ZLIB_VERSION_MIN
-#  define MULLE_ZLIB_VERSION_MIN  ((0UL << 20) | (15 << 8) | 15)
+#  define MULLE_ZLIB_VERSION_MIN  ((0UL << 20) | (15 << 8) | 16)
 # endif
 # ifndef MULLE_ZLIB_VERSION_MAX
 #  define MULLE_ZLIB_VERSION_MAX  ((0UL << 20) | (16 << 8) | 0)
