@@ -2,7 +2,7 @@
    project =
    {
       description="🥌 HTTP client library for mulle-objc";
-      version="0.19.2";
+      version="0.19.3";
       domain="github";
       language="c";
       dialect="objc";
@@ -14,6 +14,13 @@
    };
    dependencies =
    (
+      {
+         domain="github";
+         name="openssl";
+         repo="openssl";
+         url="https://github.com/openssl/openssl";
+         user="openssl";
+      },
       {
          domain="generic";
          name="curl";

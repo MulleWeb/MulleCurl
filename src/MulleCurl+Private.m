@@ -57,6 +57,12 @@
 // The values are copied from the curl header, we use it to map strings
 // to values via a NSMapTable. The curl header is MIT licensed and copyrighted
 //
+// This table deliberately lists (and maps) deprecated curl options as well,
+// so deprecation warnings are suppressed for it.
+//
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+
 static struct mulle_curl_options
 {
    char    *name;
@@ -1069,6 +1075,8 @@ static struct mulle_curl_options
   /* SASL authorisation identity */
   CINIT(SASL_AUTHZID, MULLE_CURL_STRINGPOINT, 289)
 };
+
+#pragma GCC diagnostic pop
 
 
 
