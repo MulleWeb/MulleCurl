@@ -110,7 +110,7 @@ Install the requirements:
 | [curl](https://curl.haxx.se/curl/tree/)             | 
 | [MulleFoundationBase](https://github.com/MulleFoundation/MulleFoundationBase)             | 🧱 MulleFoundationBase amalgamates Foundations projects
 | [MulleZlib](https://github.com/MulleWeb/MulleZlib)             | 🐘 Zlib compression for mulle-objc
-| [mulle-objc-list](https://github.com/mulle-objc/mulle-objc-list)             | 📒 Lists mulle-objc runtime information contained in executables.
+| [mulle-objc-tools](https://github.com/mulle-objc/mulle-objc-tools)             | 📒 Lists mulle-objc runtime information contained in executables.
 
 Download the latest [tar](https://github.com/MulleWeb/MulleCurl/archive/refs/tags/latest.tar.gz) or [zip](https://github.com/MulleWeb/MulleCurl/archive/refs/tags/latest.zip) archive and unpack it.
 
